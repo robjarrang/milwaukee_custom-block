@@ -486,13 +486,11 @@ details summary {
     padding: 10px;
     cursor: pointer;
     list-style: none;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */ /* Remove border color */
+    border-radius: 10px; /* Add border-radius */
+    margin-bottom: 20px; /* Add vertical margin between accordions */
 }
 
 details summary:hover {
     background-color: #e0e0e0; /* Slightly darker grey on hover */
-}
-
-details summary::-webkit-details-marker {
-    display: none; /* Remove default marker */
 }
