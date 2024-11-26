@@ -290,7 +290,14 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
                 return;
             }
 
-            document.execCommand(command, false, null);
+            if (command === 'createLink') { // Handle createLink command
+                const url = prompt('Enter the URL');
+                if (url) {
+                    document.execCommand('createLink', false, url);
+                }
+            } else {
+                document.execCommand(command, false, null);
+            }
             editor.focus();
         }
     }

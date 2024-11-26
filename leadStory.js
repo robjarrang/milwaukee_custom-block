@@ -238,8 +238,19 @@ const leadStoryModule = {
         const removeLinkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="unlink"]');
         if (removeLinkButton) {
             removeLinkButton.addEventListener('click', function() {
-                document.execCommand('unlink', false, null);
-                handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    const anchor = range.startContainer.parentElement;
+                    if (anchor && anchor.tagName === 'A') {
+                        // Replace the <a> element with its text content
+                        const text = document.createTextNode(anchor.textContent);
+                        anchor.parentNode.replaceChild(text, anchor);
+                        handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
+                    } else {
+                        alert('Please select a link to remove.');
+                    }
+                }
             });
         }
     }
