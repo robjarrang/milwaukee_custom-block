@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Content Block</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <form id="customContentBlockForm">
+            <div class="form-group">
+                <label for="moduleSelector">Select Module Type</label>
+                <select id="moduleSelector">
+                    <option value="leadStory">Lead Story</option>
+                    <option value="introStory">Intro Story</option>
+                    <option value="oneColumnStory">1 Column Story</option>
+                    <option value="twoColumnStory">2 Column Story</option>
+                    <option value="threeColumnStory">3 Column Story</option>
+                    <option value="grid">Grid</option>
+                    <option value="prizeEveryMonth">Prize Every Month</option>
+                    <option value="checklist">Checklist</option>
+                    <option value="fwImage">Full Width Image</option>
+                    <option value="fwButton">Full Width Button</option>
+                    <option value="fullWidthTitle">Full Width Title</option>
+                    <option value="gallery">Gallery</option>
+                    <option value="divider">Divider</option>
+                    <option value="spacer">Spacer</option>
+                </select>
+            </div>
+
+            <div id="leadStoryModule">
+                <div class="form-group">
+                    <label for="imageUrl">Image URL</label>
+                    <input type="text" id="imageUrl" name="imageUrl">
+                </div>
+                <div class="form-group">
+                    <label for="imageLink">Image Link</label>
+                    <input type="text" id="imageLink" name="imageLink">
+                </div>
+                <div class="form-group">
+                    <label for="leadTitle">Title</label>
+                    <input type="text" id="leadTitle" name="leadTitle">
+                </div>
+                <div class="form-group">
+                    <label for="leadDescription">Description</label>
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
+                            <button data-command="bold">B</button>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
+                            <button data-command="link">🔗</button>
+                        </div>
+                        <div id="leadDescription" class="rich-text-editor" contenteditable="true"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="buttonText">Button Text</label>
+                    <input type="text" id="buttonText" name="buttonText">
+                </div>
+                <div class="form-group">
+                    <label for="buttonLink">Button Link</label>
+                    <input type="text" id="buttonLink" name="buttonLink">
+                </div>
+                <div class="form-group">
+                    <label for="showButton">Show Button</label>
+                    <label class="switch">
+                        <input type="checkbox" id="showButton" name="showButton" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="introStoryModule" style="display: none;">
+                <div class="form-group">
+                    <label for="introImageUrl">Image URL</label>
+                    <input type="text" id="introImageUrl" name="introImageUrl">
+                </div>
+                <div class="form-group">
+                    <label for="introImageLink">Image Link</label>
+                    <input type="text" id="introImageLink" name="introImageLink">
+                </div>
+                <div class="form-group">
+                    <label for="introTitle">Title</label>
+                    <input type="text" id="introTitle" name="introTitle">
+                </div>
+                <div class="form-group">
+                    <label for="introDescription">Description</label>
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
+                            <button data-command="bold">B</button>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
+                            <button data-command="link">🔗</button>
+                        </div>
+                        <div id="introDescription" class="rich-text-editor" contenteditable="true"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="introButtonText">Button Text</label>
+                    <input type="text" id="introButtonText" name="introButtonText">
+                </div>
+                <div class="form-group">
+                    <label for="introButtonLink">Button Link</label>
+                    <input type="text" id="introButtonLink" name="introButtonLink">
+                </div>
+                <div class="form-group">
+                    <label>Image Position</label>
+                    <div class="image-position-group">
+                        <div class="image-position-option">
+                            <input type="radio" id="introImagePositionLeft" name="introImagePosition" value="left">
+                            <label for="introImagePositionLeft">Left</label>
+                        </div>
+                        <div class="image-position-option">
+                            <input type="radio" id="introImagePositionRight" name="introImagePosition" value="right">
+                            <label for="introImagePositionRight">Right</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="introShowButton">Show Button</label>
+                    <label class="switch">
+                        <input type="checkbox" id="introShowButton" name="introShowButton">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="oneColumnStoryModule" style="display: none;">
+                <div class="form-group">
+                    <label for="oneColumnImageUrl">Image URL</label>
+                    <input type="text" id="oneColumnImageUrl" name="oneColumnImageUrl">
+                </div>
+                <div class="form-group">
+                    <label for="oneColumnImageLink">Image Link</label>
+                    <input type="text" id="oneColumnImageLink" name="oneColumnImageLink">
+                </div>
+                <div class="form-group">
+                    <label for="oneColumnTitle">Title</label>
+                    <input type="text" id="oneColumnTitle" name="oneColumnTitle">
+                </div>
+                <div class="form-group">
+                    <label for="oneColumnDescription">Description</label>
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
+                            <button data-command="bold">B</button>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
+                            <button data-command="link">🔗</button>
+                        </div>
+                        <div id="oneColumnDescription" class="rich-text-editor" contenteditable="true"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="oneColumnButtonText">Button Text</label>
+                    <input type="text" id="oneColumnButtonText" name="oneColumnButtonText">
+                </div>
+                <div class="form-group">
+                    <label for="oneColumnButtonLink">Button Link</label>
+                    <input type="text" id="oneColumnButtonLink" name="oneColumnButtonLink">
+                </div>
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="oneColumnBackgroundRed" name="oneColumnBackgroundColor" value="red">
+                            <label for="oneColumnBackgroundRed">Red</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="oneColumnBackgroundBlack" name="oneColumnBackgroundColor" value="black">
+                            <label for="oneColumnBackgroundBlack">Black</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Image Position</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="oneColumnImagePositionLeft" name="oneColumnImagePosition" value="left">
+                            <label for="oneColumnImagePositionLeft">Left</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="oneColumnImagePositionRight" name="oneColumnImagePosition" value="right">
+                            <label for="oneColumnImagePositionRight">Right</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="twoColumnStoryModule" style="display: none;">
+                <!-- Left Column -->
+                <div class="form-group">
+                    <label for="twoColumnLeftImageUrl">Left Image URL</label>
+                    <input type="text" id="twoColumnLeftImageUrl" name="twoColumnLeftImageUrl">
+                </div>
+                <div class="form-group">
+                    <label for="twoColumnLeftImageLink">Left Image Link</label>
+                    <input type="text" id="twoColumnLeftImageLink" name="twoColumnLeftImageLink">
+                </div>
+                <div class="form-group">
+                    <label for="twoColumnLeftTitle">Left Title</label>
+                    <input type="text" id="twoColumnLeftTitle" name="twoColumnLeftTitle">
+                </div>
+                <div class="form-group">
+                    <label for="twoColumnLeftDescription">Left Description</label>
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
+                            <button data-command="bold">B</button>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
+                            <button data-command="link">🔗</button>
+                        </div>
+                        <div id="twoColumnLeftDescription" class="rich-text-editor" contenteditable="true"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="twoColumnLeftButtonText">Left Button Text</label>
+                    <input type="text" id="twoColumnLeftButtonText" name="twoColumnLeftButtonText">
+                </div>
+                <div class="form-group">
+                    <label for="twoColumnLeftButtonLink">Left Button Link</label>
+                    <input type="text" id="twoColumnLeftButtonLink" name="twoColumnLeftButtonLink">
+                </div>
+
+                <!-- Right Column -->
+                <div class="form-group">
+                    <label for="twoColumnRightImageUrl">Right Image URL</label>
+                    <input type="text" id="twoColumnRightImageUrl" name="twoColumnRightImageUrl">
+                </div>
+                <div class="form-group">
+                    <label for="twoColumnRightImageLink">Right Image Link</label>
+                    <input type="text" id="twoColumnRightImageLink" name="twoColumnRightImageLink">
+                </div>
+                <div class="form-group">
+                    <label for="twoColumnRightTitle">Right Title</label>
+                    <input type="text" id="twoColumnRightTitle" name="twoColumnRightTitle">
+                </div>
+                <div class="form-group">
+                    <label for="twoColumnRightDescription">Right Description</label>
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
+                            <button data-command="bold">B</button>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
+                            <button data-command="link">🔗</button>
+                        </div>
+                        <div id="twoColumnRightDescription" class="rich-text-editor" contenteditable="true"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="twoColumnRightButtonText">Right Button Text</label>
+                    <input type="text" id="twoColumnRightButtonText" name="twoColumnRightButtonText">
+                </div>
+                <div class="form-group">
+                    <label for="twoColumnRightButtonLink">Right Button Link</label>
+                    <input type="text" id="twoColumnRightButtonLink" name="twoColumnRightButtonLink">
+                </div>
+
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="twoColumnBackgroundRed" name="twoColumnBackgroundColor" value="red">
+                            <label for="twoColumnBackgroundRed">Red</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="twoColumnBackgroundBlack" name="twoColumnBackgroundColor" value="black">
+                            <label for="twoColumnBackgroundBlack">Black</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="threeColumnStoryModule" style="display: none;">
+                <!-- Left Column -->
+                <div class="form-group">
+                    <label for="threeColumnLeftImageUrl">Left Image URL</label>
+                    <input type="text" id="threeColumnLeftImageUrl" name="threeColumnLeftImageUrl">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnLeftImageLink">Left Image Link</label>
+                    <input type="text" id="threeColumnLeftImageLink" name="threeColumnLeftImageLink">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnLeftTitle">Left Title</label>
+                    <input type="text" id="threeColumnLeftTitle" name="threeColumnLeftTitle">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnLeftDescription">Left Description</label>
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
+                            <button data-command="bold">B</button>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
+                            <button data-command="link">🔗</button>
+                        </div>
+                        <div id="threeColumnLeftDescription" class="rich-text-editor" contenteditable="true"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnLeftButtonText">Left Button Text</label>
+                    <input type="text" id="threeColumnLeftButtonText" name="threeColumnLeftButtonText">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnLeftButtonLink">Left Button Link</label>
+                    <input type="text" id="threeColumnLeftButtonLink" name="threeColumnLeftButtonLink">
+                </div>
+
+                <!-- Center Column -->
+                <div class="form-group">
+                    <label for="threeColumnCenterImageUrl">Center Image URL</label>
+                    <input type="text" id="threeColumnCenterImageUrl" name="threeColumnCenterImageUrl">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnCenterImageLink">Center Image Link</label>
+                    <input type="text" id="threeColumnCenterImageLink" name="threeColumnCenterImageLink">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnCenterTitle">Center Title</label>
+                    <input type="text" id="threeColumnCenterTitle" name="threeColumnCenterTitle">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnCenterDescription">Center Description</label>
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
+                            <button data-command="bold">B</button>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
+                            <button data-command="link">🔗</button>
+                        </div>
+                        <div id="threeColumnCenterDescription" class="rich-text-editor" contenteditable="true"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnCenterButtonText">Center Button Text</label>
+                    <input type="text" id="threeColumnCenterButtonText" name="threeColumnCenterButtonText">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnCenterButtonLink">Center Button Link</label>
+                    <input type="text" id="threeColumnCenterButtonLink" name="threeColumnCenterButtonLink">
+                </div>
+
+                <!-- Right Column -->
+                <div class="form-group">
+                    <label for="threeColumnRightImageUrl">Right Image URL</label>
+                    <input type="text" id="threeColumnRightImageUrl" name="threeColumnRightImageUrl">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnRightImageLink">Right Image Link</label>
+                    <input type="text" id="threeColumnRightImageLink" name="threeColumnRightImageLink">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnRightTitle">Right Title</label>
+                    <input type="text" id="threeColumnRightTitle" name="threeColumnRightTitle">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnRightDescription">Right Description</label>
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
+                            <button data-command="bold">B</button>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
+                            <button data-command="link">🔗</button>
+                        </div>
+                        <div id="threeColumnRightDescription" class="rich-text-editor" contenteditable="true"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnRightButtonText">Right Button Text</label>
+                    <input type="text" id="threeColumnRightButtonText" name="threeColumnRightButtonText">
+                </div>
+                <div class="form-group">
+                    <label for="threeColumnRightButtonLink">Right Button Link</label>
+                    <input type="text" id="threeColumnRightButtonLink" name="threeColumnRightButtonLink">
+                </div>
+
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="threeColumnBackgroundRed" name="threeColumnBackgroundColor" value="red">
+                            <label for="threeColumnBackgroundRed">Red</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="threeColumnBackgroundBlack" name="threeColumnBackgroundColor" value="black">
+                            <label for="threeColumnBackgroundBlack">Black</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="fwImageModule" style="display: none;">
+                <div class="form-group">
+                    <label for="fwImageUrl">Image URL</label>
+                    <input type="text" id="fwImageUrl" name="fwImageUrl">
+                </div>
+                <div class="form-group">
+                    <label for="fwImageLink">Image Link</label>
+                    <input type="text" id="fwImageLink" name="fwImageLink">
+                </div>
+            </div>
+
+            <div id="fwButtonModule" style="display: none;">
+                <div class="form-group">
+                    <label for="fwButtonTitle">Button Title</label>
+                    <input type="text" id="fwButtonTitle" name="fwButtonTitle">
+                </div>
+                <div class="form-group">
+                    <label for="fwButtonLink">Button Link</label>
+                    <input type="text" id="fwButtonLink" name="fwButtonLink">
+                </div>
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <div class="button-background-group">
+                        <div class="button-background-option">
+                            <input type="radio" id="fwButtonBackgroundBlack" name="fwButtonBackground" value="black">
+                            <label for="fwButtonBackgroundBlack">Black</label>
+                        </div>
+                        <div class="button-background-option">
+                            <input type="radio" id="fwButtonBackgroundRed" name="fwButtonBackground" value="red">
+                            <label for="fwButtonBackgroundRed">Red</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dividerModule" style="display: none;">
+                <div class="form-group">
+                    <label>Divider Type</label>
+                    <div class="divider-type-group">
+                        <div class="divider-type-option">
+                            <input type="radio" id="dividerTypeRedToBlack" name="dividerType" value="redToBlack">
+                            <label for="dividerTypeRedToBlack">Red to Black</label>
+                        </div>
+                        <div class="divider-type-option">
+                            <input type="radio" id="dividerTypeBlackToRed" name="dividerType" value="blackToRed">
+                            <label for="dividerTypeBlackToRed">Black to Red</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="spacerModule" style="display: none;">
+                <div class="form-group">
+                    <label for="spacerHeight">Spacer Height</label>
+                    <input type="range" id="spacerHeight" name="spacerHeight" min="0" max="100" step="1" value="20">
+                    <span id="spacerHeightValue">20</span>px
+                </div>
+            </div>
+
+            <div id="gridModule" style="display: none;">
+                <div class="form-group">
+                    <label for="gridImage1">Grid Image 1 URL</label>
+                    <input type="text" id="gridImage1" name="gridImage1">
+                </div>
+                <div class="form-group">
+                    <label for="gridImage2">Grid Image 2 URL</label>
+                    <input type="text" id="gridImage2" name="gridImage2">
+                </div>
+                <div class="form-group">
+                    <label for="gridTitle1">Title 1</label>
+                    <input type="text" id="gridTitle1" name="gridTitle1">
+                </div>
+                <div class="form-group">
+                    <label for="gridTitle2">Title 2</label>
+                    <input type="text" id="gridTitle2" name="gridTitle2">
+                </div>
+                <div class="form-group">
+                    <label for="gridButtonText1">Button Text 1</label>
+                    <input type="text" id="gridButtonText1" name="gridButtonText1">
+                </div>
+                <div class="form-group">
+                    <label for="gridButtonText2">Button Text 2</label>
+                    <input type="text" id="gridButtonText2" name="gridButtonText2">
+                </div>
+                <div class="form-group">
+                    <label for="gridButtonLink1">Button Link 1</label>
+                    <input type="text" id="gridButtonLink1" name="gridButtonLink1">
+                </div>
+                <div class="form-group">
+                    <label for="gridButtonLink2">Button Link 2</label>
+                    <input type="text" id="gridButtonLink2" name="gridButtonLink2">
+                </div>
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="gridBackgroundColorRed" name="gridBackgroundColor" value="red">
+                            <label for="gridBackgroundColorRed">Red</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="gridBackgroundColorBlack" name="gridBackgroundColor" value="black">
+                            <label for="gridBackgroundColorBlack">Black</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="prizeEveryMonthModule" style="display: none;">
+                <div class="form-group">
+                    <label for="pemImageUrl">Image URL</label>
+                    <input type="text" id="pemImageUrl" name="pemImageUrl">
+                </div>
+                <div class="form-group">
+                    <label for="pemImageLink">Image Link</label>
+                    <input type="text" id="pemImageLink" name="pemImageLink">
+                </div>
+                <div class="form-group">
+                    <label for="pemLogoUrl">Logo URL</label>
+                    <input type="text" id="pemLogoUrl" name="pemLogoUrl">
+                </div>
+                <div class="form-group">
+                    <label for="pemTitle">Title</label>
+                    <input type="text" id="pemTitle" name="pemTitle">
+                </div>
+                <div class="form-group">
+                    <label for="pemDescription">Description</label>
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
+                            <button data-command="bold">B</button>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
+                            <button data-command="link">🔗</button>
+                        </div>
+                        <div id="pemDescription" class="rich-text-editor" contenteditable="true"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pemButtonText">Button Text</label>
+                    <input type="text" id="pemButtonText" name="pemButtonText">
+                </div>
+                <div class="form-group">
+                    <label for="pemButtonLink">Button Link</label>
+                    <input type="text" id="pemButtonLink" name="pemButtonLink">
+                </div>
+                <div class="form-group">
+                    <label>Image Position</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="pemImagePositionLeft" name="pemImagePosition" value="left">
+                            <label for="pemImagePositionLeft">Left</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="pemImagePositionRight" name="pemImagePosition" value="right">
+                            <label for="pemImagePositionRight">Right</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="fullWidthTitleModule" style="display: none;">
+                <div class="form-group">
+                    <label for="fwTitleText">Title</label>
+                    <input type="text" id="fwTitleText" name="fwTitleText">
+                </div>
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="fwTitleBackgroundColorRed" name="fwTitleBackgroundColor" value="red">
+                            <label for="fwTitleBackgroundColorRed">Red</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="fwTitleBackgroundColorBlack" name="fwTitleBackgroundColor" value="black">
+                            <label for="fwTitleBackgroundColorBlack">Black</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="galleryModule" style="display: none;">
+                <div class="form-group">
+                    <label for="galleryImage1Url">Image 1 URL</label>
+                    <input type="text" id="galleryImage1Url" name="galleryImage1Url">
+                </div>
+                <div class="form-group">
+                    <label for="galleryImage1Link">Image 1 Link</label>
+                    <input type="text" id="galleryImage1Link" name="galleryImage1Link">
+                </div>
+                <div class="form-group">
+                    <label for="galleryImage2Url">Image 2 URL</label>
+                    <input type="text" id="galleryImage2Url" name="galleryImage2Url">
+                </div>
+                <div class="form-group">
+                    <label for="galleryImage2Link">Image 2 Link</label>
+                    <input type="text" id="galleryImage2Link" name="galleryImage2Link">
+                </div>
+                <div class="form-group">
+                    <label for="galleryImage3Url">Image 3 URL</label>
+                    <input type="text" id="galleryImage3Url" name="galleryImage3Url">
+                </div>
+                <div class="form-group">
+                    <label for="galleryImage3Link">Image 3 Link</label>
+                    <input type="text" id="galleryImage3Link" name="galleryImage3Link">
+                </div>
+                <div class="form-group">
+                    <label for="galleryImage4Url">Image 4 URL</label>
+                    <input type="text" id="galleryImage4Url" name="galleryImage4Url">
+                </div>
+                <div class="form-group">
+                    <label for="galleryImage4Link">Image 4 Link</label>
+                    <input type="text" id="galleryImage4Link" name="galleryImage4Link">
+                </div>
+            </div>
+
+            <div id="checklistModule" style="display: none;">
+                <div class="form-group">
+                    <label for="checklistItems">Checklist Items</label>
+                    <div id="checklistItems" class="checklist-container"></div>
+                    <button type="button" id="addChecklistItem" class="btn btn-add">Add Item</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="checklistBackgroundColorRed" name="checklistBackgroundColor" value="red">
+                            <label for="checklistBackgroundColorRed">Red</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="checklistBackgroundColorBlack" name="checklistBackgroundColor" value="black">
+                            <label for="checklistBackgroundColorBlack">Black</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <script src="https://files.jarrang.com/Motability_Operations/sfmc/custom_content_blocks/blocksdk.js"></script>
+    <script src="main.js" type="module"></script>
+</body>
+</html>

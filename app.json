@@ -1,0 +1,6 @@
+{
+    "name": "Milwaukee Block",
+    "description": "Allows easy editing of Milwaukee's custom blocks in Salesforce Marketing Cloud",
+    "logo": "https://files.jarrang.com/Motability_Operations/sfmc/custom_content_blocks/icon.png",
+    "keywords": ["node", "salesforce", "static"]
+}
