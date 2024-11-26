@@ -285,19 +285,13 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
             const command = event.target.getAttribute('data-command');
             const editor = event.target.closest('.editor-container').querySelector('.rich-text-editor');
             
-            if (command === 'editLink' || command === 'unlink') {
+            if (command === 'editLink' || command === 'unlink' || command === 'createLink') {
                 // Custom handling is managed in leadStory.js
                 return;
             }
 
-            if (command === 'createLink') { // Handle createLink command
-                const url = prompt('Enter the URL');
-                if (url) {
-                    document.execCommand('createLink', false, url);
-                }
-            } else {
-                document.execCommand(command, false, null);
-            }
+            // Existing command handling
+            document.execCommand(command, false, null);
             editor.focus();
         }
     }

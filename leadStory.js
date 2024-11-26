@@ -188,7 +188,7 @@ const leadStoryModule = {
 
         // Attach event listener to the link button in leadStoryModule
         const linkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="createLink"]');
-        if (linkButton) {
+        if (linkButton && !linkButton.dataset.listenerAttached) { // Check if listener is already attached
             // Remove existing listeners to prevent duplicates
             linkButton.replaceWith(linkButton.cloneNode(true));
             const newLinkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="createLink"]');
@@ -212,11 +212,12 @@ const leadStoryModule = {
                     }
                 }
             });
+            newLinkButton.dataset.listenerAttached = 'true'; // Mark listener as attached
         }
 
-        // Add edit and remove link functionality
+        // Attach event listener to the edit link button
         const editLinkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="editLink"]');
-        if (editLinkButton) {
+        if (editLinkButton && !editLinkButton.dataset.listenerAttached) { // Check if listener is already attached
             editLinkButton.addEventListener('click', function() {
                 const selection = window.getSelection();
                 if (selection.rangeCount > 0) {
@@ -233,11 +234,13 @@ const leadStoryModule = {
                     }
                 }
             });
+            editLinkButton.dataset.listenerAttached = 'true'; // Mark listener as attached
         }
 
-        const removeLinkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="unlink"]');
-        if (removeLinkButton) {
-            removeLinkButton.addEventListener('click', function() {
+        // Attach event listener to the unlink button
+        const unlinkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="unlink"]');
+        if (unlinkButton && !unlinkButton.dataset.listenerAttached) { // Check if listener is already attached
+            unlinkButton.addEventListener('click', function() {
                 const selection = window.getSelection();
                 if (selection.rangeCount > 0) {
                     const range = selection.getRangeAt(0);
@@ -252,6 +255,7 @@ const leadStoryModule = {
                     }
                 }
             });
+            unlinkButton.dataset.listenerAttached = 'true'; // Mark listener as attached
         }
     }
 };
