@@ -478,3 +478,21 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+/* Style for summary elements in details */
+details summary {
+    background-color: #f0f0f0; /* Grey background */
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    list-style: none;
+    border: 1px solid #ccc;
+}
+
+details summary:hover {
+    background-color: #e0e0e0; /* Slightly darker grey on hover */
+}
+
+details summary::-webkit-details-marker {
+    display: none; /* Remove default marker */
+}
