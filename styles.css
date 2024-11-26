@@ -503,7 +503,7 @@ details summary::-webkit-details-marker {
 
 /* Add custom arrow indicator */
 details summary::after {
-    content: '▼'; /* Arrow symbol */
+    content: '►'; /* Arrow symbol */
     position: absolute;
     right: 10px;
     transition: transform 0.2s ease;
@@ -511,5 +511,5 @@ details summary::after {
 
 /* Rotate arrow when details is open */
 details[open] summary::after {
-    transform: rotate(180deg);
+    transform: rotate(90deg);
 }
