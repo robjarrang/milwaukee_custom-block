@@ -284,6 +284,12 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
             event.preventDefault();
             const command = event.target.getAttribute('data-command');
             const editor = event.target.closest('.editor-container').querySelector('.rich-text-editor');
+            
+            if (command === 'editLink' || command === 'unlink') {
+                // Custom handling is managed in leadStory.js
+                return;
+            }
+
             document.execCommand(command, false, null);
             editor.focus();
         }

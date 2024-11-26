@@ -213,6 +213,35 @@ const leadStoryModule = {
                 }
             });
         }
+
+        // Add edit and remove link functionality
+        const editLinkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="editLink"]');
+        if (editLinkButton) {
+            editLinkButton.addEventListener('click', function() {
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    const anchor = range.startContainer.parentElement;
+                    if (anchor && anchor.tagName === 'A') {
+                        const newUrl = prompt('Enter the new URL', anchor.getAttribute('href'));
+                        if (newUrl !== null) {
+                            anchor.setAttribute('href', newUrl);
+                            handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
+                        }
+                    } else {
+                        alert('Please select a link to edit.');
+                    }
+                }
+            });
+        }
+
+        const removeLinkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="unlink"]');
+        if (removeLinkButton) {
+            removeLinkButton.addEventListener('click', function() {
+                document.execCommand('unlink', false, null);
+                handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
+            });
+        }
     }
 };
 
