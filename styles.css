@@ -482,15 +482,34 @@ input:checked + .slider:before {
 /* Style for summary elements in details */
 details summary {
     background-color: #f0f0f0; /* Grey background */
-    width: 100%;
+    width: 96%;
     padding: 10px;
     cursor: pointer;
     list-style: none;
     /* border: 1px solid #ccc; */ /* Remove border color */
     border-radius: 10px; /* Add border-radius */
     margin-bottom: 20px; /* Add vertical margin between accordions */
+    position: relative; /* Ensure positioning for the arrow */
 }
 
 details summary:hover {
     background-color: #e0e0e0; /* Slightly darker grey on hover */
+}
+
+/* Hide the default arrow marker */
+details summary::-webkit-details-marker {
+    display: none; 
+}
+
+/* Add custom arrow indicator */
+details summary::after {
+    content: '▼'; /* Arrow symbol */
+    position: absolute;
+    right: 10px;
+    transition: transform 0.2s ease;
+}
+
+/* Rotate arrow when details is open */
+details[open] summary::after {
+    transform: rotate(180deg);
 }
