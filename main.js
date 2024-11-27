@@ -294,6 +294,7 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
                         const link = editor.querySelector('a[href="' + url + '"]');
                         if (link) {
                             link.style.color = '#ffffff';
+                            link.setAttribute('target', '_blank');
                         }
                     }
                 } else if (command === 'unlink') {

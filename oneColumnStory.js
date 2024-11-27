@@ -162,11 +162,11 @@ const oneColumnStoryModule = {
             });
         }
 
-        const linkButton = document.querySelector('#oneColumnStoryModule .rich-text-toolbar button[data-command="link"]');
+        const linkButton = document.querySelector('#oneColumnStoryModule .rich-text-toolbar button[data-command="createLink"]');
         if (linkButton) {
             // Remove existing listeners to prevent duplicates
             linkButton.replaceWith(linkButton.cloneNode(true));
-            const newLinkButton = document.querySelector('#oneColumnStoryModule .rich-text-toolbar button[data-command="link"]');
+            const newLinkButton = document.querySelector('#oneColumnStoryModule .rich-text-toolbar button[data-command="createLink"]');
             newLinkButton.addEventListener('click', function() {
                 const url = prompt('Enter the URL');
                 if (url) {
