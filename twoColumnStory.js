@@ -285,8 +285,47 @@ const twoColumnStoryModule = {
                 }
             });
         });
+
+        const editors = document.querySelectorAll('.rich-text-editor');
+        editors.forEach(editor => {
+            const toolbar = editor.previousElementSibling;
+            if (toolbar && toolbar.classList.contains('rich-text-toolbar')) {
+                toolbar.addEventListener('click', event => {
+                    if (event.target.tagName === 'BUTTON') {
+                        event.preventDefault();
+                        const command = event.target.getAttribute('data-command');
+                        handleLinkCommand(command, editor);
+                        editor.focus();
+                    }
+                });
+            }
+            editor.addEventListener('input', event => {
+                const fieldName = editor.id;
+                handleFormFieldChange('twoColumnStory', fieldName, editor.innerHTML);
+            });
+            editor.addEventListener('paste', event => {
+                event.preventDefault();
+                const text = (event.clipboardData || window.clipboardData).getData('text');
+                document.execCommand('insertText', false, text);
+            });
+        });
     }
 };
+
+function handleLinkCommand(command, editor) {
+    if (command === 'createLink') {
+        const url = prompt('Enter the URL');
+        if (url) {
+            document.execCommand('createLink', false, url);
+            const links = editor.getElementsByTagName('a');
+            for (let link of links) {
+                link.style.color = '#ffffff';
+            }
+        }
+    } else {
+        document.execCommand(command, false, null);
+    }
+}
 
 moduleRegistry.register('twoColumnStory', twoColumnStoryModule);
 
