@@ -286,7 +286,19 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
             const editor = event.target.closest('.editor-container').querySelector('.rich-text-editor');
             
             if (command === 'editLink' || command === 'unlink' || command === 'createLink') {
-                // Custom handling is managed in leadStory.js
+                // Custom handling for link commands
+                if (command === 'createLink') {
+                    const url = prompt('Enter the URL');
+                    if (url) {
+                        document.execCommand('createLink', false, url);
+                        const link = editor.querySelector('a[href="' + url + '"]');
+                        if (link) {
+                            link.style.color = '#ffffff';
+                        }
+                    }
+                } else if (command === 'unlink') {
+                    document.execCommand('unlink', false, null);
+                }
                 return;
             }
 
