@@ -240,6 +240,27 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
 
         setupRichTextEditors();
     
+        // Ensure link editing handlers are initialized only once
+        if (!window.linkHandlersInitialized) {
+            window.linkHandlersInitialized = true;
+
+            // Generic handlers for editing and removing links
+            function handleEditLink(event) {
+                if (event.target.dataset.command === 'editLink') {
+                    // ...existing edit link logic...
+                }
+            }
+
+            function handleRemoveLink(event) {
+                if (event.target.dataset.command === 'unlink') {
+                    // ...existing remove link logic...
+                }
+            }
+
+            // Assign handlers globally or pass to modules as needed
+            // ...existing code...
+        }
+    
         console.log('Event listeners set up');
     }
     

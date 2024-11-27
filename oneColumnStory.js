@@ -27,6 +27,9 @@ const oneColumnStoryModule = {
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB011C' : '#000000';
         const imageFirst = formData.imagePosition === 'left';
 
+        // Ensure links have the required style
+        const styledDescription = formData.oneColumnDescription.replace(/<a /g, '<a style="color: #ffffff;" ');
+
         return `
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
             <tr>
@@ -78,7 +81,7 @@ const oneColumnStoryModule = {
                             </tr>
                             <tr>
                                 <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: center;">
-                                    ${formData.description}
+                                    ${styledDescription}
                                 </td>
                             </tr>
                             <tr>
@@ -199,6 +202,9 @@ const oneColumnStoryModule = {
                 handleFormFieldChange('oneColumnStory', 'imagePosition', event.target.value);
             });
         });
+
+        descriptionEditor.addEventListener('click', handleEditLink);
+        descriptionEditor.addEventListener('click', handleRemoveLink);
     }
 };
 

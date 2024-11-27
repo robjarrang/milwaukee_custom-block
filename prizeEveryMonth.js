@@ -51,6 +51,9 @@ const prizeEveryMonthModule = {
         const imageFirst = formData.imagePosition !== 'right';
         const sectionDir = imageFirst ? 'ltr' : 'rtl';
 
+        // Ensure links have the required style
+        const styledDescription = formData.description.replace(/<a /g, '<a style="color: #ffffff;" ');
+
         return `
         <!-- START .story-pem -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="imp content-outer story-1col banner" role="presentation" style="background-color: #DB021D; width: 620px;">
@@ -72,7 +75,7 @@ const prizeEveryMonthModule = {
             <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
                 <img src="${formData.imageUrl}" alt="Prize Image">
             </a>
-            <p>${formData.description}</p>
+            <p>${styledDescription}</p>
         </div>
         `;
     },
@@ -182,6 +185,8 @@ const prizeEveryMonthModule = {
             descriptionEditor.addEventListener('input', function(event) {
                 handleFormFieldChange('prizeEveryMonth', 'description', descriptionEditor.innerHTML);
             });
+            descriptionEditor.addEventListener('click', handleEditLink);
+            descriptionEditor.addEventListener('click', handleRemoveLink);
         }
 
         const superscriptButton = document.querySelector('#prizeEveryMonthModule .rich-text-toolbar button[data-command="superscript"]');

@@ -61,6 +61,12 @@ const twoColumnStoryModule = {
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
         const titleBgImage = formData.backgroundColor === 'red' ? 'title-bg.jpg' : 'title-bg-red.jpg';
 
+        // Ensure links have the required style for left description
+        const styledLeftDescription = formData.twoColumnLeftDescription.replace(/<a /g, '<a style="color: #ffffff;" ');
+
+        // Ensure links have the required style for right description
+        const styledRightDescription = formData.twoColumnRightDescription.replace(/<a /g, '<a style="color: #ffffff;" ');
+
         return `
         <!-- START .story-2col -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
@@ -237,6 +243,8 @@ const twoColumnStoryModule = {
             leftDescriptionEditor.addEventListener('input', function(event) {
                 handleFormFieldChange('twoColumnStory', 'leftDescription', event.target.innerHTML);
             });
+            leftDescriptionEditor.addEventListener('click', handleEditLink);
+            leftDescriptionEditor.addEventListener('click', handleRemoveLink);
         }
 
         const rightDescriptionEditor = document.getElementById('twoColumnRightDescription');
@@ -244,6 +252,8 @@ const twoColumnStoryModule = {
             rightDescriptionEditor.addEventListener('input', function(event) {
                 handleFormFieldChange('twoColumnStory', 'rightDescription', event.target.innerHTML);
             });
+            rightDescriptionEditor.addEventListener('click', handleEditLink);
+            rightDescriptionEditor.addEventListener('click', handleRemoveLink);
         }
 
         const superscriptButtons = document.querySelectorAll('#twoColumnStoryModule .rich-text-toolbar button[data-command="superscript"]');
