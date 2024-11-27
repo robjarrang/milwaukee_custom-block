@@ -25,6 +25,16 @@ const leadStoryModule = {
             formData = this.getPlaceholderData();
         }
 
+        const placeholderMap = {
+            '{{description}}': formData.description || '',
+            // Add other placeholders as needed
+        };
+
+        Object.keys(placeholderMap).forEach((placeholder) => {
+            const value = placeholderMap[placeholder];
+            html = html.split(placeholder).join(value);
+        });
+
         return `
         <!-- START .fw-image -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #DB021D; width: 620px;">

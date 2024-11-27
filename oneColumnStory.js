@@ -21,13 +21,29 @@ const oneColumnStoryModule = {
     updateHtml(html, formData) {
         console.log('Updating 1 Column Story HTML with form data:', formData);
         if (!formData) {
+            return html;
+        }
+
+        if (!formData) {
             console.warn('Form data is undefined, using placeholder data');
             formData = this.getPlaceholderData();
         }
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB011C' : '#000000';
         const imageFirst = formData.imagePosition === 'left';
 
-        html = html.replace('{{description}}', formData.description || '');
+        // Create a mapping of placeholders to formData values
+        const placeholderMap = {
+            '{{description}}': formData.description || '',
+            '{{title}}': formData.title || '',
+            // Add other placeholders as needed
+        };
+
+        // Replace placeholders with actual values, ensuring HTML content is preserved
+        Object.keys(placeholderMap).forEach((placeholder) => {
+            const value = placeholderMap[placeholder];
+            // Use split and join to safely replace even if value contains special characters
+            html = html.split(placeholder).join(value);
+        });
 
         return `
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">

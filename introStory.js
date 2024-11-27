@@ -28,6 +28,16 @@ const introStoryModule = {
         const imagePosition = formData.imagePosition === 'right' ? 'rtl' : 'ltr';
         const buttonStyle = formData.showButton !== false ? '' : 'display: none;';
 
+        const placeholderMap = {
+            '{{introDescription}}': formData.introDescription || '',
+            // Add other placeholders as needed
+        };
+
+        Object.keys(placeholderMap).forEach((placeholder) => {
+            const value = placeholderMap[placeholder];
+            html = html.split(placeholder).join(value);
+        });
+
         return `
         <!-- START .story-1col -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #DB021D; width: 620px;">
