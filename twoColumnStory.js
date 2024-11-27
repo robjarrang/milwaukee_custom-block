@@ -1,3 +1,4 @@
+import { setupLinkButton } from './toolbarUtils.js';
 import moduleRegistry from './moduleRegistry.js';
 
 const twoColumnStoryModule = {
@@ -325,6 +326,8 @@ const twoColumnStoryModule = {
                 }
             }
         });
+
+        setupLinkButton('twoColumnStoryModule', handleFormFieldChange, 'twoColumnDescription', 'twoColumnStory');
     }
 };
 

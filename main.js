@@ -314,4 +314,14 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
     } else {
         init();
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize all modules
+        leadStoryModule.setup();
+        introStoryModule.setup();
+        oneColumnStoryModule.setup();
+        twoColumnStoryModule.setup();
+        threeColumnStoryModule.setup();
+        prizeEveryMonthModule.setup();
+    });
 })();
