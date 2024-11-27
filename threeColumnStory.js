@@ -2,7 +2,7 @@ import moduleRegistry from './moduleRegistry.js';
 
 const threeColumnStoryModule = {
     setup() {
-        console.log('3 Column Story module setup');
+        console.log('Three Column Story module setup');
     },
 
     getPlaceholderData() {
@@ -65,7 +65,7 @@ const threeColumnStoryModule = {
     },
 
     updateHtml(html, formData) {
-        console.log('Updating 3 Column Story HTML with form data:', formData);
+        console.log('Updating Three Column Story HTML with form data:', formData);
         if (!formData) {
             console.warn('Form data is undefined, using placeholder data');
             formData = this.getPlaceholderData();
@@ -92,14 +92,6 @@ const threeColumnStoryModule = {
             </tr>
         </table>
         <!-- END .story-3col -->
-        <div>
-            <!-- Left Column -->
-            <a href="${formData.threeColumnLeftButtonLink}" style="color: #ffffff;" target="_blank">${formData.threeColumnLeftButtonText}</a>
-            <!-- Center Column -->
-            <a href="${formData.threeColumnCenterButtonLink}" style="color: #ffffff;" target="_blank">${formData.threeColumnCenterButtonText}</a>
-            <!-- Right Column -->
-            <a href="${formData.threeColumnRightButtonLink}" style="color: #ffffff;" target="_blank">${formData.threeColumnRightButtonText}</a>
-        </div>
         `;
     },
 
@@ -172,7 +164,7 @@ const threeColumnStoryModule = {
     },
 
     populateForm(formData) {
-        console.log('Populating 3 Column Story form with data:', formData);
+        console.log('Populating Three Column Story form with data:', formData);
         ['left', 'center', 'right'].forEach(position => {
             ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
                 const id = `threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}${field}`;
@@ -301,40 +293,6 @@ const threeColumnStoryModule = {
                     handleFormFieldChange('threeColumnStory', 'rightDescription', rightDescriptionEditor.innerHTML);
                 }
             });
-        });
-
-        const threeColumnLeftDescriptionEditor = document.getElementById('threeColumnLeftDescription');
-        const threeColumnCenterDescriptionEditor = document.getElementById('threeColumnCenterDescription');
-        const threeColumnRightDescriptionEditor = document.getElementById('threeColumnRightDescription');
-        // Implement link editing/removing similar to leadStory for all three descriptions
-        [threeColumnLeftDescriptionEditor, threeColumnCenterDescriptionEditor, threeColumnRightDescriptionEditor].forEach(editor => {
-            if (editor) {
-                // Corrected moduleId to match existing module container
-                const linkButton = document.querySelector(`#threeColumnStoryModule .rich-text-toolbar button[data-command="link"]`);
-                if (linkButton) {
-                    // Remove existing listeners to prevent duplicates
-                    linkButton.replaceWith(linkButton.cloneNode(true));
-                    const newLinkButton = document.querySelector(`#threeColumnStoryModule .rich-text-toolbar button[data-command="link"]`);
-                    newLinkButton.addEventListener('click', function() {
-                        const url = prompt('Enter the URL');
-                        if (url) {
-                            document.execCommand('createLink', false, url);
-                            // Apply the style to the newly created link
-                            const selection = window.getSelection();
-                            if (selection.rangeCount > 0) {
-                                const range = selection.getRangeAt(0);
-                                const anchor = range.startContainer.parentElement;
-                                if (anchor && anchor.tagName === 'A') {
-                                    anchor.style.color = '#ffffff';
-                                    anchor.setAttribute('target', '_blank');
-                                }
-                            }
-                            const key = editor.id.replace('Description', '');
-                            handleFormFieldChange('threeColumnStory', key, editor.innerHTML);
-                        }
-                    });
-                }
-            }
         });
     }
 };

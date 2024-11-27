@@ -4,7 +4,6 @@ import { logWarning, logError } from './utils.js';
 const leadStoryModule = {
     setup() {
         console.log('Lead Story module setup');
-        this.setupEventListeners(this.handleFormFieldChange);
     },
 
     getPlaceholderData() {
@@ -188,28 +187,32 @@ const leadStoryModule = {
         const leadDescriptionEditor = document.getElementById('leadDescription');
 
         // Attach event listener to the link button in leadStoryModule
-        const linkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="link"]');
-        if (linkButton) {
+        const linkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="createLink"]');
+        if (linkButton && !linkButton.dataset.listenerAttached) { // Check if listener is already attached
             // Remove existing listeners to prevent duplicates
             linkButton.replaceWith(linkButton.cloneNode(true));
-            const newLinkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="link"]');
+            const newLinkButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="createLink"]');
             newLinkButton.addEventListener('click', function() {
                 const url = prompt('Enter the URL');
                 if (url) {
                     document.execCommand('createLink', false, url);
-                    // Apply the style to the newly created link
+                    // Apply the desired styles to the new link
                     const selection = window.getSelection();
                     if (selection.rangeCount > 0) {
                         const range = selection.getRangeAt(0);
                         const anchor = range.startContainer.parentElement;
                         if (anchor && anchor.tagName === 'A') {
-                            anchor.style.color = '#ffffff';
-                            anchor.setAttribute('target', '_blank');
+                            anchor.style.color = '#ffffff'; // Apply white color
+                            anchor.setAttribute('target', '_blank'); // Open link in new tab
                         }
                     }
-                    handleFormFieldChange('leadStory', 'description', descriptionEditor.innerHTML);
+                    // Update the form field with the new HTML content
+                    if (leadDescriptionEditor) {
+                        handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
+                    }
                 }
             });
+            newLinkButton.dataset.listenerAttached = 'true'; // Mark listener as attached
         }
 
         // Attach event listener to the edit link button

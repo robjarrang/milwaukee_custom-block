@@ -1,4 +1,3 @@
-import { setupLinkButton } from './toolbarUtils.js';
 import moduleRegistry from './moduleRegistry.js';
 
 const twoColumnStoryModule = {
@@ -62,7 +61,6 @@ const twoColumnStoryModule = {
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
         const titleBgImage = formData.backgroundColor === 'red' ? 'title-bg.jpg' : 'title-bg-red.jpg';
 
-        // Add style to links in left and right descriptions
         return `
         <!-- START .story-2col -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
@@ -81,12 +79,6 @@ const twoColumnStoryModule = {
             </tr>
         </table>
         <!-- END .story-2col -->
-        <div>
-            <!-- Left Column -->
-            <a href="${formData.leftButtonLink}" style="color: #ffffff;" target="_blank">${formData.leftButtonText}</a>
-            <!-- Right Column -->
-            <a href="${formData.rightButtonLink}" style="color: #ffffff;" target="_blank">${formData.rightButtonText}</a>
-        </div>
         `;
     },
 
@@ -293,41 +285,6 @@ const twoColumnStoryModule = {
                 }
             });
         });
-
-        const twoColumnLeftDescriptionEditor = document.getElementById('twoColumnLeftDescription');
-        const twoColumnRightDescriptionEditor = document.getElementById('twoColumnRightDescription');
-        // Implement link editing/removing similar to leadStory for both descriptions
-        [twoColumnLeftDescriptionEditor, twoColumnRightDescriptionEditor].forEach(editor => {
-            if (editor) {
-                // Corrected moduleId to match existing module container
-                const linkButton = document.querySelector(`#twoColumnStoryModule .rich-text-toolbar button[data-command="link"]`);
-                if (linkButton) {
-                    // Remove existing listeners to prevent duplicates
-                    linkButton.replaceWith(linkButton.cloneNode(true));
-                    const newLinkButton = document.querySelector(`#twoColumnStoryModule .rich-text-toolbar button[data-command="link"]`);
-                    newLinkButton.addEventListener('click', function() {
-                        const url = prompt('Enter the URL');
-                        if (url) {
-                            document.execCommand('createLink', false, url);
-                            // Apply the style to the newly created link
-                            const selection = window.getSelection();
-                            if (selection.rangeCount > 0) {
-                                const range = selection.getRangeAt(0);
-                                const anchor = range.startContainer.parentElement;
-                                if (anchor && anchor.tagName === 'A') {
-                                    anchor.style.color = '#ffffff';
-                                    anchor.setAttribute('target', '_blank');
-                                }
-                            }
-                            const key = editor.id === 'twoColumnLeftDescription' ? 'twoColumnLeftDescription' : 'twoColumnRightDescription';
-                            handleFormFieldChange('twoColumnStory', key, editor.innerHTML);
-                        }
-                    });
-                }
-            }
-        });
-
-        setupLinkButton('twoColumnStoryModule', handleFormFieldChange, 'twoColumnDescription', 'twoColumnStory');
     }
 };
 

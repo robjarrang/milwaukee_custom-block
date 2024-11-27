@@ -73,7 +73,6 @@ const prizeEveryMonthModule = {
                 <img src="${formData.imageUrl}" alt="Prize Image">
             </a>
             <p>${formData.description}</p>
-            <a href="${formData.pemButtonLink}" style="color: #ffffff;" target="_blank">${formData.pemButtonText}</a>
         </div>
         `;
     },
