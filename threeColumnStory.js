@@ -67,25 +67,32 @@ const threeColumnStoryModule = {
     updateHtml(html, formData) {
         console.log('Updating Three Column Story HTML with form data:', formData);
         if (!formData) {
-            return html;
+            console.warn('Form data is undefined, using placeholder data');
+            formData = this.getPlaceholderData();
         }
+        const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
 
-        const placeholderMap = {
-            '{{leftTitle}}': formData.leftTitle || '',
-            '{{leftDescription}}': formData.leftDescription || '',
-            '{{centerTitle}}': formData.centerTitle || '',
-            '{{centerDescription}}': formData.centerDescription || '',
-            '{{rightTitle}}': formData.rightTitle || '',
-            '{{rightDescription}}': formData.rightDescription || '',
-            // Include other placeholders as needed
-        };
-
-        Object.keys(placeholderMap).forEach((placeholder) => {
-            const value = placeholderMap[placeholder];
-            html = html.split(placeholder).join(value);
-        });
-
-        return html;
+        return `
+        <!-- START .story-3col -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
+            <tr>
+                <td class="side" style="width: 20px;">&nbsp;</td>
+                <td align="center" class="content-inner" style="width: 580px;" valign="top">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                        <tr>
+                            ${this.getColumnHtml(formData, 'left')}
+                            <td class="gap block" style="width: 20px;">&nbsp;</td>
+                            ${this.getColumnHtml(formData, 'center')}
+                            <td class="gap block" style="width: 20px;">&nbsp;</td>
+                            ${this.getColumnHtml(formData, 'right')}
+                        </tr>
+                    </table>
+                </td>
+                <td class="side" style="width: 20px;">&nbsp;</td>
+            </tr>
+        </table>
+        <!-- END .story-3col -->
+        `;
     },
 
     getColumnHtml(formData, position) {
@@ -186,10 +193,6 @@ const threeColumnStoryModule = {
                 console.warn(`Radio button for background color not found`);
             }
         });
-
-        document.getElementById('threeColumnLeftDescription').innerHTML = formData.leftDescription || '';
-        document.getElementById('threeColumnCenterDescription').innerHTML = formData.centerDescription || '';
-        document.getElementById('threeColumnRightDescription').innerHTML = formData.rightDescription || '';
     },
 
     setupEventListeners(handleFormFieldChange) {

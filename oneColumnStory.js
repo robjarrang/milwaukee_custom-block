@@ -21,20 +21,11 @@ const oneColumnStoryModule = {
     updateHtml(html, formData) {
         console.log('Updating 1 Column Story HTML with form data:', formData);
         if (!formData) {
-            return html;
+            console.warn('Form data is undefined, using placeholder data');
+            formData = this.getPlaceholderData();
         }
-
-        const placeholderMap = {
-            '{{description}}': formData.description || '',
-            '{{title}}': formData.title || '',
-            '{{imageUrl}}': formData.imageUrl || '',
-            // Add other placeholders as needed
-        };
-
-        Object.keys(placeholderMap).forEach((placeholder) => {
-            const value = placeholderMap[placeholder];
-            html = html.split(placeholder).join(value);
-        });
+        const backgroundColor = formData.backgroundColor === 'red' ? '#DB011C' : '#000000';
+        const imageFirst = formData.imagePosition === 'left';
 
         return `
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">

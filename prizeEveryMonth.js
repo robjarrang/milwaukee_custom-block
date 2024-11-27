@@ -44,21 +44,37 @@ const prizeEveryMonthModule = {
     updateHtml(html, formData) {
         console.log('Updating Prize Every Month HTML with form data:', formData);
         if (!formData) {
-            return html;
+            console.warn('Form data is undefined, using placeholder data');
+            formData = this.getPlaceholderData();
         }
 
-        const placeholderMap = {
-            '{{pemTitle}}': formData.pemTitle || '',
-            '{{pemDescription}}': formData.pemDescription || '',
-            // Add other placeholders as needed
-        };
+        const imageFirst = formData.imagePosition !== 'right';
+        const sectionDir = imageFirst ? 'ltr' : 'rtl';
 
-        Object.keys(placeholderMap).forEach((placeholder) => {
-            const value = placeholderMap[placeholder];
-            html = html.split(placeholder).join(value);
-        });
-
-        return html;
+        return `
+        <!-- START .story-pem -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" class="imp content-outer story-1col banner" role="presentation" style="background-color: #DB021D; width: 620px;">
+            <tr>
+                <td class="imp side" style="width: 20px;">&nbsp;</td>
+                <td align="center" class="imp content-inner" style="background-color: #DB021D; border-radius: 0; padding-bottom: 30px; width: 580px;" valign="middle">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="imp sect" dir="${sectionDir}" role="presentation" style="background-color: #B50018; width: 100%;">
+                        <tr height="320" style="height: 320px">
+                            ${this.getImageColumn(formData)}
+                            ${this.getContentColumn(formData)}
+                        </tr>
+                    </table>
+                </td>
+                <td class="imp side" style="width: 20px;">&nbsp;</td>
+            </tr>
+        </table>
+        <!-- END .story-pem -->
+        <div>
+            <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
+                <img src="${formData.imageUrl}" alt="Prize Image">
+            </a>
+            <p>${formData.description}</p>
+        </div>
+        `;
     },
 
     getImageColumn(formData) {

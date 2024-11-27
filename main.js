@@ -268,109 +268,39 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
     }
 
     function setupRichTextEditors() {
-        const editorContainers = document.querySelectorAll('.editor-container');
-        editorContainers.forEach((container) => {
-            const editor = container.querySelector('.rich-text-editor');
-
-            // Check if event listeners have already been attached
-            if (editor.dataset.listenersInitialized === 'true') {
-                return; // Skip if already initialized
+        const editors = document.querySelectorAll('.rich-text-editor');
+        editors.forEach(editor => {
+            const toolbar = editor.previousElementSibling;
+            if (toolbar && toolbar.classList.contains('rich-text-toolbar')) {
+                toolbar.addEventListener('click', handleToolbarClick);
             }
-            editor.dataset.listenersInitialized = 'true';
-
-            const toolbarButtons = container.querySelectorAll('.rich-text-toolbar button');
-
-            // Set up event listeners for the editor
             editor.addEventListener('input', handleEditorInput);
             editor.addEventListener('paste', handlePaste);
-
-            // Set up event listeners for the toolbar buttons
-            toolbarButtons.forEach((button) => {
-                button.addEventListener('click', function(event) {
-                    handleToolbarClick(event, editor);
-                });
-            });
         });
     }
 
-    function handleToolbarClick(event, editor) {
-        event.preventDefault();
-        const command = event.target.getAttribute('data-command');
-        const selection = window.getSelection();
-        const selectedText = selection.toString();
-    
-        if (command === 'createLink') {
-            const url = prompt('Enter the URL');
-            if (url && selectedText) {
-                // Create a new link element with the required attributes
-                const linkHtml = `<a href="${url}" style="color: #ffffff;" target="_blank">${selectedText}</a>`;
-                insertHtmlAtSelection(linkHtml);
+    function handleToolbarClick(event) {
+        if (event.target.tagName === 'BUTTON') {
+            event.preventDefault();
+            const command = event.target.getAttribute('data-command');
+            const editor = event.target.closest('.editor-container').querySelector('.rich-text-editor');
+            
+            if (command === 'editLink' || command === 'unlink' || command === 'createLink') {
+                // Custom handling is managed in leadStory.js
+                return;
             }
-        } else if (command === 'editLink') {
-            const linkNode = getSelectedLinkNode();
-            if (linkNode) {
-                const newUrl = prompt('Edit the URL', linkNode.getAttribute('href'));
-                if (newUrl) {
-                    linkNode.setAttribute('href', newUrl);
-                    linkNode.setAttribute('style', 'color: #ffffff;');
-                    linkNode.setAttribute('target', '_blank');
-                }
-            } else {
-                alert('Please select a link to edit.');
-            }
-        } else if (command === 'unlink') {
-            document.execCommand('unlink', false, null);
-        } else {
+
+            // Existing command handling
             document.execCommand(command, false, null);
+            editor.focus();
         }
-        editor.focus();
     }
     
     function handleEditorInput(event) {
         const editor = event.target;
-        // Ensure all links have the required attributes
-        enforceLinkAttributes(editor);
-        // ...existing code...
-        const moduleElement = editor.closest('[id$="Module"]');
-        const moduleType = moduleElement ? moduleElement.id.replace('Module', '') : '';
+        const moduleType = editor.closest('[id$="Module"]').id.replace('Module', '');
         const fieldName = editor.id;
-    
         handleFormFieldChange(moduleType, fieldName, editor.innerHTML);
-    }
-    
-    function enforceLinkAttributes(editor) {
-        const links = editor.querySelectorAll('a');
-        links.forEach(link => {
-            link.setAttribute('style', 'color: #ffffff;');
-            link.setAttribute('target', '_blank');
-        });
-    }
-    
-    function insertHtmlAtSelection(html) {
-        const range = window.getSelection().getRangeAt(0);
-        range.deleteContents();
-        const el = document.createElement('div');
-        el.innerHTML = html;
-        const frag = document.createDocumentFragment();
-        let node, lastNode;
-        while ((node = el.firstChild)) {
-            lastNode = frag.appendChild(node);
-        }
-        range.insertNode(frag);
-    }
-    
-    function getSelectedLinkNode() {
-        const selection = window.getSelection();
-        if (selection.rangeCount > 0) {
-            let node = selection.anchorNode;
-            while (node && node !== document) {
-                if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'A') {
-                    return node;
-                }
-                node = node.parentNode;
-            }
-        }
-        return null;
     }
 
     function handlePaste(event) {
