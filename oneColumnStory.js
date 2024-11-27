@@ -24,20 +24,34 @@ const oneColumnStoryModule = {
             return html;
         }
 
-        // Create a mapping of placeholders to formData values
         const placeholderMap = {
             '{{description}}': formData.description || '',
             '{{title}}': formData.title || '',
+            '{{imageUrl}}': formData.imageUrl || '',
             // Add other placeholders as needed
         };
 
-        // Replace placeholders with actual values, ensuring HTML content is preserved
         Object.keys(placeholderMap).forEach((placeholder) => {
             const value = placeholderMap[placeholder];
             html = html.split(placeholder).join(value);
         });
 
-        return html;
+        return `
+        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
+            <tr>
+                <td class="side" style="width: 20px;">&nbsp;</td>
+                <td align="center" class="content-inner" style="width: 580px;" valign="middle">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                        <tr>
+                            ${imageFirst ? this.getImageColumn(formData) : this.getContentColumn(formData)}
+                            ${imageFirst ? this.getContentColumn(formData) : this.getImageColumn(formData)}
+                        </tr>
+                    </table>
+                </td>
+                <td class="side" style="width: 20px;">&nbsp;</td>
+            </tr>
+        </table>
+        `;
     },
 
     getImageColumn(formData) {

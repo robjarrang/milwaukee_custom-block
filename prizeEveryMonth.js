@@ -48,8 +48,8 @@ const prizeEveryMonthModule = {
         }
 
         const placeholderMap = {
-            '{{description}}': formData.description || '',
-            '{{title}}': formData.title || '',
+            '{{pemTitle}}': formData.pemTitle || '',
+            '{{pemDescription}}': formData.pemDescription || '',
             // Add other placeholders as needed
         };
 

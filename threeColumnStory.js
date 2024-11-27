@@ -67,41 +67,17 @@ const threeColumnStoryModule = {
     updateHtml(html, formData) {
         console.log('Updating Three Column Story HTML with form data:', formData);
         if (!formData) {
-            console.warn('Form data is undefined, using placeholder data');
-            formData = this.getPlaceholderData();
+            return html;
         }
-        const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
-
-        html = `
-        <!-- START .story-3col -->
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
-            <tr>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-                <td align="center" class="content-inner" style="width: 580px;" valign="top">
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                        <tr>
-                            ${this.getColumnHtml(formData, 'left')}
-                            <td class="gap block" style="width: 20px;">&nbsp;</td>
-                            ${this.getColumnHtml(formData, 'center')}
-                            <td class="gap block" style="width: 20px;">&nbsp;</td>
-                            ${this.getColumnHtml(formData, 'right')}
-                        </tr>
-                    </table>
-                </td>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-            </tr>
-        </table>
-        <!-- END .story-3col -->
-        `;
 
         const placeholderMap = {
-            '{{leftDescription}}': formData.leftDescription || '',
             '{{leftTitle}}': formData.leftTitle || '',
-            '{{centerDescription}}': formData.centerDescription || '',
+            '{{leftDescription}}': formData.leftDescription || '',
             '{{centerTitle}}': formData.centerTitle || '',
-            '{{rightDescription}}': formData.rightDescription || '',
+            '{{centerDescription}}': formData.centerDescription || '',
             '{{rightTitle}}': formData.rightTitle || '',
-            // Add other placeholders as needed
+            '{{rightDescription}}': formData.rightDescription || '',
+            // Include other placeholders as needed
         };
 
         Object.keys(placeholderMap).forEach((placeholder) => {

@@ -53,18 +53,17 @@ const twoColumnStoryModule = {
     },
 
     updateHtml(html, formData) {
-        console.log('Updating 2 Column Story HTML with form data:', formData);
+        console.log('Updating Two Column Story HTML with form data:', formData);
         if (!formData) {
             return html;
         }
 
-        // Create a mapping of placeholders to formData values
         const placeholderMap = {
-            '{{leftDescription}}': formData.leftDescription || '',
             '{{leftTitle}}': formData.leftTitle || '',
-            '{{rightDescription}}': formData.rightDescription || '',
+            '{{leftDescription}}': formData.leftDescription || '',
             '{{rightTitle}}': formData.rightTitle || '',
-            // Add other placeholders as needed
+            '{{rightDescription}}': formData.rightDescription || '',
+            // Include other placeholders as needed
         };
 
         Object.keys(placeholderMap).forEach((placeholder) => {
