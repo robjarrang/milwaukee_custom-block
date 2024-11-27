@@ -240,27 +240,6 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
 
         setupRichTextEditors();
     
-        // Ensure link editing handlers are initialized only once
-        if (!window.linkHandlersInitialized) {
-            window.linkHandlersInitialized = true;
-
-            // Generic handlers for editing and removing links
-            function handleEditLink(event) {
-                if (event.target.dataset.command === 'editLink') {
-                    // ...existing edit link logic...
-                }
-            }
-
-            function handleRemoveLink(event) {
-                if (event.target.dataset.command === 'unlink') {
-                    // ...existing remove link logic...
-                }
-            }
-
-            // Assign handlers globally or pass to modules as needed
-            // ...existing code...
-        }
-    
         console.log('Event listeners set up');
     }
     
@@ -298,6 +277,25 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
             editor.addEventListener('input', handleEditorInput);
             editor.addEventListener('paste', handlePaste);
         });
+
+        const descriptionFields = document.querySelectorAll('.rich-text-editor');
+
+        descriptionFields.forEach(field => {
+            field.addEventListener('click', handleToolbarClick);
+        });
+
+        // Ensure single popup for link editing
+        let popupOpen = false;
+
+        function handleToolbarClick(event) {
+            if (popupOpen) {
+                return;
+            }
+            popupOpen = true;
+            // ...existing toolbar click handling...
+            // After handling:
+            popupOpen = false;
+        }
     }
 
     function handleToolbarClick(event) {

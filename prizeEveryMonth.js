@@ -51,9 +51,6 @@ const prizeEveryMonthModule = {
         const imageFirst = formData.imagePosition !== 'right';
         const sectionDir = imageFirst ? 'ltr' : 'rtl';
 
-        // Ensure links have the required style
-        const styledDescription = formData.description.replace(/<a /g, '<a style="color: #ffffff;" ');
-
         return `
         <!-- START .story-pem -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="imp content-outer story-1col banner" role="presentation" style="background-color: #DB021D; width: 620px;">
@@ -75,7 +72,7 @@ const prizeEveryMonthModule = {
             <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
                 <img src="${formData.imageUrl}" alt="Prize Image">
             </a>
-            <p>${styledDescription}</p>
+            <p>${formData.description}</p>
         </div>
         `;
     },
@@ -112,8 +109,8 @@ const prizeEveryMonthModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="imp story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; padding-bottom: 10px; text-align: left;">
-                                    ${formData.description}
+                                <td class="imp story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
+                                    ${formData.description.replace(/<a /g, '<a style="color: #ffffff;" ')}
                                 </td>
                             </tr>
                             <!--[if mso]>
@@ -185,8 +182,6 @@ const prizeEveryMonthModule = {
             descriptionEditor.addEventListener('input', function(event) {
                 handleFormFieldChange('prizeEveryMonth', 'description', descriptionEditor.innerHTML);
             });
-            descriptionEditor.addEventListener('click', handleEditLink);
-            descriptionEditor.addEventListener('click', handleRemoveLink);
         }
 
         const superscriptButton = document.querySelector('#prizeEveryMonthModule .rich-text-toolbar button[data-command="superscript"]');

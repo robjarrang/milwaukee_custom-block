@@ -72,15 +72,6 @@ const threeColumnStoryModule = {
         }
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
 
-        // Ensure links have the required style for left description
-        const styledLeftDescription = formData.leftDescription.replace(/<a /g, '<a style="color: #ffffff;" ');
-
-        // Ensure links have the required style for center description
-        const styledCenterDescription = formData.centerDescription.replace(/<a /g, '<a style="color: #ffffff;" ');
-
-        // Ensure links have the required style for right description
-        const styledRightDescription = formData.rightDescription.replace(/<a /g, '<a style="color: #ffffff;" ');
-
         return `
         <!-- START .story-3col -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
@@ -246,8 +237,6 @@ const threeColumnStoryModule = {
             leftDescriptionEditor.addEventListener('input', function(event) {
                 handleFormFieldChange('threeColumnStory', 'leftDescription', event.target.innerHTML);
             });
-            leftDescriptionEditor.addEventListener('click', handleEditLink);
-            leftDescriptionEditor.addEventListener('click', handleRemoveLink);
         }
 
         const centerDescriptionEditor = document.getElementById('threeColumnCenterDescription');
@@ -255,8 +244,6 @@ const threeColumnStoryModule = {
             centerDescriptionEditor.addEventListener('input', function(event) {
                 handleFormFieldChange('threeColumnStory', 'centerDescription', event.target.innerHTML);
             });
-            centerDescriptionEditor.addEventListener('click', handleEditLink);
-            centerDescriptionEditor.addEventListener('click', handleRemoveLink);
         }
 
         const rightDescriptionEditor = document.getElementById('threeColumnRightDescription');
@@ -264,8 +251,6 @@ const threeColumnStoryModule = {
             rightDescriptionEditor.addEventListener('input', function(event) {
                 handleFormFieldChange('threeColumnStory', 'rightDescription', event.target.innerHTML);
             });
-            rightDescriptionEditor.addEventListener('click', handleEditLink);
-            rightDescriptionEditor.addEventListener('click', handleRemoveLink);
         }
 
         const superscriptButtons = document.querySelectorAll('#threeColumnStoryModule .rich-text-toolbar button[data-command="superscript"]');
