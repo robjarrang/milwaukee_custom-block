@@ -24,107 +24,50 @@ const oneColumnStoryModule = {
             return html;
         }
 
-        if (!formData) {
-            console.warn('Form data is undefined, using placeholder data');
-            formData = this.getPlaceholderData();
-        }
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB011C' : '#000000';
         const imageFirst = formData.imagePosition === 'left';
 
+        // Build the HTML content using the formData
+        const imageColumn = this.getImageColumn(formData);
+        const contentColumn = this.getContentColumn(formData);
+
+        const content = imageFirst
+            ? `<tr>${imageColumn}${contentColumn}</tr>`
+            : `<tr>${contentColumn}${imageColumn}</tr>`;
+
         // Create a mapping of placeholders to formData values
         const placeholderMap = {
-            '{{description}}': formData.description || '',
-            '{{title}}': formData.title || '',
-            // Add other placeholders as needed
+            '{{content}}': content,
+            '{{backgroundColor}}': backgroundColor,
         };
 
         // Replace placeholders with actual values, ensuring HTML content is preserved
         Object.keys(placeholderMap).forEach((placeholder) => {
             const value = placeholderMap[placeholder];
-            // Use split and join to safely replace even if value contains special characters
             html = html.split(placeholder).join(value);
         });
 
-        return `
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
-            <tr>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-                <td align="center" class="content-inner" style="width: 580px;" valign="middle">
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                        <tr>
-                            ${imageFirst ? this.getImageColumn(formData) : this.getContentColumn(formData)}
-                            ${imageFirst ? this.getContentColumn(formData) : this.getImageColumn(formData)}
-                        </tr>
-                    </table>
-                </td>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-            </tr>
-        </table>
-        `;
+        return html;
     },
 
     getImageColumn(formData) {
         return `
-        <td class="block" style="width: 290px;" valign="middle">
-            <div>
-                <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                    <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
-                </a>
-            </div>
+        <td>
+            <a href="${formData.imageLink || '#'}">
+                <img src="${formData.imageUrl || ''}" alt="">
+            </a>
         </td>
         `;
     },
 
     getContentColumn(formData) {
         return `
-        <td class="block" style="width: 290px;" valign="middle">
-            <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                <tr>
-                    <td style="padding: 20px;" valign="middle">
-                        <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
-                            <tr>
-                                <td class="mobile-text-center" style="text-align: center;">
-                                    <h3 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 28px; font-stretch: condensed; font-weight: bold; line-height: 32px; margin: 0; margin-bottom: 0; margin-top: 0; text-transform: uppercase;">
-                                        ${formData.title}
-                                    </h3>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="clear: both; display: block; font-size: 4px; height: 4px; line-height: 4px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: center;">
-                                    ${formData.description}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="clear: both; display: block; font-size: 16px; height: 16px; line-height: 16px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                                        <tr>
-                                            <td align="center" class="block" style="width: 100%;" valign="top">
-                                                <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px; mso-text-raise: 6px;">
-                                                    <tr>
-                                                        <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%;">
-                                                            <a href="${formData.buttonLink}" style="color: #ffffff; text-decoration: none;" target="_blank">${formData.buttonText}</a>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+        <td>
+            <h2>${formData.title || ''}</h2>
+            <div>
+                ${formData.description || ''}
+            </div>
+            ${formData.buttonText ? `<a href="${formData.buttonLink || '#'}">${formData.buttonText}</a>` : ''}
         </td>
         `;
     },
