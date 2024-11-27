@@ -2,19 +2,20 @@ import moduleRegistry from './moduleRegistry.js';
 
 const oneColumnStoryModule = {
     setup() {
-        console.log('1 Column Story (Small) module setup');
+        console.log('1 Column Story module setup');
     },
 
     getPlaceholderData() {
         return {
-            imageUrl: 'https://fakeimg.pl/290x200/dddddd/ffffff',
+            imageUrl: 'https://fakeimg.pl/400x400/dddddd/ffffff',
             imageLink: 'https://milwaukeetool.eu/',
-            title: 'Tempus euismod phasellus',
-            description: 'Vestibulum condimentum tempus euismod. Phasellus ligula nibh, ornare at ligula a.',
-            buttonText: 'Button title',
-            buttonLink: 'https://milwaukeetool.eu/',
+            title: 'Single Column Story',
+            description: 'This is a single column story description. Participate to learn more.',
+            buttonText: 'Learn More',
+            buttonLink: 'https://milwaukeetool.eu/learn',
             backgroundColor: 'red',
-            imagePosition: 'left'
+            imagePosition: 'left',
+            showButton: true
         };
     },
 
@@ -28,20 +29,77 @@ const oneColumnStoryModule = {
         const imageFirst = formData.imagePosition === 'left';
 
         return `
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
+        <!-- START .one-column-image -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #123456; width: 620px;">
             <tr>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-                <td align="center" class="content-inner" style="width: 580px;" valign="middle">
+                <td align="center" class="content-inner" style="width: 580px;" valign="top">
                     <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                         <tr>
-                            ${imageFirst ? this.getImageColumn(formData) : this.getContentColumn(formData)}
-                            ${imageFirst ? this.getContentColumn(formData) : this.getImageColumn(formData)}
+                            <td align="center" class="block" style="width: 100%;" valign="top">
+                                <div>
+                                    <a href="${formData.imageLink || '#'}" target="_blank" style="color: #ffffff;">
+                                        <img align="top" alt="1 Column Story" class="fill no-hover" src="${formData.imageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="620">
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!-- END .one-column-image -->
+        <!-- START .one-column-description -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #123456; width: 620px;">
+            <tr>
+                <td class="side" style="width: 20px;">&nbsp;</td>
+                <td align="center" class="content-inner" style="width: 580px;">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                        <tr>
+                            <td align="left" class="block" style="width: 100%;">
+                                <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
+                                    <tr>
+                                        <td>
+                                            <div style="clear: both; display: block; font-size: 32px; height: 32px; line-height: 32px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
+                                            ${formData.description}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div style="clear: both; display: block; font-size: 32px; height: 32px; line-height: 32px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
+                                        </td>
+                                    </tr>
+                                    ${formData.showButton ? `
+                                    <tr>
+                                        <td>
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                                                <tr>
+                                                    <td align="center" class="block" style="width: 100%;" valign="middle">
+                                                        <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px;">
+                                                            <tr>
+                                                                <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%; mso-text-raise: 6px;">
+                                                                    <a href="${formData.buttonLink}" style="color: #ffffff; text-decoration: none;" target="_blank">${formData.buttonText}</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    ` : ''}
+                                </table>
+                            </td>
                         </tr>
                     </table>
                 </td>
                 <td class="side" style="width: 20px;">&nbsp;</td>
             </tr>
         </table>
+        <!-- END .one-column-description -->
         `;
     },
 
@@ -77,8 +135,8 @@ const oneColumnStoryModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
-                                    ${formData.oneColumnDescription.replace(/<a /g, '<a style="color: #ffffff;" ')}
+                                <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: center;">
+                                    ${formData.description}
                                 </td>
                             </tr>
                             <tr>
@@ -112,16 +170,26 @@ const oneColumnStoryModule = {
     },
 
     populateForm(formData) {
-        console.log('Populating One Column Story form with data:', formData);
-        document.getElementById('oneColumnImageUrl').value = formData.imageUrl || '';
-        document.getElementById('oneColumnImageLink').value = formData.imageLink || '';
-        document.getElementById('oneColumnTitle').value = formData.title || '';
+        console.log('Populating 1 Column Story form with data:', formData);
+        
+        const setValueIfExists = (id, value) => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.value = value || '';
+            }
+        };
+
+        setValueIfExists('oneColumnImageUrl', formData.imageUrl);
+        setValueIfExists('oneColumnImageLink', formData.imageLink);
+        setValueIfExists('oneColumnTitle', formData.title);
+        setValueIfExists('oneColumnDescription', formData.description);
+        setValueIfExists('oneColumnButtonText', formData.buttonText);
+        setValueIfExists('oneColumnButtonLink', formData.buttonLink);
+
         const descriptionEditor = document.getElementById('oneColumnDescription');
         if (descriptionEditor) {
             descriptionEditor.innerHTML = formData.description || '';
         }
-        document.getElementById('oneColumnButtonText').value = formData.buttonText || '';
-        document.getElementById('oneColumnButtonLink').value = formData.buttonLink || '';
 
         const backgroundColorRadios = document.querySelectorAll('input[name="oneColumnBackgroundColor"]');
         backgroundColorRadios.forEach(radio => {

@@ -7,14 +7,15 @@ const prizeEveryMonthModule = {
 
     getPlaceholderData() {
         return {
-            imageUrl: 'https://image.mail.milwaukeetool.eu/lib/fe2f11717564047a761c78/m/1/ad565199-35bb-48ee-ab67-877c5c614355.png',
-            imageLink: 'https://www.milwaukeetool.eu/',
-            logoUrl: 'https://files.jarrang.com/Milwaukee/zTemplate/images/images-assets/pem-logo.png',
-            title: 'THIS MONTHS PRIZE: M18™ PROMO POWERPACK',
-            description: 'Enter into our draw to win one of our newest tools every month!',
-            buttonText: 'Enter now',
-            buttonLink: 'https://www.milwaukeetool.eu/',
-            imagePosition: 'right'
+            imageUrl: 'https://fakeimg.pl/300x300/dddddd/ffffff',
+            imageLink: 'https://milwaukeetool.eu/',
+            logoUrl: 'https://milwaukeetool.eu/logo.png',
+            title: 'Monthly Prize',
+            description: 'Win amazing prizes every month by participating in our exclusive events.',
+            buttonText: 'Join Now',
+            buttonLink: 'https://milwaukeetool.eu/join',
+            imagePosition: 'left',
+            showButton: true
         };
     },
 
@@ -48,32 +49,78 @@ const prizeEveryMonthModule = {
             formData = this.getPlaceholderData();
         }
 
-        const imageFirst = formData.imagePosition !== 'right';
-        const sectionDir = imageFirst ? 'ltr' : 'rtl';
-
         return `
-        <!-- START .story-pem -->
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="imp content-outer story-1col banner" role="presentation" style="background-color: #DB021D; width: 620px;">
+        <!-- START .pem-image -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #123456; width: 620px;">
             <tr>
-                <td class="imp side" style="width: 20px;">&nbsp;</td>
-                <td align="center" class="imp content-inner" style="background-color: #DB021D; border-radius: 0; padding-bottom: 30px; width: 580px;" valign="middle">
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="imp sect" dir="${sectionDir}" role="presentation" style="background-color: #B50018; width: 100%;">
-                        <tr height="320" style="height: 320px">
-                            ${this.getImageColumn(formData)}
-                            ${this.getContentColumn(formData)}
+                <td align="center" class="content-inner" style="width: 580px;" valign="top">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                        <tr>
+                            <td align="center" class="block" style="width: 100%;" valign="top">
+                                <div>
+                                    <a href="${formData.imageLink || '#'}" target="_blank" style="color: #ffffff;">
+                                        <img align="top" alt="Prize Every Month" class="fill no-hover" src="${formData.imageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="620">
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 </td>
-                <td class="imp side" style="width: 20px;">&nbsp;</td>
             </tr>
         </table>
-        <!-- END .story-pem -->
-        <div>
-            <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                <img src="${formData.imageUrl}" alt="Prize Image">
-            </a>
-            <p>${formData.description}</p>
-        </div>
+        <!-- END .pem-image -->
+        <!-- START .pem-description -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #123456; width: 620px;">
+            <tr>
+                <td class="side" style="width: 20px;">&nbsp;</td>
+                <td align="center" class="content-inner" style="width: 580px;">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                        <tr>
+                            <td align="left" class="block" style="width: 100%;">
+                                <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
+                                    <tr>
+                                        <td>
+                                            <div style="clear: both; display: block; font-size: 32px; height: 32px; line-height: 32px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
+                                            ${formData.description}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div style="clear: both; display: block; font-size: 32px; height: 32px; line-height: 32px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
+                                        </td>
+                                    </tr>
+                                    ${formData.showButton ? `
+                                    <tr>
+                                        <td>
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                                                <tr>
+                                                    <td align="center" class="block" style="width: 100%;" valign="middle">
+                                                        <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px;">
+                                                            <tr>
+                                                                <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%; mso-text-raise: 6px;">
+                                                                    <a href="${formData.buttonLink}" style="color: #ffffff; text-decoration: none;" target="_blank">${formData.buttonText}</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    ` : ''}
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="side" style="width: 20px;">&nbsp;</td>
+            </tr>
+        </table>
+        <!-- END .pem-description -->
         `;
     },
 
@@ -109,8 +156,8 @@ const prizeEveryMonthModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="imp story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
-                                    ${formData.description.replace(/<a /g, '<a style="color: #ffffff;" ')}
+                                <td class="imp story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; padding-bottom: 10px; text-align: left;">
+                                    ${formData.description}
                                 </td>
                             </tr>
                             <!--[if mso]>
@@ -145,18 +192,26 @@ const prizeEveryMonthModule = {
 
     populateForm(formData) {
         console.log('Populating Prize Every Month form with data:', formData);
-        document.getElementById('pemImageUrl').value = formData.imageUrl || '';
-        document.getElementById('pemImageLink').value = formData.imageLink || '';
-        document.getElementById('pemLogoUrl').value = formData.logoUrl || '';
-        document.getElementById('pemTitle').value = formData.title || '';
+        
+        const setValueIfExists = (id, value) => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.value = value || '';
+            }
+        };
+
+        setValueIfExists('pemImageUrl', formData.imageUrl);
+        setValueIfExists('pemImageLink', formData.imageLink);
+        setValueIfExists('pemLogoUrl', formData.logoUrl);
+        setValueIfExists('pemTitle', formData.title);
+        setValueIfExists('pemDescription', formData.description);
+        setValueIfExists('pemButtonText', formData.buttonText);
+        setValueIfExists('pemButtonLink', formData.buttonLink);
         
         const descriptionEditor = document.getElementById('pemDescription');
         if (descriptionEditor) {
             descriptionEditor.innerHTML = formData.description || '';
         }
-        
-        document.getElementById('pemButtonText').value = formData.buttonText || '';
-        document.getElementById('pemButtonLink').value = formData.buttonLink || '';
         
         const imagePositionRadios = document.querySelectorAll('input[name="pemImagePosition"]');
         imagePositionRadios.forEach(radio => {

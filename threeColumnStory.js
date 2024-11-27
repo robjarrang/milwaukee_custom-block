@@ -2,29 +2,29 @@ import moduleRegistry from './moduleRegistry.js';
 
 const threeColumnStoryModule = {
     setup() {
-        console.log('Three Column Story module setup');
+        console.log('3 Column Story module setup');
     },
 
     getPlaceholderData() {
         return {
-            leftImageUrl: 'https://fakeimg.pl/180x180/dddddd/ffffff',
+            leftImageUrl: 'https://fakeimg.pl/290x290/dddddd/ffffff',
             leftImageLink: 'https://milwaukeetool.eu/',
-            leftTitle: 'Title goes here',
-            leftDescription: 'Intro text goes here',
-            leftButtonText: 'Button title',
-            leftButtonLink: 'https://milwaukeetool.eu/',
-            centerImageUrl: 'https://fakeimg.pl/180x180/dddddd/ffffff',
+            leftTitle: 'Left Column Title',
+            leftDescription: 'Description for the left column.',
+            leftButtonText: 'Left Button',
+            leftButtonLink: 'https://milwaukeetool.eu/left',
+            centerImageUrl: 'https://fakeimg.pl/290x290/dddddd/ffffff',
             centerImageLink: 'https://milwaukeetool.eu/',
-            centerTitle: 'Title goes here',
-            centerDescription: 'Intro text goes here',
-            centerButtonText: 'Button title',
-            centerButtonLink: 'https://milwaukeetool.eu/',
-            rightImageUrl: 'https://fakeimg.pl/180x180/dddddd/ffffff',
+            centerTitle: 'Center Column Title',
+            centerDescription: 'Description for the center column.',
+            centerButtonText: 'Center Button',
+            centerButtonLink: 'https://milwaukeetool.eu/center',
+            rightImageUrl: 'https://fakeimg.pl/290x290/dddddd/ffffff',
             rightImageLink: 'https://milwaukeetool.eu/',
-            rightTitle: 'Title goes here',
-            rightDescription: 'Intro text goes here',
-            rightButtonText: 'Button title',
-            rightButtonLink: 'https://milwaukeetool.eu/',
+            rightTitle: 'Right Column Title',
+            rightDescription: 'Description for the right column.',
+            rightButtonText: 'Right Button',
+            rightButtonLink: 'https://milwaukeetool.eu/right',
             backgroundColor: 'red'
         };
     },
@@ -65,7 +65,7 @@ const threeColumnStoryModule = {
     },
 
     updateHtml(html, formData) {
-        console.log('Updating Three Column Story HTML with form data:', formData);
+        console.log('Updating 3 Column Story HTML with form data:', formData);
         if (!formData) {
             console.warn('Form data is undefined, using placeholder data');
             formData = this.getPlaceholderData();
@@ -73,25 +73,92 @@ const threeColumnStoryModule = {
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
 
         return `
-        <!-- START .story-3col -->
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
+        <!-- START .three-column-left-image -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #123456; width: 200px;">
             <tr>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-                <td align="center" class="content-inner" style="width: 580px;" valign="top">
+                <td align="center" class="content-inner" style="width: 180px;" valign="top">
                     <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                         <tr>
-                            ${this.getColumnHtml(formData, 'left')}
-                            <td class="gap block" style="width: 20px;">&nbsp;</td>
-                            ${this.getColumnHtml(formData, 'center')}
-                            <td class="gap block" style="width: 20px;">&nbsp;</td>
-                            ${this.getColumnHtml(formData, 'right')}
+                            <td align="center" class="block" style="width: 100%;" valign="top">
+                                <div>
+                                    <a href="${formData.leftImageLink || '#'}" target="_blank" style="color: #ffffff;">
+                                        <img align="top" alt="Left Column" class="fill no-hover" src="${formData.leftImageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="180">
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!-- END .three-column-left-image -->
+        <!-- START .three-column-left-description -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #123456; width: 200px;">
+            <tr>
+                <td class="side" style="width: 20px;">&nbsp;</td>
+                <td align="center" class="content-inner" style="width: 160px;">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                        <tr>
+                            <td align="left" class="block" style="width: 100%;">
+                                <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
+                                    <tr>
+                                        <td>
+                                            <div style="clear: both; display: block; font-size: 32px; height: 32px; line-height: 32px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
+                                            ${formData.leftDescription}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div style="clear: both; display: block; font-size: 32px; height: 32px; line-height: 32px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
+                                        </td>
+                                    </tr>
+                                    ${formData.leftButtonText ? `
+                                    <tr>
+                                        <td>
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                                                <tr>
+                                                    <td align="center" class="block" style="width: 100%;" valign="middle">
+                                                        <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px;">
+                                                            <tr>
+                                                                <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%; mso-text-raise: 6px;">
+                                                                    <a href="${formData.leftButtonLink}" style="color: #ffffff; text-decoration: none;" target="_blank">${formData.leftButtonText}</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    ` : ''}
+                                </table>
+                            </td>
                         </tr>
                     </table>
                 </td>
                 <td class="side" style="width: 20px;">&nbsp;</td>
             </tr>
         </table>
-        <!-- END .story-3col -->
+        <!-- END .three-column-left-description -->
+
+        <!-- Repeat similar blocks for Center and Right Columns -->
+        <!-- START .three-column-center-image -->
+        // ...existing center column image code...
+        <!-- END .three-column-center-image -->
+        <!-- START .three-column-center-description -->
+        // ...existing center column description code with style="color: #ffffff;"...
+        <!-- END .three-column-center-description -->
+
+        <!-- START .three-column-right-image -->
+        // ...existing right column image code...
+        <!-- END .three-column-right-image -->
+        <!-- START .three-column-right-description -->
+        // ...existing right column description code with style="color: #ffffff;"...
+        <!-- END .three-column-right-description -->
         `;
     },
 
@@ -164,26 +231,35 @@ const threeColumnStoryModule = {
     },
 
     populateForm(formData) {
-        console.log('Populating Three Column Story form with data:', formData);
-        ['left', 'center', 'right'].forEach(position => {
-            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
-                const id = `threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}${field}`;
-                const element = document.getElementById(id);
-                if (element) {
-                    element.value = formData[position + field] || '';
-                } else {
-                    console.warn(`Element with id ${id} not found`);
-                }
-            });
-            
-            const descriptionId = `threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}Description`;
-            const descriptionElement = document.getElementById(descriptionId);
-            if (descriptionElement) {
-                descriptionElement.innerHTML = formData[position + 'Description'] || '';
+        console.log('Populating 3 Column Story form with data:', formData);
+        
+        const setValueIfExists = (id, value) => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.value = value || '';
             } else {
-                console.warn(`Rich text editor with id ${descriptionId} not found`);
+                console.warn(`Element with id ${id} not found`);
             }
-        });
+        };
+
+        setValueIfExists('threeColumnLeftImageUrl', formData.leftImageUrl);
+        setValueIfExists('threeColumnLeftImageLink', formData.leftImageLink);
+        setValueIfExists('threeColumnLeftTitle', formData.leftTitle);
+        setValueIfExists('threeColumnLeftDescription', formData.leftDescription);
+        setValueIfExists('threeColumnLeftButtonText', formData.leftButtonText);
+        setValueIfExists('threeColumnLeftButtonLink', formData.leftButtonLink);
+        setValueIfExists('threeColumnCenterImageUrl', formData.centerImageUrl);
+        setValueIfExists('threeColumnCenterImageLink', formData.centerImageLink);
+        setValueIfExists('threeColumnCenterTitle', formData.centerTitle);
+        setValueIfExists('threeColumnCenterDescription', formData.centerDescription);
+        setValueIfExists('threeColumnCenterButtonText', formData.centerButtonText);
+        setValueIfExists('threeColumnCenterButtonLink', formData.centerButtonLink);
+        setValueIfExists('threeColumnRightImageUrl', formData.rightImageUrl);
+        setValueIfExists('threeColumnRightImageLink', formData.rightImageLink);
+        setValueIfExists('threeColumnRightTitle', formData.rightTitle);
+        setValueIfExists('threeColumnRightDescription', formData.rightDescription);
+        setValueIfExists('threeColumnRightButtonText', formData.rightButtonText);
+        setValueIfExists('threeColumnRightButtonLink', formData.rightButtonLink);
         
         const backgroundColorRadios = document.querySelectorAll('input[name="threeColumnBackgroundColor"]');
         backgroundColorRadios.forEach(radio => {
