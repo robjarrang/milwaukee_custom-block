@@ -291,15 +291,7 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
                     const url = prompt('Enter the URL');
                     if (url) {
                         document.execCommand('createLink', false, url);
-                        const selection = window.getSelection();
-                        if (selection.rangeCount > 0) {
-                            const range = selection.getRangeAt(0);
-                            const anchor = range.startContainer.parentElement;
-                            if (anchor && anchor.tagName === 'A') {
-                                anchor.style.color = '#ffffff';
-                                anchor.setAttribute('target', '_blank');
-                            }
-                        }
+                        applyLinkStyles(editor);
                     }
                 } else if (command === 'unlink') {
                     document.execCommand('unlink', false, null);
@@ -312,7 +304,19 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
             editor.focus();
         }
     }
-    
+
+    function applyLinkStyles(editor) {
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            const anchor = range.startContainer.parentElement;
+            if (anchor && anchor.tagName === 'A') {
+                anchor.style.color = '#ffffff';
+                anchor.setAttribute('target', '_blank');
+            }
+        }
+    }
+
     function handleEditorInput(event) {
         const editor = event.target;
         const moduleType = editor.closest('[id$="Module"]').id.replace('Module', '');

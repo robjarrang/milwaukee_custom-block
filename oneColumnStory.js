@@ -171,16 +171,7 @@ const oneColumnStoryModule = {
                 const url = prompt('Enter the URL');
                 if (url) {
                     document.execCommand('createLink', false, url);
-                    // Apply the style to the newly created link
-                    const selection = window.getSelection();
-                    if (selection.rangeCount > 0) {
-                        const range = selection.getRangeAt(0);
-                        const anchor = range.startContainer.parentElement;
-                        if (anchor && anchor.tagName === 'A') {
-                            anchor.style.color = '#ffffff';
-                            anchor.setAttribute('target', '_blank');
-                        }
-                    }
+                    applyLinkStyles(descriptionEditor);
                     handleFormFieldChange('oneColumnStory', 'description', descriptionEditor.innerHTML);
                 }
             });
@@ -208,6 +199,18 @@ const oneColumnStoryModule = {
         });
     }
 };
+
+function applyLinkStyles(descriptionEditor) {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        const anchor = range.startContainer.parentElement;
+        if (anchor && anchor.tagName === 'A') {
+            anchor.style.color = '#ffffff';
+            anchor.setAttribute('target', '_blank');
+        }
+    }
+}
 
 moduleRegistry.register('oneColumnStory', oneColumnStoryModule);
 

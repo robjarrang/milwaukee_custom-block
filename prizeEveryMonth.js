@@ -201,16 +201,7 @@ const prizeEveryMonthModule = {
                 const url = prompt('Enter the URL');
                 if (url) {
                     document.execCommand('createLink', false, url);
-                    // Apply the style to the newly created link
-                    const selection = window.getSelection();
-                    if (selection.rangeCount > 0) {
-                        const range = selection.getRangeAt(0);
-                        const anchor = range.startContainer.parentElement;
-                        if (anchor && anchor.tagName === 'A') {
-                            anchor.style.color = '#ffffff';
-                            anchor.setAttribute('target', '_blank');
-                        }
-                    }
+                    applyLinkStyles(descriptionEditor);
                     handleFormFieldChange('prizeEveryMonth', 'description', descriptionEditor.innerHTML);
                 }
             });
@@ -231,6 +222,14 @@ const prizeEveryMonthModule = {
         });
     }
 };
+
+function applyLinkStyles(descriptionEditor) {
+    const links = descriptionEditor.querySelectorAll('a');
+    links.forEach(link => {
+        link.style.color = '#ffffff';
+        link.setAttribute('target', '_blank');
+    });
+}
 
 moduleRegistry.register('prizeEveryMonth', prizeEveryMonthModule);
 

@@ -196,20 +196,8 @@ const leadStoryModule = {
                 const url = prompt('Enter the URL');
                 if (url) {
                     document.execCommand('createLink', false, url);
-                    // Apply the desired styles to the new link
-                    const selection = window.getSelection();
-                    if (selection.rangeCount > 0) {
-                        const range = selection.getRangeAt(0);
-                        const anchor = range.startContainer.parentElement;
-                        if (anchor && anchor.tagName === 'A') {
-                            anchor.style.color = '#ffffff'; // Apply white color
-                            anchor.setAttribute('target', '_blank'); // Open link in new tab
-                        }
-                    }
-                    // Update the form field with the new HTML content
-                    if (leadDescriptionEditor) {
-                        handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
-                    }
+                    applyLinkStyles(leadDescriptionEditor);
+                    handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
                 }
             });
             newLinkButton.dataset.listenerAttached = 'true'; // Mark listener as attached
@@ -266,6 +254,13 @@ const leadStoryModule = {
         });
     }
 };
+
+function applyLinkStyles(editor) {
+    const links = editor.getElementsByTagName('a');
+    for (let link of links) {
+        link.style.color = '#ffffff';
+    }
+}
 
 moduleRegistry.register('leadStory', leadStoryModule);
 
