@@ -11,7 +11,7 @@ const prizeEveryMonthModule = {
             imageLink: 'https://www.milwaukeetool.eu/',
             logoUrl: 'https://files.jarrang.com/Milwaukee/zTemplate/images/images-assets/pem-logo.png',
             title: 'THIS MONTHS PRIZE: M18™ PROMO POWERPACK',
-            description: 'Your description here',
+            description: 'Enter into our draw to win one of our newest tools every month!',
             buttonText: 'Enter now',
             buttonLink: 'https://www.milwaukeetool.eu/',
             imagePosition: 'right'
@@ -51,10 +51,7 @@ const prizeEveryMonthModule = {
         const imageFirst = formData.imagePosition !== 'right';
         const sectionDir = imageFirst ? 'ltr' : 'rtl';
 
-        return `
-        <!-- START .prize-every-month -->
-        <div class="prize-every-month">
-            <p>${formData.description}</p>
+        html = `
         <!-- START .story-pem -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="imp content-outer story-1col banner" role="presentation" style="background-color: #DB021D; width: 620px;">
             <tr>
@@ -77,9 +74,10 @@ const prizeEveryMonthModule = {
             </a>
             <p>${formData.description}</p>
         </div>
-        </div>
-        <!-- END .prize-every-month -->
         `;
+
+        html = html.replace('{{description}}', formData.description || '');
+        return html;
     },
 
     getImageColumn(formData) {

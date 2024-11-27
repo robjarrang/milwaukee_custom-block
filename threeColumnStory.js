@@ -2,7 +2,7 @@ import moduleRegistry from './moduleRegistry.js';
 
 const threeColumnStoryModule = {
     setup() {
-        console.log('3 Column Story module setup');
+        console.log('Three Column Story module setup');
     },
 
     getPlaceholderData() {
@@ -10,19 +10,19 @@ const threeColumnStoryModule = {
             leftImageUrl: 'https://fakeimg.pl/180x180/dddddd/ffffff',
             leftImageLink: 'https://milwaukeetool.eu/',
             leftTitle: 'Title goes here',
-            leftDescription: 'Left description here',
+            leftDescription: 'Intro text goes here',
             leftButtonText: 'Button title',
             leftButtonLink: 'https://milwaukeetool.eu/',
             centerImageUrl: 'https://fakeimg.pl/180x180/dddddd/ffffff',
             centerImageLink: 'https://milwaukeetool.eu/',
             centerTitle: 'Title goes here',
-            centerDescription: 'Center description here',
+            centerDescription: 'Intro text goes here',
             centerButtonText: 'Button title',
             centerButtonLink: 'https://milwaukeetool.eu/',
             rightImageUrl: 'https://fakeimg.pl/180x180/dddddd/ffffff',
             rightImageLink: 'https://milwaukeetool.eu/',
             rightTitle: 'Title goes here',
-            rightDescription: 'Right description here',
+            rightDescription: 'Intro text goes here',
             rightButtonText: 'Button title',
             rightButtonLink: 'https://milwaukeetool.eu/',
             backgroundColor: 'red'
@@ -65,211 +65,40 @@ const threeColumnStoryModule = {
     },
 
     updateHtml(html, formData) {
-        console.log('Updating 3 Column Story HTML with form data:', formData);
+        console.log('Updating Three Column Story HTML with form data:', formData);
         if (!formData) {
             console.warn('Form data is undefined, using placeholder data');
             formData = this.getPlaceholderData();
         }
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
 
-        return `
-        <!-- START .three-column-story -->
-        <div class="three-column-story">
-            <div class="column left">
-                <p>${formData.leftDescription}</p>
-                <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                    <tr>
-                        <td>
-                            <div>
-                                <a href="${formData.leftImageLink}" target="_blank" style="color: #ffffff;">
-                                    <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.leftImageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="180">
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" style="padding-bottom: 8px; padding-top: 8px;">
-                            <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
-                                <tr>
-                                    <td>
-                                        <div style="clear: both; display: block; font-size: 4px; height: 4px; line-height: 4px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="mobile-text-center" style="text-align: left;">
-                                        <h3 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 28px; font-stretch: condensed; font-weight: bold; line-height: 32px; margin: 0; margin-bottom: 0; margin-top: 0; text-transform: uppercase;">
-                                            ${formData.leftTitle}
-                                        </h3>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div style="clear: both; display: block; font-size: 4px; height: 4px; line-height: 4px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
-                                        ${formData.leftDescription}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div style="clear: both; display: block; font-size: 16px; height: 16px; line-height: 16px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table align="left" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                                            <tr>
-                                                <td align="left" class="block" style="width: 100%;" valign="top">
-                                                    <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px; mso-text-raise: 6px;">
-                                                        <tr>
-                                                            <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%;">
-                                                                <a href="${formData.leftButtonLink}" style="color: #ffffff; text-decoration: none;" target="_blank">${formData.leftButtonText}</a>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="column center">
-                <p>${formData.centerDescription}</p>
-                <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                    <tr>
-                        <td>
-                            <div>
-                                <a href="${formData.centerImageLink}" target="_blank" style="color: #ffffff;">
-                                    <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.centerImageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="180">
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" style="padding-bottom: 8px; padding-top: 8px;">
-                            <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
-                                <tr>
-                                    <td>
-                                        <div style="clear: both; display: block; font-size: 4px; height: 4px; line-height: 4px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="mobile-text-center" style="text-align: left;">
-                                        <h3 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 28px; font-stretch: condensed; font-weight: bold; line-height: 32px; margin: 0; margin-bottom: 0; margin-top: 0; text-transform: uppercase;">
-                                            ${formData.centerTitle}
-                                        </h3>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div style="clear: both; display: block; font-size: 4px; height: 4px; line-height: 4px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
-                                        ${formData.centerDescription}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div style="clear: both; display: block; font-size: 16px; height: 16px; line-height: 16px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table align="left" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                                            <tr>
-                                                <td align="left" class="block" style="width: 100%;" valign="top">
-                                                    <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px; mso-text-raise: 6px;">
-                                                        <tr>
-                                                            <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%;">
-                                                                <a href="${formData.centerButtonLink}" style="color: #ffffff; text-decoration: none;" target="_blank">${formData.centerButtonText}</a>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="column right">
-                <p>${formData.rightDescription}</p>
-                <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                    <tr>
-                        <td>
-                            <div>
-                                <a href="${formData.rightImageLink}" target="_blank" style="color: #ffffff;">
-                                    <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.rightImageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="180">
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" style="padding-bottom: 8px; padding-top: 8px;">
-                            <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
-                                <tr>
-                                    <td>
-                                        <div style="clear: both; display: block; font-size: 4px; height: 4px; line-height: 4px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="mobile-text-center" style="text-align: left;">
-                                        <h3 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 28px; font-stretch: condensed; font-weight: bold; line-height: 32px; margin: 0; margin-bottom: 0; margin-top: 0; text-transform: uppercase;">
-                                            ${formData.rightTitle}
-                                        </h3>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div style="clear: both; display: block; font-size: 4px; height: 4px; line-height: 4px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
-                                        ${formData.rightDescription}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div style="clear: both; display: block; font-size: 16px; height: 16px; line-height: 16px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table align="left" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                                            <tr>
-                                                <td align="left" class="block" style="width: 100%;" valign="top">
-                                                    <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px; mso-text-raise: 6px;">
-                                                        <tr>
-                                                            <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%;">
-                                                                <a href="${formData.rightButtonLink}" style="color: #ffffff; text-decoration: none;" target="_blank">${formData.rightButtonText}</a>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <!-- END .three-column-story -->
+        html = `
+        <!-- START .story-3col -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
+            <tr>
+                <td class="side" style="width: 20px;">&nbsp;</td>
+                <td align="center" class="content-inner" style="width: 580px;" valign="top">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                        <tr>
+                            ${this.getColumnHtml(formData, 'left')}
+                            <td class="gap block" style="width: 20px;">&nbsp;</td>
+                            ${this.getColumnHtml(formData, 'center')}
+                            <td class="gap block" style="width: 20px;">&nbsp;</td>
+                            ${this.getColumnHtml(formData, 'right')}
+                        </tr>
+                    </table>
+                </td>
+                <td class="side" style="width: 20px;">&nbsp;</td>
+            </tr>
+        </table>
+        <!-- END .story-3col -->
         `;
+
+        html = html.replace('{{leftDescription}}', formData.leftDescription || '');
+        html = html.replace('{{centerDescription}}', formData.centerDescription || '');
+        html = html.replace('{{rightDescription}}', formData.rightDescription || '');
+
+        return html;
     },
 
     getColumnHtml(formData, position) {
@@ -370,6 +199,10 @@ const threeColumnStoryModule = {
                 console.warn(`Radio button for background color not found`);
             }
         });
+
+        document.getElementById('threeColumnLeftDescription').innerHTML = formData.leftDescription || '';
+        document.getElementById('threeColumnCenterDescription').innerHTML = formData.centerDescription || '';
+        document.getElementById('threeColumnRightDescription').innerHTML = formData.rightDescription || '';
     },
 
     setupEventListeners(handleFormFieldChange) {
