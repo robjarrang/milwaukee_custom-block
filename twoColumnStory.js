@@ -292,6 +292,39 @@ const twoColumnStoryModule = {
                 }
             });
         });
+
+        const twoColumnLeftDescriptionEditor = document.getElementById('twoColumnLeftDescription');
+        const twoColumnRightDescriptionEditor = document.getElementById('twoColumnRightDescription');
+        // Implement link editing/removing similar to leadStory for both descriptions
+        [twoColumnLeftDescriptionEditor, twoColumnRightDescriptionEditor].forEach(editor => {
+            if (editor) {
+                const moduleId = editor.id === 'twoColumnLeftDescription' ? 'twoColumnLeft' : 'twoColumnRight';
+                const linkButton = document.querySelector(`#${moduleId}StoryModule .rich-text-toolbar button[data-command="link"]`);
+                if (linkButton) {
+                    // Remove existing listeners to prevent duplicates
+                    linkButton.replaceWith(linkButton.cloneNode(true));
+                    const newLinkButton = document.querySelector(`#${moduleId}StoryModule .rich-text-toolbar button[data-command="link"]`);
+                    newLinkButton.addEventListener('click', function() {
+                        const url = prompt('Enter the URL');
+                        if (url) {
+                            document.execCommand('createLink', false, url);
+                            // Apply the style to the newly created link
+                            const selection = window.getSelection();
+                            if (selection.rangeCount > 0) {
+                                const range = selection.getRangeAt(0);
+                                const anchor = range.startContainer.parentElement;
+                                if (anchor && anchor.tagName === 'A') {
+                                    anchor.style.color = '#ffffff';
+                                    anchor.setAttribute('target', '_blank');
+                                }
+                            }
+                            const key = editor.id === 'twoColumnLeftDescription' ? 'twoColumnLeftDescription' : 'twoColumnRightDescription';
+                            handleFormFieldChange('twoColumnStory', key, editor.innerHTML);
+                        }
+                    });
+                }
+            }
+        });
     }
 };
 
