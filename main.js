@@ -268,19 +268,16 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
     }
 
     function setupRichTextEditors() {
-        const editors = document.querySelectorAll('.rich-text-editor');
-        editors.forEach(editor => {
-            const toolbar = editor.previousElementSibling;
-            if (toolbar && toolbar.classList.contains('rich-text-toolbar')) {
-                toolbar.addEventListener('click', handleToolbarClick);
-            }
-            editor.addEventListener('input', handleEditorInput);
-            editor.addEventListener('paste', handlePaste);
-        });
-
         const editorContainers = document.querySelectorAll('.editor-container');
         editorContainers.forEach((container) => {
             const editor = container.querySelector('.rich-text-editor');
+
+            // Check if event listeners have already been attached
+            if (editor.dataset.listenersInitialized === 'true') {
+                return; // Skip if already initialized
+            }
+            editor.dataset.listenersInitialized = 'true';
+
             const toolbarButtons = container.querySelectorAll('.rich-text-toolbar button');
 
             // Set up event listeners for the editor
