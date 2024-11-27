@@ -306,14 +306,10 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
     }
 
     function applyLinkStyles(editor) {
-        const selection = window.getSelection();
-        if (selection.rangeCount > 0) {
-            const range = selection.getRangeAt(0);
-            const anchor = range.startContainer.parentElement;
-            if (anchor && anchor.tagName === 'A') {
-                anchor.style.color = '#ffffff';
-                anchor.setAttribute('target', '_blank');
-            }
+        const links = editor.getElementsByTagName('a');
+        for (let link of links) {
+            link.style.color = '#ffffff';
+            link.setAttribute('target', '_blank');
         }
     }
 
