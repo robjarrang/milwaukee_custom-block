@@ -15,7 +15,7 @@ import galleryModule from './gallery.js';
 import checklistModule from './checklist.js';
 
 import { getState, updateFormData, updateFullHtml, setInitialState, getFullHtml, resetFullHtml } from './centralDataStore.js';
-import { debounce, logAction, logError, logWarning } from './utils.js';
+import { debounce, logAction, logError, logWarning, applyLinkStyles } from './utils.js';
 
 (function() {
     let sdk;
@@ -291,10 +291,11 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
                     const url = prompt('Enter the URL');
                     if (url) {
                         document.execCommand('createLink', false, url);
-                        applyLinkStyles(editor);
+                        applyLinkStyles(editor); // Use centralized function
                     }
                 } else if (command === 'unlink') {
                     document.execCommand('unlink', false, null);
+                    applyLinkStyles(editor); // Use centralized function
                 }
                 return;
             }
@@ -302,14 +303,6 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
             // Existing command handling
             document.execCommand(command, false, null);
             editor.focus();
-        }
-    }
-
-    function applyLinkStyles(editor) {
-        const links = editor.getElementsByTagName('a');
-        for (let link of links) {
-            link.style.color = '#ffffff';
-            link.setAttribute('target', '_blank');
         }
     }
 

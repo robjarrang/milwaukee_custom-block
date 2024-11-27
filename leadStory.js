@@ -215,7 +215,6 @@ const leadStoryModule = {
                         const newUrl = prompt('Enter the new URL', anchor.getAttribute('href'));
                         if (newUrl !== null) {
                             anchor.setAttribute('href', newUrl);
-                            applyLinkStyles(leadDescriptionEditor);
                             handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
                         }
                     } else {
@@ -255,13 +254,6 @@ const leadStoryModule = {
         });
     }
 };
-
-function applyLinkStyles(editor) {
-    const links = editor.getElementsByTagName('a');
-    for (let link of links) {
-        link.style.color = '#ffffff';
-    }
-}
 
 moduleRegistry.register('leadStory', leadStoryModule);
 

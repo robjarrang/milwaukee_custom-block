@@ -223,14 +223,6 @@ const prizeEveryMonthModule = {
     }
 };
 
-function applyLinkStyles(descriptionEditor) {
-    const links = descriptionEditor.querySelectorAll('a');
-    links.forEach(link => {
-        link.style.color = '#ffffff';
-        link.setAttribute('target', '_blank');
-    });
-}
-
 moduleRegistry.register('prizeEveryMonth', prizeEveryMonthModule);
 
 export default prizeEveryMonthModule;
