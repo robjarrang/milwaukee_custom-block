@@ -94,9 +94,20 @@ const threeColumnStoryModule = {
         <!-- END .story-3col -->
         `;
 
-        html = html.replace('{{leftDescription}}', formData.leftDescription || '');
-        html = html.replace('{{centerDescription}}', formData.centerDescription || '');
-        html = html.replace('{{rightDescription}}', formData.rightDescription || '');
+        const placeholderMap = {
+            '{{leftDescription}}': formData.leftDescription || '',
+            '{{leftTitle}}': formData.leftTitle || '',
+            '{{centerDescription}}': formData.centerDescription || '',
+            '{{centerTitle}}': formData.centerTitle || '',
+            '{{rightDescription}}': formData.rightDescription || '',
+            '{{rightTitle}}': formData.rightTitle || '',
+            // Add other placeholders as needed
+        };
+
+        Object.keys(placeholderMap).forEach((placeholder) => {
+            const value = placeholderMap[placeholder];
+            html = html.split(placeholder).join(value);
+        });
 
         return html;
     },
