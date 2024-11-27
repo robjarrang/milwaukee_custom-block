@@ -268,72 +268,14 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
     }
 
     function setupRichTextEditors() {
-        // Initialize rich text editors for all description fields
-        const descriptionFields = document.querySelectorAll('.rich-text-editor');
-        descriptionFields.forEach(editor => {
+        const editors = document.querySelectorAll('.rich-text-editor');
+        editors.forEach(editor => {
             const toolbar = editor.previousElementSibling;
-            setupEditorToolbar(editor, toolbar);
-        });
-    }
-
-    function setupEditorToolbar(editor, toolbar) {
-        toolbar.querySelector('[data-command="createLink"]').addEventListener('click', () => {
-            createLink(editor);
-        });
-
-        toolbar.querySelector('[data-command="editLink"]').addEventListener('click', () => {
-            editLink(editor);
-        });
-
-        toolbar.querySelector('[data-command="unlink"]').addEventListener('click', () => {
-            unlink(editor);
-        });
-
-        // Add other toolbar button listeners as needed
-    }
-
-    function createLink(editor) {
-        if (editor.dataset.linkEditing) return; // Prevent multiple popups
-        editor.dataset.linkEditing = true;
-        const url = prompt('Enter the URL for the link:');
-        if (url) {
-            document.execCommand('createLink', false, url);
-            addLinkStyle(editor);
-        }
-        editor.dataset.linkEditing = false;
-    }
-
-    function editLink(editor) {
-        if (editor.dataset.linkEditing) return; // Prevent multiple popups
-        editor.dataset.linkEditing = true;
-        const selection = window.getSelection();
-        if (selection.rangeCount > 0) {
-            const anchorNode = selection.anchorNode;
-            const link = anchorNode.parentElement.closest('a');
-            if (link) {
-                const url = prompt('Edit the URL for the link:', link.getAttribute('href'));
-                if (url) {
-                    link.setAttribute('href', url);
-                    link.style.color = '#ffffff';
-                }
-            } else {
-                alert('Please select a link to edit.');
+            if (toolbar && toolbar.classList.contains('rich-text-toolbar')) {
+                toolbar.addEventListener('click', handleToolbarClick);
             }
-        }
-        editor.dataset.linkEditing = false;
-    }
-
-    function unlink(editor) {
-        if (editor.dataset.linkEditing) return; // Prevent multiple popups
-        editor.dataset.linkEditing = true;
-        document.execCommand('unlink', false, null);
-        editor.dataset.linkEditing = false;
-    }
-
-    function addLinkStyle(editor) {
-        const links = editor.querySelectorAll('a');
-        links.forEach(link => {
-            link.style.color = '#ffffff';
+            editor.addEventListener('input', handleEditorInput);
+            editor.addEventListener('paste', handlePaste);
         });
     }
 

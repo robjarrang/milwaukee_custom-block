@@ -2,24 +2,24 @@ import moduleRegistry from './moduleRegistry.js';
 
 const twoColumnStoryModule = {
     setup() {
-        console.log('2 Column Story module setup');
+        console.log('Two Column Story module setup');
     },
 
     getPlaceholderData() {
         return {
-            leftImageUrl: 'https://fakeimg.pl/290x290/dddddd/ffffff',
+            leftImageUrl: 'https://fakeimg.pl/280x200/dddddd/ffffff',
             leftImageLink: 'https://milwaukeetool.eu/',
-            leftTitle: 'Left Column Title',
-            leftDescription: 'Description for the left column.',
-            leftButtonText: 'Left Button',
-            leftButtonLink: 'https://milwaukeetool.eu/left',
-            rightImageUrl: 'https://fakeimg.pl/290x290/dddddd/ffffff',
+            leftTitle: 'Pellentesque habitant',
+            leftDescription: 'Sed vitae aliquet neque.',
+            leftButtonText: 'Button title',
+            leftButtonLink: 'https://milwaukeetool.eu/',
+            rightImageUrl: 'https://fakeimg.pl/280x200/dddddd/ffffff',
             rightImageLink: 'https://milwaukeetool.eu/',
-            rightTitle: 'Right Column Title',
-            rightDescription: 'Description for the right column.',
-            rightButtonText: 'Right Button',
-            rightButtonLink: 'https://milwaukeetool.eu/right',
-            backgroundColor: 'black'
+            rightTitle: 'Pellentesque habitant',
+            rightDescription: 'Morbi id risus eleifend, viverra.',
+            rightButtonText: 'Button title',
+            rightButtonLink: 'https://milwaukeetool.eu/',
+            backgroundColor: 'red'
         };
     },
 
@@ -53,7 +53,7 @@ const twoColumnStoryModule = {
     },
 
     updateHtml(html, formData) {
-        console.log('Updating 2 Column Story HTML with form data:', formData);
+        console.log('Updating Two Column Story HTML with form data:', formData);
         if (!formData) {
             console.warn('Form data is undefined, using placeholder data');
             formData = this.getPlaceholderData();
@@ -61,151 +61,31 @@ const twoColumnStoryModule = {
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
         const titleBgImage = formData.backgroundColor === 'red' ? 'title-bg.jpg' : 'title-bg-red.jpg';
 
+        // Add style to links in left and right descriptions
         return `
-        <!-- START .two-column-left-image -->
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #123456; width: 300px;">
-            <tr>
-                <td align="center" class="content-inner" style="width: 280px;" valign="top">
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                        <tr>
-                            <td align="center" class="block" style="width: 100%;" valign="top">
-                                <div>
-                                    <a href="${formData.leftImageLink || '#'}" target="_blank" style="color: #ffffff;">
-                                        <img align="top" alt="Left Column" class="fill no-hover" src="${formData.leftImageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <!-- END .two-column-left-image -->
-        <!-- START .two-column-left-description -->
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #123456; width: 300px;">
+        <!-- START .story-2col -->
+        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
             <tr>
                 <td class="side" style="width: 20px;">&nbsp;</td>
-                <td align="center" class="content-inner" style="width: 260px;">
+                <td align="center" class="content-inner" style="width: 580px;" valign="top">
                     <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                         <tr>
-                            <td align="left" class="block" style="width: 100%;">
-                                <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
-                                    <tr>
-                                        <td>
-                                            <div style="clear: both; display: block; font-size: 32px; height: 32px; line-height: 32px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
-                                            ${formData.leftDescription}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div style="clear: both; display: block; font-size: 32px; height: 32px; line-height: 32px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                        </td>
-                                    </tr>
-                                    ${formData.leftButtonText ? `
-                                    <tr>
-                                        <td>
-                                            <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                                                <tr>
-                                                    <td align="center" class="block" style="width: 100%;" valign="middle">
-                                                        <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px;">
-                                                            <tr>
-                                                                <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%; mso-text-raise: 6px;">
-                                                                    <a href="${formData.leftButtonLink}" style="color: #ffffff; text-decoration: none;" target="_blank">${formData.leftButtonText}</a>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    ` : ''}
-                                </table>
-                            </td>
+                            ${this.getColumnHtml(formData, 'left', titleBgImage)}
+                            <td class="gap block" style="width: 20px;">&nbsp;</td>
+                            ${this.getColumnHtml(formData, 'right', titleBgImage)}
                         </tr>
                     </table>
                 </td>
                 <td class="side" style="width: 20px;">&nbsp;</td>
             </tr>
         </table>
-        <!-- END .two-column-left-description -->
-
-        <!-- Repeat similar blocks for Right Column -->
-        <!-- START .two-column-right-image -->
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #123456; width: 300px;">
-            <tr>
-                <td align="center" class="content-inner" style="width: 280px;" valign="top">
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                        <tr>
-                            <td align="center" class="block" style="width: 100%;" valign="top">
-                                <div>
-                                    <a href="${formData.rightImageLink || '#'}" target="_blank" style="color: #ffffff;">
-                                        <img align="top" alt="Right Column" class="fill no-hover" src="${formData.rightImageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <!-- END .two-column-right-image -->
-        <!-- START .two-column-right-description -->
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #123456; width: 300px;">
-            <tr>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-                <td align="center" class="content-inner" style="width: 260px;">
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                        <tr>
-                            <td align="left" class="block" style="width: 100%;">
-                                <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
-                                    <tr>
-                                        <td>
-                                            <div style="clear: both; display: block; font-size: 32px; height: 32px; line-height: 32px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
-                                            ${formData.rightDescription}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div style="clear: both; display: block; font-size: 32px; height: 32px; line-height: 32px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                        </td>
-                                    </tr>
-                                    ${formData.rightButtonText ? `
-                                    <tr>
-                                        <td>
-                                            <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                                                <tr>
-                                                    <td align="center" class="block" style="width: 100%;" valign="middle">
-                                                        <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px;">
-                                                            <tr>
-                                                                <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%; mso-text-raise: 6px;">
-                                                                    <a href="${formData.rightButtonLink}" style="color: #ffffff; text-decoration: none;" target="_blank">${formData.rightButtonText}</a>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    ` : ''}
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-            </tr>
-        </table>
-        <!-- END .two-column-right-description -->
+        <!-- END .story-2col -->
+        <div>
+            <!-- Left Column -->
+            <a href="${formData.leftButtonLink}" style="color: #ffffff;" target="_blank">${formData.leftButtonText}</a>
+            <!-- Right Column -->
+            <a href="${formData.rightButtonLink}" style="color: #ffffff;" target="_blank">${formData.rightButtonText}</a>
+        </div>
         `;
     },
 
@@ -289,29 +169,36 @@ const twoColumnStoryModule = {
     },
 
     populateForm(formData) {
-        console.log('Populating 2 Column Story form with data:', formData);
-        
-        const setValueIfExists = (id, value) => {
-            const element = document.getElementById(id);
-            if (element) {
-                element.value = value || '';
+        console.log('Populating Two Column Story form with data:', formData);
+        ['left', 'right'].forEach(side => {
+            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
+                const id = `twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}${field}`;
+                const element = document.getElementById(id);
+                if (element) {
+                    element.value = formData[side + field] || '';
+                } else {
+                    console.warn(`Element with id ${id} not found`);
+                }
+            });
+            
+            // Handle rich text editor for description
+            const descriptionId = `twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}Description`;
+            const descriptionElement = document.getElementById(descriptionId);
+            if (descriptionElement) {
+                descriptionElement.innerHTML = formData[side + 'Description'] || '';
             } else {
-                console.warn(`Element with id ${id} not found`);
+                console.warn(`Rich text editor with id ${descriptionId} not found`);
             }
-        };
-
-        setValueIfExists('twoColumnLeftImageUrl', formData.leftImageUrl);
-        setValueIfExists('twoColumnLeftImageLink', formData.leftImageLink);
-        setValueIfExists('twoColumnLeftTitle', formData.leftTitle);
-        setValueIfExists('twoColumnLeftDescription', formData.leftDescription);
-        setValueIfExists('twoColumnLeftButtonText', formData.leftButtonText);
-        setValueIfExists('twoColumnLeftButtonLink', formData.leftButtonLink);
-        setValueIfExists('twoColumnRightImageUrl', formData.rightImageUrl);
-        setValueIfExists('twoColumnRightImageLink', formData.rightImageLink);
-        setValueIfExists('twoColumnRightTitle', formData.rightTitle);
-        setValueIfExists('twoColumnRightDescription', formData.rightDescription);
-        setValueIfExists('twoColumnRightButtonText', formData.rightButtonText);
-        setValueIfExists('twoColumnRightButtonLink', formData.rightButtonLink);
+        });
+        
+        const backgroundColorRadios = document.querySelectorAll('input[name="twoColumnBackgroundColor"]');
+        backgroundColorRadios.forEach(radio => {
+            if (radio) {
+                radio.checked = radio.value === formData.backgroundColor;
+            } else {
+                console.warn(`Radio button for background color not found`);
+            }
+        });
     },
 
     setupEventListeners(handleFormFieldChange) {
