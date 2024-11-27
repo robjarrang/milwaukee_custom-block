@@ -292,6 +292,26 @@ const twoColumnStoryModule = {
                 handleFormFieldChange('twoColumnStory', field.id, field.innerHTML);
             });
         });
+
+        const linkButtons = document.querySelectorAll('#twoColumnStoryModule .rich-text-toolbar button[data-command="createLink"]');
+        linkButtons.forEach(button => {
+            // Remove existing listeners to prevent duplicates
+            button.replaceWith(button.cloneNode(true));
+        });
+
+        const updatedLinkButtons = document.querySelectorAll('#twoColumnStoryModule .rich-text-toolbar button[data-command="createLink"]');
+        updatedLinkButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const url = prompt('Enter the URL');
+                if (url) {
+                    document.execCommand('createLink', false, url);
+                    applyLinkStyles(leftDescriptionEditor);
+                    applyLinkStyles(rightDescriptionEditor);
+                    handleFormFieldChange('twoColumnStory', 'leftDescription', leftDescriptionEditor.innerHTML);
+                    handleFormFieldChange('twoColumnStory', 'rightDescription', rightDescriptionEditor.innerHTML);
+                }
+            });
+        });
     }
 };
 

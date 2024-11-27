@@ -215,6 +215,7 @@ const leadStoryModule = {
                         const newUrl = prompt('Enter the new URL', anchor.getAttribute('href'));
                         if (newUrl !== null) {
                             anchor.setAttribute('href', newUrl);
+                            applyLinkStyles(leadDescriptionEditor);
                             handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
                         }
                     } else {
