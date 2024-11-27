@@ -2,7 +2,7 @@ import moduleRegistry from './moduleRegistry.js';
 
 const twoColumnStoryModule = {
     setup() {
-        console.log('Two Column Story module setup');
+        console.log('2 Column Story module setup');
     },
 
     getPlaceholderData() {
@@ -10,13 +10,13 @@ const twoColumnStoryModule = {
             leftImageUrl: 'https://fakeimg.pl/280x200/dddddd/ffffff',
             leftImageLink: 'https://milwaukeetool.eu/',
             leftTitle: 'Pellentesque habitant',
-            leftDescription: 'Sed vitae aliquet neque.',
+            leftDescription: 'Left description here',
             leftButtonText: 'Button title',
             leftButtonLink: 'https://milwaukeetool.eu/',
             rightImageUrl: 'https://fakeimg.pl/280x200/dddddd/ffffff',
             rightImageLink: 'https://milwaukeetool.eu/',
             rightTitle: 'Pellentesque habitant',
-            rightDescription: 'Morbi id risus eleifend, viverra.',
+            rightDescription: 'Right description here',
             rightButtonText: 'Button title',
             rightButtonLink: 'https://milwaukeetool.eu/',
             backgroundColor: 'red'
@@ -53,7 +53,7 @@ const twoColumnStoryModule = {
     },
 
     updateHtml(html, formData) {
-        console.log('Updating Two Column Story HTML with form data:', formData);
+        console.log('Updating 2 Column Story HTML with form data:', formData);
         if (!formData) {
             console.warn('Form data is undefined, using placeholder data');
             formData = this.getPlaceholderData();
@@ -62,23 +62,18 @@ const twoColumnStoryModule = {
         const titleBgImage = formData.backgroundColor === 'red' ? 'title-bg.jpg' : 'title-bg-red.jpg';
 
         return `
-        <!-- START .story-2col -->
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
-            <tr>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-                <td align="center" class="content-inner" style="width: 580px;" valign="top">
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                        <tr>
-                            ${this.getColumnHtml(formData, 'left', titleBgImage)}
-                            <td class="gap block" style="width: 20px;">&nbsp;</td>
-                            ${this.getColumnHtml(formData, 'right', titleBgImage)}
-                        </tr>
-                    </table>
-                </td>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-            </tr>
-        </table>
-        <!-- END .story-2col -->
+        <!-- START .two-column-story -->
+        <div class="two-column-story">
+            <div class="column left">
+                <p>${formData.leftDescription}</p>
+                <!-- ...existing code... -->
+            </div>
+            <div class="column right">
+                <p>${formData.rightDescription}</p>
+                <!-- ...existing code... -->
+            </div>
+        </div>
+        <!-- END .two-column-story -->
         `;
     },
 

@@ -2,7 +2,7 @@ import moduleRegistry from './moduleRegistry.js';
 
 const oneColumnStoryModule = {
     setup() {
-        console.log('1 Column Story (Small) module setup');
+        console.log('1 Column Story module setup');
     },
 
     getPlaceholderData() {
@@ -10,7 +10,7 @@ const oneColumnStoryModule = {
             imageUrl: 'https://fakeimg.pl/290x200/dddddd/ffffff',
             imageLink: 'https://milwaukeetool.eu/',
             title: 'Tempus euismod phasellus',
-            description: 'Vestibulum condimentum tempus euismod. Phasellus ligula nibh, ornare at ligula a.',
+            description: 'Your description here',
             buttonText: 'Button title',
             buttonLink: 'https://milwaukeetool.eu/',
             backgroundColor: 'red',
@@ -28,20 +28,25 @@ const oneColumnStoryModule = {
         const imageFirst = formData.imagePosition === 'left';
 
         return `
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
-            <tr>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-                <td align="center" class="content-inner" style="width: 580px;" valign="middle">
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                        <tr>
-                            ${imageFirst ? this.getImageColumn(formData) : this.getContentColumn(formData)}
-                            ${imageFirst ? this.getContentColumn(formData) : this.getImageColumn(formData)}
-                        </tr>
-                    </table>
-                </td>
-                <td class="side" style="width: 20px;">&nbsp;</td>
-            </tr>
-        </table>
+        <!-- START .one-column-story -->
+        <div class="one-column-story">
+            <p>${formData.description}</p>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
+                <tr>
+                    <td class="side" style="width: 20px;">&nbsp;</td>
+                    <td align="center" class="content-inner" style="width: 580px;" valign="middle">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                            <tr>
+                                ${imageFirst ? this.getImageColumn(formData) : this.getContentColumn(formData)}
+                                ${imageFirst ? this.getContentColumn(formData) : this.getImageColumn(formData)}
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="side" style="width: 20px;">&nbsp;</td>
+                </tr>
+            </table>
+        </div>
+        <!-- END .one-column-story -->
         `;
     },
 
