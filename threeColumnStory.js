@@ -309,12 +309,12 @@ const threeColumnStoryModule = {
         // Implement link editing/removing similar to leadStory for all three descriptions
         [threeColumnLeftDescriptionEditor, threeColumnCenterDescriptionEditor, threeColumnRightDescriptionEditor].forEach(editor => {
             if (editor) {
-                const moduleId = editor.id.replace('Description', '');
-                const linkButton = document.querySelector(`#${moduleId}StoryModule .rich-text-toolbar button[data-command="link"]`);
+                // Corrected moduleId to match existing module container
+                const linkButton = document.querySelector(`#threeColumnStoryModule .rich-text-toolbar button[data-command="link"]`);
                 if (linkButton) {
                     // Remove existing listeners to prevent duplicates
                     linkButton.replaceWith(linkButton.cloneNode(true));
-                    const newLinkButton = document.querySelector(`#${moduleId}StoryModule .rich-text-toolbar button[data-command="link"]`);
+                    const newLinkButton = document.querySelector(`#threeColumnStoryModule .rich-text-toolbar button[data-command="link"]`);
                     newLinkButton.addEventListener('click', function() {
                         const url = prompt('Enter the URL');
                         if (url) {
@@ -329,7 +329,7 @@ const threeColumnStoryModule = {
                                     anchor.setAttribute('target', '_blank');
                                 }
                             }
-                            const key = editor.id;
+                            const key = editor.id.replace('Description', '');
                             handleFormFieldChange('threeColumnStory', key, editor.innerHTML);
                         }
                     });
