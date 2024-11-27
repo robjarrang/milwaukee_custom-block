@@ -301,6 +301,15 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
             const url = prompt('Enter the URL');
             if (url) {
                 document.execCommand('createLink', false, url);
+                // Add the required attributes to the new link
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    const linkElement = selection.anchorNode.parentElement;
+                    if (linkElement && linkElement.tagName === 'A') {
+                        linkElement.setAttribute('style', 'color: #ffffff;');
+                        linkElement.setAttribute('target', '_blank');
+                    }
+                }
             }
         } else if (command === 'editLink') {
             const selection = window.getSelection();
@@ -311,6 +320,9 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
                     const newUrl = prompt('Edit the URL', linkNode.getAttribute('href'));
                     if (newUrl) {
                         linkNode.setAttribute('href', newUrl);
+                        // Ensure the required attributes are present
+                        linkNode.setAttribute('style', 'color: #ffffff;');
+                        linkNode.setAttribute('target', '_blank');
                     }
                 } else {
                     alert('Please select a link to edit.');
