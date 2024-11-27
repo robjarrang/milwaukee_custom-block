@@ -277,29 +277,62 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
             editor.addEventListener('input', handleEditorInput);
             editor.addEventListener('paste', handlePaste);
         });
+
+        const editorContainers = document.querySelectorAll('.editor-container');
+        editorContainers.forEach((container) => {
+            const editor = container.querySelector('.rich-text-editor');
+            const toolbarButtons = container.querySelectorAll('.rich-text-toolbar button');
+
+            // Set up event listeners for the editor
+            editor.addEventListener('input', handleEditorInput);
+            editor.addEventListener('paste', handlePaste);
+
+            // Set up event listeners for the toolbar buttons
+            toolbarButtons.forEach((button) => {
+                button.addEventListener('click', function(event) {
+                    handleToolbarClick(event, editor);
+                });
+            });
+        });
     }
 
-    function handleToolbarClick(event) {
-        if (event.target.tagName === 'BUTTON') {
-            event.preventDefault();
-            const command = event.target.getAttribute('data-command');
-            const editor = event.target.closest('.editor-container').querySelector('.rich-text-editor');
-            
-            if (command === 'editLink' || command === 'unlink' || command === 'createLink') {
-                // Custom handling is managed in leadStory.js
-                return;
+    function handleToolbarClick(event, editor) {
+        event.preventDefault();
+        const command = event.target.getAttribute('data-command');
+
+        if (command === 'createLink') {
+            const url = prompt('Enter the URL');
+            if (url) {
+                document.execCommand('createLink', false, url);
             }
-
-            // Existing command handling
+        } else if (command === 'editLink') {
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                const linkNode = range.startContainer.parentNode.closest('a');
+                if (linkNode) {
+                    const newUrl = prompt('Edit the URL', linkNode.getAttribute('href'));
+                    if (newUrl) {
+                        linkNode.setAttribute('href', newUrl);
+                    }
+                } else {
+                    alert('Please select a link to edit.');
+                }
+            }
+        } else if (command === 'unlink') {
+            document.execCommand('unlink', false, null);
+        } else {
             document.execCommand(command, false, null);
-            editor.focus();
         }
+        editor.focus();
     }
-    
+
     function handleEditorInput(event) {
         const editor = event.target;
-        const moduleType = editor.closest('[id$="Module"]').id.replace('Module', '');
+        const moduleElement = editor.closest('[id$="Module"]');
+        const moduleType = moduleElement ? moduleElement.id.replace('Module', '') : '';
         const fieldName = editor.id;
+
         handleFormFieldChange(moduleType, fieldName, editor.innerHTML);
     }
 
