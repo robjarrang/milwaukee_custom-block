@@ -268,7 +268,7 @@ const twoColumnStoryModule = {
         updatedLinkButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const url = prompt('Enter the URL');
-                if (url) {
+                if (url && url.startsWith('https://')) {
                     document.execCommand('createLink', false, url);
                     // Apply styles to the newly created link
                     const selection = window.getSelection();
@@ -282,6 +282,8 @@ const twoColumnStoryModule = {
                     }
                     handleFormFieldChange('twoColumnStory', 'leftDescription', leftDescriptionEditor.innerHTML);
                     handleFormFieldChange('twoColumnStory', 'rightDescription', rightDescriptionEditor.innerHTML);
+                } else {
+                    alert('Please enter a valid URL that starts with https://');
                 }
             });
         });
@@ -302,10 +304,12 @@ const twoColumnStoryModule = {
                     const anchor = range.startContainer.parentElement;
                     if (anchor && anchor.tagName === 'A') {
                         const url = prompt('Edit the URL', anchor.href);
-                        if (url) {
+                        if (url && url.startsWith('https://')) {
                             anchor.href = url;
                             handleFormFieldChange('twoColumnStory', 'leftDescription', leftDescriptionEditor.innerHTML);
                             handleFormFieldChange('twoColumnStory', 'rightDescription', rightDescriptionEditor.innerHTML);
+                        } else {
+                            alert('Please enter a valid URL that starts with https://');
                         }
                     }
                 }

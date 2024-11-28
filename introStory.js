@@ -175,7 +175,7 @@ const introStoryModule = {
             const newLinkButton = document.querySelector('#introStoryModule .rich-text-toolbar button[data-command="link"]');
             newLinkButton.addEventListener('click', function() {
                 const url = prompt('Enter the URL');
-                if (url) {
+                if (url && url.startsWith('https://')) {
                     document.execCommand('createLink', false, url);
                     // Apply the style to the newly created link
                     const selection = window.getSelection();
@@ -188,6 +188,8 @@ const introStoryModule = {
                         }
                     }
                     handleFormFieldChange('introStory', 'description', descriptionEditor.innerHTML);
+                } else {
+                    alert('Please enter a valid URL that starts with https://');
                 }
             });
         }
@@ -204,9 +206,11 @@ const introStoryModule = {
                     const anchor = range.startContainer.parentElement;
                     if (anchor && anchor.tagName === 'A') {
                         const url = prompt('Edit the URL', anchor.href);
-                        if (url) {
+                        if (url && url.startsWith('https://')) {
                             anchor.href = url;
                             handleFormFieldChange('introStory', 'description', descriptionEditor.innerHTML);
+                        } else {
+                            alert('Please enter a valid URL that starts with https://');
                         }
                     }
                 }
