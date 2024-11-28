@@ -265,6 +265,17 @@ const prizeEveryMonthModule = {
                 handleFormFieldChange('prizeEveryMonth', 'imagePosition', event.target.value);
             });
         });
+
+        const titleEditor = document.getElementById('pemTitle');
+        if (titleEditor) {
+            const titleSuperscriptButton = document.querySelector('#prizeEveryMonthModule .rich-text-toolbar button[data-command="superscript"]');
+            if (titleSuperscriptButton) {
+                titleSuperscriptButton.addEventListener('click', function() {
+                    document.execCommand('superscript');
+                    handleFormFieldChange('prizeEveryMonth', 'title', titleEditor.innerHTML);
+                });
+            }
+        }
     }
 };
 
