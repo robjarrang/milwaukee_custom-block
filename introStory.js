@@ -192,6 +192,49 @@ const introStoryModule = {
             });
         }
 
+        const editLinkButton = document.querySelector('#introStoryModule .rich-text-toolbar button[data-command="editLink"]');
+        if (editLinkButton) {
+            // Remove existing listeners to prevent duplicates
+            editLinkButton.replaceWith(editLinkButton.cloneNode(true));
+            const newEditLinkButton = document.querySelector('#introStoryModule .rich-text-toolbar button[data-command="editLink"]');
+            newEditLinkButton.addEventListener('click', function() {
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    const anchor = range.startContainer.parentElement;
+                    if (anchor && anchor.tagName === 'A') {
+                        const url = prompt('Edit the URL', anchor.href);
+                        if (url) {
+                            anchor.href = url;
+                            handleFormFieldChange('introStory', 'description', descriptionEditor.innerHTML);
+                        }
+                    }
+                }
+            });
+        }
+
+        const removeLinkButton = document.querySelector('#introStoryModule .rich-text-toolbar button[data-command="removeLink"]');
+        if (removeLinkButton) {
+            // Remove existing listeners to prevent duplicates
+            removeLinkButton.replaceWith(removeLinkButton.cloneNode(true));
+            const newRemoveLinkButton = document.querySelector('#introStoryModule .rich-text-toolbar button[data-command="removeLink"]');
+            newRemoveLinkButton.addEventListener('click', function() {
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    const anchor = range.startContainer.parentElement;
+                    if (anchor && anchor.tagName === 'A') {
+                        const parent = anchor.parentNode;
+                        while (anchor.firstChild) {
+                            parent.insertBefore(anchor.firstChild, anchor);
+                        }
+                        parent.removeChild(anchor);
+                        handleFormFieldChange('introStory', 'description', descriptionEditor.innerHTML);
+                    }
+                }
+            });
+        }
+
         const imagePositionRadios = document.querySelectorAll('input[name="introImagePosition"]');
         imagePositionRadios.forEach(radio => {
             radio.addEventListener('change', function(event) {

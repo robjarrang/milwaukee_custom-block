@@ -294,6 +294,61 @@ const threeColumnStoryModule = {
                 }
             });
         });
+
+        const editLinkButtons = document.querySelectorAll('#threeColumnStoryModule .rich-text-toolbar button[data-command="editLink"]');
+        editLinkButtons.forEach(button => {
+            // Remove existing listeners to prevent duplicates
+            button.replaceWith(button.cloneNode(true));
+        });
+
+        const updatedEditLinkButtons = document.querySelectorAll('#threeColumnStoryModule .rich-text-toolbar button[data-command="editLink"]');
+
+        updatedEditLinkButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    const anchor = range.startContainer.parentElement;
+                    if (anchor && anchor.tagName === 'A') {
+                        const url = prompt('Edit the URL', anchor.href);
+                        if (url) {
+                            anchor.href = url;
+                            handleFormFieldChange('threeColumnStory', 'leftDescription', leftDescriptionEditor.innerHTML);
+                            handleFormFieldChange('threeColumnStory', 'centerDescription', centerDescriptionEditor.innerHTML);
+                            handleFormFieldChange('threeColumnStory', 'rightDescription', rightDescriptionEditor.innerHTML);
+                        }
+                    }
+                }
+            });
+        });
+
+        const removeLinkButtons = document.querySelectorAll('#threeColumnStoryModule .rich-text-toolbar button[data-command="removeLink"]');
+        removeLinkButtons.forEach(button => {
+            // Remove existing listeners to prevent duplicates
+            button.replaceWith(button.cloneNode(true));
+        });
+
+        const updatedRemoveLinkButtons = document.querySelectorAll('#threeColumnStoryModule .rich-text-toolbar button[data-command="removeLink"]');
+
+        updatedRemoveLinkButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    const anchor = range.startContainer.parentElement;
+                    if (anchor && anchor.tagName === 'A') {
+                        const parent = anchor.parentNode;
+                        while (anchor.firstChild) {
+                            parent.insertBefore(anchor.firstChild, anchor);
+                        }
+                        parent.removeChild(anchor);
+                        handleFormFieldChange('threeColumnStory', 'leftDescription', leftDescriptionEditor.innerHTML);
+                        handleFormFieldChange('threeColumnStory', 'centerDescription', centerDescriptionEditor.innerHTML);
+                        handleFormFieldChange('threeColumnStory', 'rightDescription', rightDescriptionEditor.innerHTML);
+                    }
+                }
+            });
+        });
     }
 };
 

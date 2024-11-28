@@ -186,6 +186,49 @@ const oneColumnStoryModule = {
             });
         }
 
+        const editLinkButton = document.querySelector('#oneColumnStoryModule .rich-text-toolbar button[data-command="editLink"]');
+        if (editLinkButton) {
+            // Remove existing listeners to prevent duplicates
+            editLinkButton.replaceWith(editLinkButton.cloneNode(true));
+            const newEditLinkButton = document.querySelector('#oneColumnStoryModule .rich-text-toolbar button[data-command="editLink"]');
+            newEditLinkButton.addEventListener('click', function() {
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    const anchor = range.startContainer.parentElement;
+                    if (anchor && anchor.tagName === 'A') {
+                        const url = prompt('Edit the URL', anchor.href);
+                        if (url) {
+                            anchor.href = url;
+                            handleFormFieldChange('oneColumnStory', 'description', descriptionEditor.innerHTML);
+                        }
+                    }
+                }
+            });
+        }
+
+        const removeLinkButton = document.querySelector('#oneColumnStoryModule .rich-text-toolbar button[data-command="removeLink"]');
+        if (removeLinkButton) {
+            // Remove existing listeners to prevent duplicates
+            removeLinkButton.replaceWith(removeLinkButton.cloneNode(true));
+            const newRemoveLinkButton = document.querySelector('#oneColumnStoryModule .rich-text-toolbar button[data-command="removeLink"]');
+            newRemoveLinkButton.addEventListener('click', function() {
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    const anchor = range.startContainer.parentElement;
+                    if (anchor && anchor.tagName === 'A') {
+                        const parent = anchor.parentNode;
+                        while (anchor.firstChild) {
+                            parent.insertBefore(anchor.firstChild, anchor);
+                        }
+                        parent.removeChild(anchor);
+                        handleFormFieldChange('oneColumnStory', 'description', descriptionEditor.innerHTML);
+                    }
+                }
+            });
+        }
+
         const backgroundColorRadios = document.querySelectorAll('input[name="oneColumnBackgroundColor"]');
         backgroundColorRadios.forEach(radio => {
             radio.addEventListener('change', function(event) {
