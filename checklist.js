@@ -1,5 +1,3 @@
-// checklist.js
-
 import moduleRegistry from './moduleRegistry.js';
 
 const checklistModule = {
@@ -142,6 +140,15 @@ const checklistModule = {
                     }
                 }
             });
+
+            container.addEventListener('click', (event) => {
+                if (event.target.classList.contains('edit-checklist-item')) {
+                    const item = event.target.parentElement;
+                    if (item && item.classList.contains('checklist-item')) {
+                        this.editChecklistItem(item);
+                    }
+                }
+            });
         }
 
         const backgroundColorRadios = document.querySelectorAll('input[name="checklistBackgroundColor"]');
@@ -165,6 +172,7 @@ const checklistModule = {
         item.classList.add('checklist-item');
         item.innerHTML = `
             <input type="text" class="checklist-item-input" value="${text}" placeholder="Enter checklist item">
+            <button type="button" class="btn btn-edit edit-checklist-item">Edit</button>
             <button type="button" class="btn btn-remove remove-checklist-item">Remove</button>
         `;
         container.appendChild(item);
@@ -178,6 +186,17 @@ const checklistModule = {
         const backgroundColor = backgroundColorRadio ? backgroundColorRadio.value : 'red';
         handleFormFieldChange('checklist', 'items', items);
         handleFormFieldChange('checklist', 'backgroundColor', backgroundColor);
+    },
+
+    editChecklistItem(item) {
+        const input = item.querySelector('.checklist-item-input');
+        if (input) {
+            input.focus();
+        }
+    },
+
+    removeChecklistItem(item) {
+        item.remove();
     }
 };
 
