@@ -252,6 +252,14 @@ const introStoryModule = {
                 handleFormFieldChange('introStory', 'showButton', event.target.checked);
             });
         }
+
+        const superscriptButton = document.querySelector('#introStoryModule .rich-text-toolbar button[data-command="superscript"]');
+        if (superscriptButton) {
+            superscriptButton.addEventListener('click', function() {
+                document.execCommand('superscript');
+                handleFormFieldChange('introStory', 'description', descriptionEditor.innerHTML);
+            });
+        }
     }
 };
 

@@ -262,6 +262,15 @@ const leadStoryModule = {
                 }
             });
         }
+
+        // Attach event listener to the superscript button in leadStoryModule
+        const superscriptButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="superscript"]');
+        if (superscriptButton) {
+            superscriptButton.addEventListener('click', function() {
+                document.execCommand('superscript');
+                handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
+            });
+        }
     }
 };
 

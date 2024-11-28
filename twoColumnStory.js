@@ -342,6 +342,15 @@ const twoColumnStoryModule = {
                 }
             });
         });
+
+        const titleSuperscriptButton = document.querySelector('#twoColumnStoryModule .rich-text-toolbar button[data-command="superscript"]');
+        if (titleSuperscriptButton) {
+            titleSuperscriptButton.addEventListener('click', function() {
+                document.execCommand('superscript');
+                handleFormFieldChange('twoColumnStory', 'title', document.getElementById('twoColumnLeftTitle').value);
+                handleFormFieldChange('twoColumnStory', 'title', document.getElementById('twoColumnRightTitle').value);
+            });
+        }
     }
 };
 

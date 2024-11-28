@@ -246,6 +246,14 @@ const oneColumnStoryModule = {
                 handleFormFieldChange('oneColumnStory', 'imagePosition', event.target.value);
             });
         });
+
+        const titleSuperscriptButton = document.querySelector('#oneColumnStoryModule .rich-text-toolbar button[data-command="superscript"]');
+        if (titleSuperscriptButton) {
+            titleSuperscriptButton.addEventListener('click', function() {
+                document.execCommand('superscript');
+                handleFormFieldChange('oneColumnStory', 'title', document.getElementById('oneColumnTitle').value);
+            });
+        }
     }
 };
 

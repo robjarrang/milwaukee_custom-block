@@ -353,6 +353,16 @@ const threeColumnStoryModule = {
                 }
             });
         });
+
+        const titleSuperscriptButton = document.querySelector('#threeColumnStoryModule .rich-text-toolbar button[data-command="superscript"]');
+        if (titleSuperscriptButton) {
+            titleSuperscriptButton.addEventListener('click', function() {
+                document.execCommand('superscript');
+                handleFormFieldChange('threeColumnStory', 'title', document.getElementById('threeColumnLeftTitle').value);
+                handleFormFieldChange('threeColumnStory', 'title', document.getElementById('threeColumnCenterTitle').value);
+                handleFormFieldChange('threeColumnStory', 'title', document.getElementById('threeColumnRightTitle').value);
+            });
+        }
     }
 };
 
