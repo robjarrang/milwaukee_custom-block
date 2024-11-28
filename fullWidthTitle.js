@@ -102,6 +102,14 @@ const fullWidthTitleModule = {
                 handleFormFieldChange('fullWidthTitle', 'backgroundColor', event.target.value);
             });
         });
+
+        const superscriptButton = document.querySelector('#fullWidthTitleModule .rich-text-toolbar button[data-command="superscript"]');
+        if (superscriptButton) {
+            superscriptButton.addEventListener('click', function() {
+                document.execCommand('superscript');
+                handleFormFieldChange('fullWidthTitle', 'title', titleInput.innerHTML);
+            });
+        }
     }
 };
 
