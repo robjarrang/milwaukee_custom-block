@@ -25,11 +25,7 @@ const threeColumnStoryModule = {
             rightDescription: 'Intro text goes here',
             rightButtonText: 'Button title',
             rightButtonLink: 'https://milwaukeetool.eu/',
-            backgroundColor: 'red',
-            titleAlignmentDesktop: 'left',
-            titleAlignmentMobile: 'left',
-            descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            backgroundColor: 'red'
         };
     },
 
@@ -75,11 +71,6 @@ const threeColumnStoryModule = {
             formData = this.getPlaceholderData();
         }
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
-
-        const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
-        const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
-        const descriptionAlignmentDesktopClass = `desktop-text-${formData.descriptionAlignmentDesktop}`;
-        const descriptionAlignmentMobileClass = `mobile-text-${formData.descriptionAlignmentMobile}`;
 
         return `
         <!-- START .story-3col -->

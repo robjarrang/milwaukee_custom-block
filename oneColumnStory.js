@@ -14,11 +14,7 @@ const oneColumnStoryModule = {
             buttonText: 'Button title',
             buttonLink: 'https://milwaukeetool.eu/',
             backgroundColor: 'red',
-            imagePosition: 'left',
-            titleAlignmentDesktop: 'left',
-            titleAlignmentMobile: 'left',
-            descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            imagePosition: 'left'
         };
     },
 
@@ -28,12 +24,6 @@ const oneColumnStoryModule = {
             console.warn('Form data is undefined, using placeholder data');
             formData = this.getPlaceholderData();
         }
-
-        const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
-        const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
-        const descriptionAlignmentDesktopClass = `desktop-text-${formData.descriptionAlignmentDesktop}`;
-        const descriptionAlignmentMobileClass = `mobile-text-${formData.descriptionAlignmentMobile}`;
-
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB011C' : '#000000';
         const imageFirst = formData.imagePosition === 'left';
 
@@ -52,11 +42,6 @@ const oneColumnStoryModule = {
                 <td class="side" style="width: 20px;">&nbsp;</td>
             </tr>
         </table>
-        <div style="text-align: ${formData.titleAlignmentDesktop};">
-            <h2 class="${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}">${formData.title}</h2>
-            <p class="${descriptionAlignmentDesktopClass} ${descriptionAlignmentMobileClass}">${formData.description}</p>
-            ${formData.buttonText ? `<a href="${formData.buttonLink}" style="text-align: ${formData.titleAlignmentDesktop};">${formData.buttonText}</a>` : ''}
-        </div>
         `;
     },
 
