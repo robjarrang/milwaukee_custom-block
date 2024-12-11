@@ -1,7 +1,11 @@
 let state = {
     moduleType: 'leadStory',
     formData: {
-        leadStory: {},
+        leadStory: {
+            titleAlignment: 'left',
+            descriptionAlignment: 'left',
+            buttonAlignment: 'center'
+        },
         introStory: {},
         oneColumnStory: {},
         twoColumnStory: {},
