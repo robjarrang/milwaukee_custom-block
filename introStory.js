@@ -14,7 +14,11 @@ const introStoryModule = {
             buttonText: 'Button title',
             buttonLink: 'https://milwaukeetool.eu/',
             imagePosition: 'left',
-            showButton: true
+            showButton: true,
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left',
+            descriptionAlignmentDesktop: 'left',
+            descriptionAlignmentMobile: 'left'
         };
     },
 
@@ -27,106 +31,19 @@ const introStoryModule = {
 
         const imagePosition = formData.imagePosition === 'right' ? 'rtl' : 'ltr';
         const buttonStyle = formData.showButton !== false ? '' : 'display: none;';
+        const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
+        const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
+        const descriptionAlignmentDesktopClass = `desktop-text-${formData.descriptionAlignmentDesktop}`;
+        const descriptionAlignmentMobileClass = `mobile-text-${formData.descriptionAlignmentMobile}`;
 
         return `
-        <!-- START .story-1col -->
-        <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: #DB021D; width: 620px;">
-            <tr>
-                <td style="background-color: #000000; width: 20px;" valign="top">
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation">
-                        <tr>
-                            <td class="color-bg-1" height="40" style="background-color: #DB021D; width: 20px;">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 20px;">&nbsp;</td>
-                        </tr>
-                    </table>
-                </td>
-                <td align="center" class="content-inner" style="background-color: #000000; width: 580px;" valign="middle">
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" dir="${imagePosition}" role="presentation" style="width: 100%;">
-                        <tr>
-                            <td align="center" class="block" dir="ltr" style="width: 290px;" valign="top">
-                                <div>
-                                    <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                                        <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
-                                    </a>
-                                </div>
-                            </td>
-                            <td class="block" dir="ltr" style="width: 290px;" valign="top">
-                                <table border="0" cellpadding="0" cellspacing="0" class="sect color-bg-1" style="background-color: #DB021D; width: 100%;">
-                                    <tr>
-                                        <td class="mobile-hide" height="40" style="margin: 0; padding: 20px; padding-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0;">&nbsp;</td>
-                                    </tr>
-                                </table>
-                                <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;" valign="middle">
-                                    <tr>
-                                        <td style="padding: 20px;" valign="middle">
-                                            <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
-                                                <tr>
-                                                    <td class="mobile-hide">
-                                                        <div style="clear: both; display: block; font-size: 20px; height: 20px; line-height: 20px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="mobile-text-center" style="text-align: center;">
-                                                        <h3 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 28px; font-stretch: condensed; font-weight: bold; line-height: 32px; margin: 0; margin-bottom: 0; margin-top: 0; text-transform: uppercase;">
-                                                            ${formData.title}
-                                                        </h3>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div style="clear: both; display: block; font-size: 4px; height: 4px; line-height: 4px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: center;">
-                                                        ${formData.description}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div style="clear: both; display: block; font-size: 16px; height: 16px; line-height: 16px; margin: 0px; mso-line-height-rule: exactly; padding: 0px;">&nbsp;</div>
-                                                    </td>
-                                                </tr>
-                                                <tr style="${buttonStyle}">
-                                                    <td>
-                                                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
-                                                            <tr>
-                                                                <td align="center" class="block" style="width: 100%;" valign="top">
-                                                                    <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px;">
-                                                                        <tr>
-                                                                            <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%; mso-text-raise: 6px;">
-                                                                                <a href="${formData.buttonLink || '#'}" style="color: #ffffff; text-decoration: none;" target="_blank">${formData.buttonText}</a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td style="background-color: #000000; width: 20px;" valign="top">
-                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation">
-                        <tr>
-                            <td class="color-bg-1" height="40" style="background-color: #DB021D; width: 20px;">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 20px;">&nbsp;</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <!-- END .story-1col -->
+        <!-- START .intro-story -->
+        <div class="intro-story" style="text-align: ${formData.titleAlignmentDesktop};">
+            <h2 class="${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}">${formData.title}</h2>
+            <p class="${descriptionAlignmentDesktopClass} ${descriptionAlignmentMobileClass}">${formData.description}</p>
+            ${formData.showButton ? `<a href="${formData.buttonLink}" style="text-align: ${formData.titleAlignmentDesktop};">${formData.buttonText}</a>` : ''}
+        </div>
+        <!-- END .intro-story -->
         `;
     },
 

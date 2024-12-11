@@ -19,7 +19,11 @@ const twoColumnStoryModule = {
             rightDescription: 'Morbi id risus eleifend, viverra.',
             rightButtonText: 'Button title',
             rightButtonLink: 'https://milwaukeetool.eu/',
-            backgroundColor: 'red'
+            backgroundColor: 'red',
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left',
+            descriptionAlignmentDesktop: 'left',
+            descriptionAlignmentMobile: 'left'
         };
     },
 
@@ -61,6 +65,11 @@ const twoColumnStoryModule = {
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
         const titleBgImage = formData.backgroundColor === 'red' ? 'title-bg.jpg' : 'title-bg-red.jpg';
 
+        const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
+        const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
+        const descriptionAlignmentDesktopClass = `desktop-text-${formData.descriptionAlignmentDesktop}`;
+        const descriptionAlignmentMobileClass = `mobile-text-${formData.descriptionAlignmentMobile}`;
+
         return `
         <!-- START .story-2col -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
@@ -69,9 +78,9 @@ const twoColumnStoryModule = {
                 <td align="center" class="content-inner" style="width: 580px;" valign="top">
                     <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                         <tr>
-                            ${this.getColumnHtml(formData, 'left', titleBgImage)}
+                            ${this.getColumnHtml(formData, 'left', titleBgImage, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass)}
                             <td class="gap block" style="width: 20px;">&nbsp;</td>
-                            ${this.getColumnHtml(formData, 'right', titleBgImage)}
+                            ${this.getColumnHtml(formData, 'right', titleBgImage, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass)}
                         </tr>
                     </table>
                 </td>
@@ -82,7 +91,7 @@ const twoColumnStoryModule = {
         `;
     },
 
-    getColumnHtml(formData, side, titleBgImage) {
+    getColumnHtml(formData, side, titleBgImage, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass) {
         return `
         <td align="center" class="block" style="width: 280px;" valign="top">
             <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
@@ -111,7 +120,7 @@ const twoColumnStoryModule = {
                                     <v:textbox style="mso-fit-shape-to-text:true" inset="10px,10px,10px,10px">
                                     <![endif]-->
                                     <div>
-                                        <h3 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 26px; font-stretch: condensed; font-weight: bold; line-height: 32px; margin: 0; margin-bottom: 0; margin-top: 0; text-transform: uppercase;">
+                                        <h3 class="${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}" style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 26px; font-stretch: condensed; font-weight: bold; line-height: 32px; margin: 0; margin-bottom: 0; margin-top: 0; text-transform: uppercase;">
                                             <strong style="font-weight: bold;">${formData[side + 'Title']}</strong>
                                         </h3>
                                     </div>
@@ -127,7 +136,7 @@ const twoColumnStoryModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
+                                <td class="story-intro ${descriptionAlignmentDesktopClass} ${descriptionAlignmentMobileClass}" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
                                     ${formData[side + 'Description']}
                                 </td>
                             </tr>
