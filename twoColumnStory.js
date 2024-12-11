@@ -19,13 +19,7 @@ const twoColumnStoryModule = {
             rightDescription: 'Morbi id risus eleifend, viverra.',
             rightButtonText: 'Button title',
             rightButtonLink: 'https://milwaukeetool.eu/',
-            backgroundColor: 'red',
-            leftTitleAlignment: 'left',
-            leftDescriptionAlignment: 'left',
-            leftButtonAlignment: 'left',
-            rightTitleAlignment: 'left',
-            rightDescriptionAlignment: 'left',
-            rightButtonAlignment: 'left'
+            backgroundColor: 'red'
         };
     },
 
@@ -48,13 +42,7 @@ const twoColumnStoryModule = {
                 rightDescription: columns[2].querySelector('.story-intro')?.textContent?.trim() || '',
                 rightButtonText: columns[2].querySelector('.button-1 a')?.textContent?.trim() || '',
                 rightButtonLink: columns[2].querySelector('.button-1 a')?.href || '',
-                backgroundColor: doc.querySelector('.content-outer').style.backgroundColor === '#DB021D' ? 'red' : 'black',
-                leftTitleAlignment: columns[0].querySelector('h3').style.textAlign || 'left',
-                leftDescriptionAlignment: columns[0].querySelector('.story-intro').style.textAlign || 'left',
-                leftButtonAlignment: columns[0].querySelector('.button-1').parentElement.style.textAlign || 'left',
-                rightTitleAlignment: columns[2].querySelector('h3').style.textAlign || 'left',
-                rightDescriptionAlignment: columns[2].querySelector('.story-intro').style.textAlign || 'left',
-                rightButtonAlignment: columns[2].querySelector('.button-1').parentElement.style.textAlign || 'left'
+                backgroundColor: doc.querySelector('.content-outer').style.backgroundColor === '#DB021D' ? 'red' : 'black'
             };
             console.log('Parsed Two Column Story data:', parsedData);
             return parsedData;
@@ -116,7 +104,7 @@ const twoColumnStoryModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td background="https://files.jarrang.com/Milwaukee/zTemplate/images/images-assets/${titleBgImage}" bgcolor="#B50317" class="mobile-text-left title-bg" style="text-align: ${formData[side + 'TitleAlignment']};" valign="top">
+                                <td background="https://files.jarrang.com/Milwaukee/zTemplate/images/images-assets/${titleBgImage}" bgcolor="#B50317" class="mobile-text-left title-bg" style="text-align: left;" valign="top">
                                     <!--[if gte mso 9]>
                                     <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:280px;">
                                     <v:fill type="tile" src="https://files.jarrang.com/Milwaukee/zTemplate/images/images-assets/${titleBgImage}" color="#B50317" size="100%,100%" aspect="atleast" />
@@ -139,7 +127,7 @@ const twoColumnStoryModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: ${formData[side + 'DescriptionAlignment']};">
+                                <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
                                     ${formData[side + 'Description']}
                                 </td>
                             </tr>
@@ -150,7 +138,7 @@ const twoColumnStoryModule = {
                             </tr>
                             <tr>
                                 <td>
-                                    <table align="${formData[side + 'ButtonAlignment']}" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
+                                    <table align="left" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                                         <tr>
                                             <td align="left" class="block" style="width: 100%;" valign="top">
                                                 <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px; mso-text-raise: 6px;">
@@ -194,19 +182,6 @@ const twoColumnStoryModule = {
             } else {
                 console.warn(`Rich text editor with id ${descriptionId} not found`);
             }
-
-            const setAlignmentIfExists = (id, value) => {
-                const element = document.querySelector(`#${id} .alignment-buttons button[data-align="${value}"]`);
-                if (element) {
-                    element.classList.add('active');
-                } else {
-                    console.warn(`Alignment button for ${id} with value ${value} not found`);
-                }
-            };
-
-            setAlignmentIfExists(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}Title`, formData[side + 'TitleAlignment']);
-            setAlignmentIfExists(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}Description`, formData[side + 'DescriptionAlignment']);
-            setAlignmentIfExists(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}ButtonText`, formData[side + 'ButtonAlignment']);
         });
         
         const backgroundColorRadios = document.querySelectorAll('input[name="twoColumnBackgroundColor"]');
@@ -244,22 +219,6 @@ const twoColumnStoryModule = {
             } else {
                 console.warn(`Rich text editor with id ${descriptionId} not found for event listener`);
             }
-
-            const addAlignmentEventListeners = (id, field) => {
-                const buttons = document.querySelectorAll(`#${id} .alignment-buttons button`);
-                buttons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        buttons.forEach(btn => btn.classList.remove('active'));
-                        button.classList.add('active');
-                        const alignment = button.getAttribute('data-align');
-                        handleFormFieldChange('twoColumnStory', field, alignment);
-                    });
-                });
-            };
-
-            addAlignmentEventListeners(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}Title`, `${side}TitleAlignment`);
-            addAlignmentEventListeners(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}Description`, `${side}DescriptionAlignment`);
-            addAlignmentEventListeners(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}ButtonText`, `${side}ButtonAlignment`);
         });
     
         const backgroundColorRadios = document.querySelectorAll('input[name="twoColumnBackgroundColor"]');

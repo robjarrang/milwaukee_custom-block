@@ -14,10 +14,7 @@ const leadStoryModule = {
             leadDescription: 'Consectetur elit. Integer fermentum scelerisque urna, at lacinia purus sagittis non. Aenean nisl risus, consequat eu diam sit amet, consectetur pulvinar nisi. Nunc nec est non mi faucibus finibus.',
             buttonText: 'Button title',
             buttonLink: 'https://milwaukeetool.eu/',
-            showButton: true,
-            titleAlignment: 'left',
-            descriptionAlignment: 'left',
-            buttonAlignment: 'left'
+            showButton: true
         };
     },
 
@@ -63,7 +60,7 @@ const leadStoryModule = {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="mobile-text-${formData.titleAlignment}" style="text-align: ${formData.titleAlignment};">
+                                        <td class="mobile-text-center" style="text-align: left;">
                                             <h1 style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 28px; font-weight: bold; line-height: 48px; margin: 0; margin-bottom: 0; margin-top: 0; padding-bottom: 0px !important; text-transform: uppercase;">
                                                 ${formData.leadTitle}
                                             </h1>
@@ -75,7 +72,7 @@ const leadStoryModule = {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="story-intro mobile-text-${formData.descriptionAlignment}" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: ${formData.descriptionAlignment};">
+                                        <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
                                             ${formData.leadDescription}
                                         </td>
                                     </tr>
@@ -89,7 +86,7 @@ const leadStoryModule = {
                                         <td>
                                             <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                                                 <tr>
-                                                    <td align="${formData.buttonAlignment}" class="block mobile-text-${formData.buttonAlignment}" style="width: 100%;" valign="middle">
+                                                    <td align="center" class="block" style="width: 100%;" valign="middle">
                                                         <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px;">
                                                             <tr>
                                                                 <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%; mso-text-raise: 6px;">
@@ -152,19 +149,6 @@ const leadStoryModule = {
         } else {
             console.warn(`Element with id showButton not found`);
         }
-
-        const setAlignmentIfExists = (id, value) => {
-            const element = document.querySelector(`#${id} .alignment-buttons button[data-align="${value}"]`);
-            if (element) {
-                element.classList.add('active');
-            } else {
-                console.warn(`Alignment button for ${id} with value ${value} not found`);
-            }
-        };
-
-        setAlignmentIfExists('leadTitle', formData.titleAlignment);
-        setAlignmentIfExists('leadDescription', formData.descriptionAlignment);
-        setAlignmentIfExists('buttonText', formData.buttonAlignment);
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -287,22 +271,6 @@ const leadStoryModule = {
                 handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
             });
         }
-
-        const addAlignmentEventListeners = (id, field) => {
-            const buttons = document.querySelectorAll(`#${id} .alignment-buttons button`);
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    buttons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    const alignment = button.getAttribute('data-align');
-                    handleFormFieldChange('leadStory', field, alignment);
-                });
-            });
-        };
-
-        addAlignmentEventListeners('leadTitle', 'titleAlignment');
-        addAlignmentEventListeners('leadDescription', 'descriptionAlignment');
-        addAlignmentEventListeners('buttonText', 'buttonAlignment');
     }
 };
 
