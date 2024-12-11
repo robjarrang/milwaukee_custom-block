@@ -545,20 +545,9 @@ details[open] summary::after {
     border-color: #0070d2;
 }
 
-.alignment-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
 .alignment-group {
     display: flex;
-    flex-direction: column;
-}
-
-@media (max-width: 768px) {
-    .alignment-container {
-        flex-direction: column;
-    }
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
 }
