@@ -63,7 +63,7 @@ const leadStoryModule = {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="mobile-text-center" style="text-align: ${formData.titleAlignment};">
+                                        <td class="mobile-text-${formData.titleAlignment}" style="text-align: ${formData.titleAlignment};">
                                             <h1 style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 28px; font-weight: bold; line-height: 48px; margin: 0; margin-bottom: 0; margin-top: 0; padding-bottom: 0px !important; text-transform: uppercase;">
                                                 ${formData.leadTitle}
                                             </h1>
@@ -75,7 +75,7 @@ const leadStoryModule = {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: ${formData.descriptionAlignment};">
+                                        <td class="story-intro mobile-text-${formData.descriptionAlignment}" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: ${formData.descriptionAlignment};">
                                             ${formData.leadDescription}
                                         </td>
                                     </tr>
@@ -89,7 +89,7 @@ const leadStoryModule = {
                                         <td>
                                             <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                                                 <tr>
-                                                    <td align="${formData.buttonAlignment}" class="block" style="width: 100%;" valign="middle">
+                                                    <td align="${formData.buttonAlignment}" class="block mobile-text-${formData.buttonAlignment}" style="width: 100%;" valign="middle">
                                                         <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px;">
                                                             <tr>
                                                                 <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%; mso-text-raise: 6px;">

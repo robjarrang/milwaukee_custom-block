@@ -403,7 +403,7 @@ select {
 .radio-option label {
     display: inline-block;
     padding: 8px 16px;
-    background-color: var(--sfmc-light-gray);
+    background-color: var (--sfmc-light-gray);
     border: 1px solid var(--sfmc-border);
     border-radius: 4px;
     cursor: pointer;
@@ -512,4 +512,34 @@ details summary::after {
 /* Rotate arrow when details is open */
 details[open] summary::after {
     transform: rotate(90deg);
+}
+
+/* Styles for alignment buttons */
+.alignment-buttons {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.alignment-buttons button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.alignment-buttons button.active {
+    background-color: #0070d2;
+    color: #fff;
+}
+
+.alignment-buttons button:hover {
+    background-color: #e9e9e9;
 }
