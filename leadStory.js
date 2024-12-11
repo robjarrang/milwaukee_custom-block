@@ -15,8 +15,10 @@ const leadStoryModule = {
             buttonText: 'Button title',
             buttonLink: 'https://milwaukeetool.eu/',
             showButton: true,
-            titleAlignment: 'left',
-            descriptionAlignment: 'left'
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left',
+            descriptionAlignmentDesktop: 'left',
+            descriptionAlignmentMobile: 'left'
         };
     },
 
@@ -27,8 +29,10 @@ const leadStoryModule = {
             formData = this.getPlaceholderData();
         }
 
-        const titleAlignmentClass = `mobile-text-${formData.titleAlignment}`;
-        const descriptionAlignmentClass = `mobile-text-${formData.descriptionAlignment}`;
+        const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
+        const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
+        const descriptionAlignmentDesktopClass = `desktop-text-${formData.descriptionAlignmentDesktop}`;
+        const descriptionAlignmentMobileClass = `mobile-text-${formData.descriptionAlignmentMobile}`;
 
         return `
         <!-- START .fw-image -->
@@ -65,7 +69,7 @@ const leadStoryModule = {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="${titleAlignmentClass}" style="text-align: ${formData.titleAlignment};">
+                                        <td class="${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}" style="text-align: ${formData.titleAlignmentDesktop};">
                                             <h1 style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 28px; font-weight: bold; line-height: 48px; margin: 0; margin-bottom: 0; margin-top: 0; padding-bottom: 0px !important; text-transform: uppercase;">
                                                 ${formData.leadTitle}
                                             </h1>
@@ -77,7 +81,7 @@ const leadStoryModule = {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="story-intro ${descriptionAlignmentClass}" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: ${formData.descriptionAlignment};">
+                                        <td class="story-intro ${descriptionAlignmentDesktopClass} ${descriptionAlignmentMobileClass}" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: ${formData.descriptionAlignmentDesktop};">
                                             ${formData.leadDescription}
                                         </td>
                                     </tr>
@@ -164,8 +168,10 @@ const leadStoryModule = {
             console.warn(`Element with id showButton not found`);
         }
 
-        setAlignmentIfExists('leadTitleAlignment', formData.titleAlignment);
-        setAlignmentIfExists('leadDescriptionAlignment', formData.descriptionAlignment);
+        setAlignmentIfExists('leadTitleAlignmentDesktop', formData.titleAlignmentDesktop);
+        setAlignmentIfExists('leadTitleAlignmentMobile', formData.titleAlignmentMobile);
+        setAlignmentIfExists('leadDescriptionAlignmentDesktop', formData.descriptionAlignmentDesktop);
+        setAlignmentIfExists('leadDescriptionAlignmentMobile', formData.descriptionAlignmentMobile);
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -212,7 +218,10 @@ const leadStoryModule = {
             });
         };
 
-        setupAlignmentButtonListeners('leadTitleAlignment', 'titleAlignment');
+        setupAlignmentButtonListeners('leadTitleAlignmentDesktop', 'titleAlignmentDesktop');
+        setupAlignmentButtonListeners('leadTitleAlignmentMobile', 'titleAlignmentMobile');
+        setupAlignmentButtonListeners('leadDescriptionAlignmentDesktop', 'descriptionAlignmentDesktop');
+        setupAlignmentButtonListeners('leadDescriptionAlignmentMobile', 'descriptionAlignmentMobile');
 
         // Reference the Lead Description Editor
         const leadDescriptionEditor = document.getElementById('leadDescription');
@@ -311,21 +320,21 @@ const leadStoryModule = {
         if (alignLeftButton) {
             alignLeftButton.addEventListener('click', function() {
                 document.execCommand('justifyLeft');
-                handleFormFieldChange('leadStory', 'descriptionAlignment', 'left');
+                handleFormFieldChange('leadStory', 'descriptionAlignmentMobile', 'left');
             });
         }
 
         if (alignCenterButton) {
             alignCenterButton.addEventListener('click', function() {
                 document.execCommand('justifyCenter');
-                handleFormFieldChange('leadStory', 'descriptionAlignment', 'center');
+                handleFormFieldChange('leadStory', 'descriptionAlignmentMobile', 'center');
             });
         }
 
         if (alignRightButton) {
             alignRightButton.addEventListener('click', function() {
                 document.execCommand('justifyRight');
-                handleFormFieldChange('leadStory', 'descriptionAlignment', 'right');
+                handleFormFieldChange('leadStory', 'descriptionAlignmentMobile', 'right');
             });
         }
     }
