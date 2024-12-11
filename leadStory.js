@@ -213,7 +213,6 @@ const leadStoryModule = {
         };
 
         setupAlignmentButtonListeners('leadTitleAlignment', 'titleAlignment');
-        setupAlignmentButtonListeners('leadDescriptionAlignment', 'descriptionAlignment');
 
         // Reference the Lead Description Editor
         const leadDescriptionEditor = document.getElementById('leadDescription');
@@ -301,6 +300,32 @@ const leadStoryModule = {
             superscriptButton.addEventListener('click', function() {
                 document.execCommand('superscript');
                 handleFormFieldChange('leadStory', 'leadDescription', leadDescriptionEditor.innerHTML);
+            });
+        }
+
+        // Attach event listeners to the alignment buttons in the rich text editor toolbar
+        const alignLeftButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="align-left"]');
+        const alignCenterButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="align-center"]');
+        const alignRightButton = document.querySelector('#leadStoryModule .rich-text-toolbar button[data-command="align-right"]');
+
+        if (alignLeftButton) {
+            alignLeftButton.addEventListener('click', function() {
+                document.execCommand('justifyLeft');
+                handleFormFieldChange('leadStory', 'descriptionAlignment', 'left');
+            });
+        }
+
+        if (alignCenterButton) {
+            alignCenterButton.addEventListener('click', function() {
+                document.execCommand('justifyCenter');
+                handleFormFieldChange('leadStory', 'descriptionAlignment', 'center');
+            });
+        }
+
+        if (alignRightButton) {
+            alignRightButton.addEventListener('click', function() {
+                document.execCommand('justifyRight');
+                handleFormFieldChange('leadStory', 'descriptionAlignment', 'right');
             });
         }
     }
