@@ -14,7 +14,10 @@ const oneColumnStoryModule = {
             buttonText: 'Button title',
             buttonLink: 'https://milwaukeetool.eu/',
             backgroundColor: 'red',
-            imagePosition: 'left'
+            imagePosition: 'left',
+            titleAlignment: 'left',
+            descriptionAlignment: 'left',
+            buttonAlignment: 'left'
         };
     },
 
@@ -65,7 +68,7 @@ const oneColumnStoryModule = {
                     <td style="padding: 20px;" valign="middle">
                         <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
                             <tr>
-                                <td class="mobile-text-center" style="text-align: center;">
+                                <td class="mobile-text-center" style="text-align: ${formData.titleAlignment};">
                                     <h3 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 28px; font-stretch: condensed; font-weight: bold; line-height: 32px; margin: 0; margin-bottom: 0; margin-top: 0; text-transform: uppercase;">
                                         ${formData.title}
                                     </h3>
@@ -77,7 +80,7 @@ const oneColumnStoryModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: center;">
+                                <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: ${formData.descriptionAlignment};">
                                     ${formData.description}
                                 </td>
                             </tr>
@@ -90,7 +93,7 @@ const oneColumnStoryModule = {
                                 <td>
                                     <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                                         <tr>
-                                            <td align="center" class="block" style="width: 100%;" valign="top">
+                                            <td align="${formData.buttonAlignment}" class="block" style="width: 100%;" valign="top">
                                                 <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px; mso-text-raise: 6px;">
                                                     <tr>
                                                         <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%;">
@@ -132,6 +135,19 @@ const oneColumnStoryModule = {
         imagePositionRadios.forEach(radio => {
             radio.checked = radio.value === formData.imagePosition;
         });
+
+        const setAlignmentIfExists = (id, value) => {
+            const element = document.querySelector(`#${id} .alignment-buttons button[data-align="${value}"]`);
+            if (element) {
+                element.classList.add('active');
+            } else {
+                console.warn(`Alignment button for ${id} with value ${value} not found`);
+            }
+        };
+
+        setAlignmentIfExists('oneColumnTitle', formData.titleAlignment);
+        setAlignmentIfExists('oneColumnDescription', formData.descriptionAlignment);
+        setAlignmentIfExists('oneColumnButtonText', formData.buttonAlignment);
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -254,6 +270,22 @@ const oneColumnStoryModule = {
                 handleFormFieldChange('oneColumnStory', 'title', document.getElementById('oneColumnTitle').value);
             });
         }
+
+        const addAlignmentEventListeners = (id, field) => {
+            const buttons = document.querySelectorAll(`#${id} .alignment-buttons button`);
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const alignment = button.getAttribute('data-align');
+                    handleFormFieldChange('oneColumnStory', field, alignment);
+                });
+            });
+        };
+
+        addAlignmentEventListeners('oneColumnTitle', 'titleAlignment');
+        addAlignmentEventListeners('oneColumnDescription', 'descriptionAlignment');
+        addAlignmentEventListeners('oneColumnButtonText', 'buttonAlignment');
     }
 };
 

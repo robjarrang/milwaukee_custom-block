@@ -8,7 +8,8 @@ const fullWidthTitleModule = {
     getPlaceholderData() {
         return {
             title: 'Lorem ipsum',
-            backgroundColor: 'red'
+            backgroundColor: 'red',
+            titleAlignment: 'center'
         };
     },
 
@@ -19,7 +20,8 @@ const fullWidthTitleModule = {
         try {
             const parsedData = {
                 title: doc.querySelector('h1')?.textContent?.trim() || '',
-                backgroundColor: doc.querySelector('.content-outer').style.backgroundColor === '#DB021D' ? 'red' : 'black'
+                backgroundColor: doc.querySelector('.content-outer').style.backgroundColor === '#DB021D' ? 'red' : 'black',
+                titleAlignment: doc.querySelector('td').style.textAlign || 'center'
             };
             console.log('Parsed Full Width Title data:', parsedData);
             return parsedData;
@@ -53,7 +55,7 @@ const fullWidthTitleModule = {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="mobile-text-center" style="text-align: center;">
+                                        <td class="mobile-text-center" style="text-align: ${formData.titleAlignment};">
                                             <h1 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 36px; font-weight: bold; line-height: 42px; margin: 0; margin-bottom: 0; margin-top: 0; padding-bottom: 0px !important; text-transform: uppercase;">
                                                 ${formData.title}
                                             </h1>
@@ -84,6 +86,17 @@ const fullWidthTitleModule = {
         backgroundColorRadios.forEach(radio => {
             radio.checked = radio.value === formData.backgroundColor;
         });
+
+        const setAlignmentIfExists = (id, value) => {
+            const element = document.querySelector(`#${id} .alignment-buttons button[data-align="${value}"]`);
+            if (element) {
+                element.classList.add('active');
+            } else {
+                console.warn(`Alignment button for ${id} with value ${value} not found`);
+            }
+        };
+
+        setAlignmentIfExists('fwTitleText', formData.titleAlignment);
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -110,6 +123,20 @@ const fullWidthTitleModule = {
                 handleFormFieldChange('fullWidthTitle', 'title', titleInput.innerHTML);
             });
         }
+
+        const addAlignmentEventListeners = (id, field) => {
+            const buttons = document.querySelectorAll(`#${id} .alignment-buttons button`);
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const alignment = button.getAttribute('data-align');
+                    handleFormFieldChange('fullWidthTitle', field, alignment);
+                });
+            });
+        };
+
+        addAlignmentEventListeners('fwTitleText', 'titleAlignment');
     }
 };
 
