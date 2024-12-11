@@ -16,8 +16,7 @@ const leadStoryModule = {
             buttonLink: 'https://milwaukeetool.eu/',
             showButton: true,
             titleAlignment: 'left',
-            descriptionAlignment: 'left',
-            buttonAlignment: 'center'
+            descriptionAlignment: 'left'
         };
     },
 
@@ -30,7 +29,6 @@ const leadStoryModule = {
 
         const titleAlignmentClass = `mobile-text-${formData.titleAlignment}`;
         const descriptionAlignmentClass = `mobile-text-${formData.descriptionAlignment}`;
-        const buttonAlignmentClass = `mobile-text-${formData.buttonAlignment}`;
 
         return `
         <!-- START .fw-image -->
@@ -93,7 +91,7 @@ const leadStoryModule = {
                                         <td>
                                             <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                                                 <tr>
-                                                    <td align="${formData.buttonAlignment}" class="block ${buttonAlignmentClass}" style="width: 100%;" valign="middle">
+                                                    <td align="center" class="block" style="width: 100%;" valign="middle">
                                                         <table border="0" cellpadding="0" cellspacing="0" class="button button-1 button-mobile-center" role="presentation" style="background-color: transparent; border: 2px solid #ffffff; border-radius: 0; line-height: 100%; margin-bottom: 0; mso-para-margin-bottom: 0px;">
                                                             <tr>
                                                                 <td align="center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; padding: 6px 20px; text-align: center; text-transform: uppercase; width: 100%; mso-text-raise: 6px;">
@@ -168,7 +166,6 @@ const leadStoryModule = {
 
         setAlignmentIfExists('leadTitleAlignment', formData.titleAlignment);
         setAlignmentIfExists('leadDescriptionAlignment', formData.descriptionAlignment);
-        setAlignmentIfExists('buttonTextAlignment', formData.buttonAlignment);
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -217,7 +214,6 @@ const leadStoryModule = {
 
         setupAlignmentButtonListeners('leadTitleAlignment', 'titleAlignment');
         setupAlignmentButtonListeners('leadDescriptionAlignment', 'descriptionAlignment');
-        setupAlignmentButtonListeners('buttonTextAlignment', 'buttonAlignment');
 
         // Reference the Lead Description Editor
         const leadDescriptionEditor = document.getElementById('leadDescription');
