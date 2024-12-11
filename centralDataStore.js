@@ -4,7 +4,11 @@ let state = {
         leadStory: {
             titleAlignment: 'left',
             descriptionAlignment: 'left',
-            buttonAlignment: 'center'
+            buttonAlignment: 'center',
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left',
+            descriptionAlignmentDesktop: 'left',
+            descriptionAlignmentMobile: 'left'
         },
         introStory: {},
         oneColumnStory: {},
@@ -28,6 +32,15 @@ export function updateFormData(newData) {
             state.formData[moduleType] = { ...state.formData[moduleType], ...newData[moduleType] };
         }
     });
+
+    // Update alignment properties for leadStory
+    if (newData.leadStory) {
+        const leadStory = state.formData.leadStory;
+        leadStory.titleAlignmentDesktop = newData.leadStory.titleAlignmentDesktop || leadStory.titleAlignmentDesktop;
+        leadStory.titleAlignmentMobile = newData.leadStory.titleAlignmentMobile || leadStory.titleAlignmentMobile;
+        leadStory.descriptionAlignmentDesktop = newData.leadStory.descriptionAlignmentDesktop || leadStory.descriptionAlignmentDesktop;
+        leadStory.descriptionAlignmentMobile = newData.leadStory.descriptionAlignmentMobile || leadStory.descriptionAlignmentMobile;
+    }
 
     console.log('Form data updated:', state.formData);
 }
