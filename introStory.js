@@ -14,7 +14,11 @@ const introStoryModule = {
             buttonText: 'Button title',
             buttonLink: 'https://milwaukeetool.eu/',
             imagePosition: 'left',
-            showButton: true
+            showButton: true,
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left',
+            descriptionAlignmentDesktop: 'left',
+            descriptionAlignmentMobile: 'left'
         };
     },
 
@@ -27,6 +31,10 @@ const introStoryModule = {
 
         const imagePosition = formData.imagePosition === 'right' ? 'rtl' : 'ltr';
         const buttonStyle = formData.showButton !== false ? '' : 'display: none;';
+        const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
+        const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
+        const descriptionAlignmentDesktopClass = `desktop-text-${formData.descriptionAlignmentDesktop}`;
+        const descriptionAlignmentMobileClass = `mobile-text-${formData.descriptionAlignmentMobile}`;
 
         return `
         <!-- START .story-1col -->
@@ -68,7 +76,7 @@ const introStoryModule = {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="mobile-text-center" style="text-align: center;">
+                                                    <td class="${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}" style="text-align: ${formData.titleAlignmentDesktop};">
                                                         <h3 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 28px; font-stretch: condensed; font-weight: bold; line-height: 32px; margin: 0; margin-bottom: 0; margin-top: 0; text-transform: uppercase;">
                                                             ${formData.title}
                                                         </h3>
@@ -80,7 +88,7 @@ const introStoryModule = {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: center;">
+                                                    <td class="story-intro ${descriptionAlignmentDesktopClass} ${descriptionAlignmentMobileClass}" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: ${formData.descriptionAlignmentDesktop};">
                                                         ${formData.description}
                                                     </td>
                                                 </tr>
@@ -148,6 +156,20 @@ const introStoryModule = {
         });
         
         document.getElementById('introShowButton').checked = formData.showButton !== false;
+
+        const setAlignmentIfExists = (id, value) => {
+            const button = document.querySelector(`#${id} .alignment-button[data-alignment="${value}"]`);
+            if (button) {
+                button.classList.add('active');
+            } else {
+                console.warn(`Alignment button for ${id} with value ${value} not found`);
+            }
+        };
+
+        setAlignmentIfExists('introTitleAlignmentDesktop', formData.titleAlignmentDesktop);
+        setAlignmentIfExists('introTitleAlignmentMobile', formData.titleAlignmentMobile);
+        setAlignmentIfExists('introDescriptionAlignmentDesktop', formData.descriptionAlignmentDesktop);
+        setAlignmentIfExists('introDescriptionAlignmentMobile', formData.descriptionAlignmentMobile);
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -260,6 +282,23 @@ const introStoryModule = {
                 handleFormFieldChange('introStory', 'description', descriptionEditor.innerHTML);
             });
         }
+
+        const setupAlignmentButtonListeners = (id, field) => {
+            const buttons = document.querySelectorAll(`#${id} .alignment-button`);
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const alignment = button.getAttribute('data-alignment');
+                    handleFormFieldChange('introStory', field, alignment);
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+        };
+
+        setupAlignmentButtonListeners('introTitleAlignmentDesktop', 'titleAlignmentDesktop');
+        setupAlignmentButtonListeners('introTitleAlignmentMobile', 'titleAlignmentMobile');
+        setupAlignmentButtonListeners('introDescriptionAlignmentDesktop', 'descriptionAlignmentDesktop');
+        setupAlignmentButtonListeners('introDescriptionAlignmentMobile', 'descriptionAlignmentMobile');
     }
 };
 

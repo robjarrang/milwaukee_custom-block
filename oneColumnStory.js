@@ -14,7 +14,11 @@ const oneColumnStoryModule = {
             buttonText: 'Button title',
             buttonLink: 'https://milwaukeetool.eu/',
             backgroundColor: 'red',
-            imagePosition: 'left'
+            imagePosition: 'left',
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left',
+            descriptionAlignmentDesktop: 'left',
+            descriptionAlignmentMobile: 'left'
         };
     },
 
@@ -26,6 +30,10 @@ const oneColumnStoryModule = {
         }
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB011C' : '#000000';
         const imageFirst = formData.imagePosition === 'left';
+        const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
+        const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
+        const descriptionAlignmentDesktopClass = `desktop-text-${formData.descriptionAlignmentDesktop}`;
+        const descriptionAlignmentMobileClass = `mobile-text-${formData.descriptionAlignmentMobile}`;
 
         return `
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
@@ -34,8 +42,8 @@ const oneColumnStoryModule = {
                 <td align="center" class="content-inner" style="width: 580px;" valign="middle">
                     <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                         <tr>
-                            ${imageFirst ? this.getImageColumn(formData) : this.getContentColumn(formData)}
-                            ${imageFirst ? this.getContentColumn(formData) : this.getImageColumn(formData)}
+                            ${imageFirst ? this.getImageColumn(formData) : this.getContentColumn(formData, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass)}
+                            ${imageFirst ? this.getContentColumn(formData, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass) : this.getImageColumn(formData)}
                         </tr>
                     </table>
                 </td>
@@ -57,7 +65,7 @@ const oneColumnStoryModule = {
         `;
     },
 
-    getContentColumn(formData) {
+    getContentColumn(formData, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass) {
         return `
         <td class="block" style="width: 290px;" valign="middle">
             <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
@@ -65,7 +73,7 @@ const oneColumnStoryModule = {
                     <td style="padding: 20px;" valign="middle">
                         <table border="0" cellpadding="0" cellspacing="0" class="sect" style="width: 100%;">
                             <tr>
-                                <td class="mobile-text-center" style="text-align: center;">
+                                <td class="${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}" style="text-align: ${formData.titleAlignmentDesktop};">
                                     <h3 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 28px; font-stretch: condensed; font-weight: bold; line-height: 32px; margin: 0; margin-bottom: 0; margin-top: 0; text-transform: uppercase;">
                                         ${formData.title}
                                     </h3>
@@ -77,7 +85,7 @@ const oneColumnStoryModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: center;">
+                                <td class="story-intro ${descriptionAlignmentDesktopClass} ${descriptionAlignmentMobileClass}" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: ${formData.descriptionAlignmentDesktop};">
                                     ${formData.description}
                                 </td>
                             </tr>
@@ -132,6 +140,20 @@ const oneColumnStoryModule = {
         imagePositionRadios.forEach(radio => {
             radio.checked = radio.value === formData.imagePosition;
         });
+
+        const setAlignmentIfExists = (id, value) => {
+            const button = document.querySelector(`#${id} .alignment-button[data-alignment="${value}"]`);
+            if (button) {
+                button.classList.add('active');
+            } else {
+                console.warn(`Alignment button for ${id} with value ${value} not found`);
+            }
+        };
+
+        setAlignmentIfExists('oneColumnTitleAlignmentDesktop', formData.titleAlignmentDesktop);
+        setAlignmentIfExists('oneColumnTitleAlignmentMobile', formData.titleAlignmentMobile);
+        setAlignmentIfExists('oneColumnDescriptionAlignmentDesktop', formData.descriptionAlignmentDesktop);
+        setAlignmentIfExists('oneColumnDescriptionAlignmentMobile', formData.descriptionAlignmentMobile);
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -254,6 +276,23 @@ const oneColumnStoryModule = {
                 handleFormFieldChange('oneColumnStory', 'title', document.getElementById('oneColumnTitle').value);
             });
         }
+
+        const setupAlignmentButtonListeners = (id, field) => {
+            const buttons = document.querySelectorAll(`#${id} .alignment-button`);
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const alignment = button.getAttribute('data-alignment');
+                    handleFormFieldChange('oneColumnStory', field, alignment);
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+        };
+
+        setupAlignmentButtonListeners('oneColumnTitleAlignmentDesktop', 'titleAlignmentDesktop');
+        setupAlignmentButtonListeners('oneColumnTitleAlignmentMobile', 'titleAlignmentMobile');
+        setupAlignmentButtonListeners('oneColumnDescriptionAlignmentDesktop', 'descriptionAlignmentDesktop');
+        setupAlignmentButtonListeners('oneColumnDescriptionAlignmentMobile', 'descriptionAlignmentMobile');
     }
 };
 

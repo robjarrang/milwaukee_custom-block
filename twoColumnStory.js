@@ -19,7 +19,15 @@ const twoColumnStoryModule = {
             rightDescription: 'Morbi id risus eleifend, viverra.',
             rightButtonText: 'Button title',
             rightButtonLink: 'https://milwaukeetool.eu/',
-            backgroundColor: 'red'
+            backgroundColor: 'red',
+            leftTitleAlignmentDesktop: 'left',
+            leftTitleAlignmentMobile: 'left',
+            leftDescriptionAlignmentDesktop: 'left',
+            leftDescriptionAlignmentMobile: 'left',
+            rightTitleAlignmentDesktop: 'left',
+            rightTitleAlignmentMobile: 'left',
+            rightDescriptionAlignmentDesktop: 'left',
+            rightDescriptionAlignmentMobile: 'left'
         };
     },
 
@@ -42,7 +50,15 @@ const twoColumnStoryModule = {
                 rightDescription: columns[2].querySelector('.story-intro')?.textContent?.trim() || '',
                 rightButtonText: columns[2].querySelector('.button-1 a')?.textContent?.trim() || '',
                 rightButtonLink: columns[2].querySelector('.button-1 a')?.href || '',
-                backgroundColor: doc.querySelector('.content-outer').style.backgroundColor === '#DB021D' ? 'red' : 'black'
+                backgroundColor: doc.querySelector('.content-outer').style.backgroundColor === '#DB021D' ? 'red' : 'black',
+                leftTitleAlignmentDesktop: columns[0].querySelector('h3').style.textAlign || 'left',
+                leftTitleAlignmentMobile: columns[0].querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
+                leftDescriptionAlignmentDesktop: columns[0].querySelector('.story-intro').style.textAlign || 'left',
+                leftDescriptionAlignmentMobile: columns[0].querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left',
+                rightTitleAlignmentDesktop: columns[2].querySelector('h3').style.textAlign || 'left',
+                rightTitleAlignmentMobile: columns[2].querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
+                rightDescriptionAlignmentDesktop: columns[2].querySelector('.story-intro').style.textAlign || 'left',
+                rightDescriptionAlignmentMobile: columns[2].querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left'
             };
             console.log('Parsed Two Column Story data:', parsedData);
             return parsedData;
@@ -83,6 +99,11 @@ const twoColumnStoryModule = {
     },
 
     getColumnHtml(formData, side, titleBgImage) {
+        const titleAlignmentDesktopClass = `desktop-text-${formData[side + 'TitleAlignmentDesktop']}`;
+        const titleAlignmentMobileClass = `mobile-text-${formData[side + 'TitleAlignmentMobile']}`;
+        const descriptionAlignmentDesktopClass = `desktop-text-${formData[side + 'DescriptionAlignmentDesktop']}`;
+        const descriptionAlignmentMobileClass = `mobile-text-${formData[side + 'DescriptionAlignmentMobile']}`;
+
         return `
         <td align="center" class="block" style="width: 280px;" valign="top">
             <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
@@ -104,7 +125,7 @@ const twoColumnStoryModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td background="https://files.jarrang.com/Milwaukee/zTemplate/images/images-assets/${titleBgImage}" bgcolor="#B50317" class="mobile-text-left title-bg" style="text-align: left;" valign="top">
+                                <td background="https://files.jarrang.com/Milwaukee/zTemplate/images/images-assets/${titleBgImage}" bgcolor="#B50317" class="mobile-text-left title-bg ${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}" style="text-align: ${formData[side + 'TitleAlignmentDesktop']};" valign="top">
                                     <!--[if gte mso 9]>
                                     <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:280px;">
                                     <v:fill type="tile" src="https://files.jarrang.com/Milwaukee/zTemplate/images/images-assets/${titleBgImage}" color="#B50317" size="100%,100%" aspect="atleast" />
@@ -127,7 +148,7 @@ const twoColumnStoryModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
+                                <td class="story-intro mobile-text-center ${descriptionAlignmentDesktopClass} ${descriptionAlignmentMobileClass}" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: ${formData[side + 'DescriptionAlignmentDesktop']};">
                                     ${formData[side + 'Description']}
                                 </td>
                             </tr>
@@ -182,6 +203,20 @@ const twoColumnStoryModule = {
             } else {
                 console.warn(`Rich text editor with id ${descriptionId} not found`);
             }
+
+            const setAlignmentIfExists = (id, value) => {
+                const button = document.querySelector(`#${id} .alignment-button[data-alignment="${value}"]`);
+                if (button) {
+                    button.classList.add('active');
+                } else {
+                    console.warn(`Alignment button for ${id} with value ${value} not found`);
+                }
+            };
+
+            setAlignmentIfExists(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}TitleAlignmentDesktop`, formData[side + 'TitleAlignmentDesktop']);
+            setAlignmentIfExists(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}TitleAlignmentMobile`, formData[side + 'TitleAlignmentMobile']);
+            setAlignmentIfExists(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}DescriptionAlignmentDesktop`, formData[side + 'DescriptionAlignmentDesktop']);
+            setAlignmentIfExists(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}DescriptionAlignmentMobile`, formData[side + 'DescriptionAlignmentMobile']);
         });
         
         const backgroundColorRadios = document.querySelectorAll('input[name="twoColumnBackgroundColor"]');
@@ -219,6 +254,23 @@ const twoColumnStoryModule = {
             } else {
                 console.warn(`Rich text editor with id ${descriptionId} not found for event listener`);
             }
+
+            const setupAlignmentButtonListeners = (id, field) => {
+                const buttons = document.querySelectorAll(`#${id} .alignment-button`);
+                buttons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const alignment = button.getAttribute('data-alignment');
+                        handleFormFieldChange('twoColumnStory', field, alignment);
+                        buttons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                    });
+                });
+            };
+
+            setupAlignmentButtonListeners(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}TitleAlignmentDesktop`, `${side}TitleAlignmentDesktop`);
+            setupAlignmentButtonListeners(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}TitleAlignmentMobile`, `${side}TitleAlignmentMobile`);
+            setupAlignmentButtonListeners(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}DescriptionAlignmentDesktop`, `${side}DescriptionAlignmentDesktop`);
+            setupAlignmentButtonListeners(`twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}DescriptionAlignmentMobile`, `${side}DescriptionAlignmentMobile`);
         });
     
         const backgroundColorRadios = document.querySelectorAll('input[name="twoColumnBackgroundColor"]');

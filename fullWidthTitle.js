@@ -8,7 +8,9 @@ const fullWidthTitleModule = {
     getPlaceholderData() {
         return {
             title: 'Lorem ipsum',
-            backgroundColor: 'red'
+            backgroundColor: 'red',
+            titleAlignmentDesktop: 'center',
+            titleAlignmentMobile: 'center'
         };
     },
 
@@ -19,7 +21,9 @@ const fullWidthTitleModule = {
         try {
             const parsedData = {
                 title: doc.querySelector('h1')?.textContent?.trim() || '',
-                backgroundColor: doc.querySelector('.content-outer').style.backgroundColor === '#DB021D' ? 'red' : 'black'
+                backgroundColor: doc.querySelector('.content-outer').style.backgroundColor === '#DB021D' ? 'red' : 'black',
+                titleAlignmentDesktop: doc.querySelector('h1').style.textAlign || 'center',
+                titleAlignmentMobile: doc.querySelector('h1').classList.contains('mobile-text-center') ? 'center' : 'left'
             };
             console.log('Parsed Full Width Title data:', parsedData);
             return parsedData;
@@ -36,6 +40,8 @@ const fullWidthTitleModule = {
             formData = this.getPlaceholderData();
         }
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
+        const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
+        const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
 
         return `
         <!-- START .fw-title -->
@@ -53,7 +59,7 @@ const fullWidthTitleModule = {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="mobile-text-center" style="text-align: center;">
+                                        <td class="${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}" style="text-align: ${formData.titleAlignmentDesktop};">
                                             <h1 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 36px; font-weight: bold; line-height: 42px; margin: 0; margin-bottom: 0; margin-top: 0; padding-bottom: 0px !important; text-transform: uppercase;">
                                                 ${formData.title}
                                             </h1>
@@ -84,6 +90,18 @@ const fullWidthTitleModule = {
         backgroundColorRadios.forEach(radio => {
             radio.checked = radio.value === formData.backgroundColor;
         });
+
+        const setAlignmentIfExists = (id, value) => {
+            const button = document.querySelector(`#${id} .alignment-button[data-alignment="${value}"]`);
+            if (button) {
+                button.classList.add('active');
+            } else {
+                console.warn(`Alignment button for ${id} with value ${value} not found`);
+            }
+        };
+
+        setAlignmentIfExists('fwTitleAlignmentDesktop', formData.titleAlignmentDesktop);
+        setAlignmentIfExists('fwTitleAlignmentMobile', formData.titleAlignmentMobile);
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -110,6 +128,21 @@ const fullWidthTitleModule = {
                 handleFormFieldChange('fullWidthTitle', 'title', titleInput.innerHTML);
             });
         }
+
+        const setupAlignmentButtonListeners = (id, field) => {
+            const buttons = document.querySelectorAll(`#${id} .alignment-button`);
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const alignment = button.getAttribute('data-alignment');
+                    handleFormFieldChange('fullWidthTitle', field, alignment);
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+        };
+
+        setupAlignmentButtonListeners('fwTitleAlignmentDesktop', 'titleAlignmentDesktop');
+        setupAlignmentButtonListeners('fwTitleAlignmentMobile', 'titleAlignmentMobile');
     }
 };
 
