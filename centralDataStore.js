@@ -38,6 +38,20 @@ let state = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left'
         },
+        threeColumnStory: {
+            leftTitleAlignmentDesktop: 'left',
+            leftTitleAlignmentMobile: 'left',
+            leftDescriptionAlignmentDesktop: 'left',
+            leftDescriptionAlignmentMobile: 'left',
+            centerTitleAlignmentDesktop: 'left',
+            centerTitleAlignmentMobile: 'left',
+            centerDescriptionAlignmentDesktop: 'left',
+            centerDescriptionAlignmentMobile: 'left',
+            rightTitleAlignmentDesktop: 'left',
+            rightTitleAlignmentMobile: 'left',
+            rightDescriptionAlignmentDesktop: 'left',
+            rightDescriptionAlignmentMobile: 'left'
+        },
         fwImage: {},
         fwButton: {},
         divider: {},
@@ -108,6 +122,23 @@ export function updateFormData(newData) {
         const fullWidthTitle = state.formData.fullWidthTitle;
         fullWidthTitle.titleAlignmentDesktop = newData.fullWidthTitle.titleAlignmentDesktop || fullWidthTitle.titleAlignmentDesktop;
         fullWidthTitle.titleAlignmentMobile = newData.fullWidthTitle.titleAlignmentMobile || fullWidthTitle.titleAlignmentMobile;
+    }
+
+    // Update alignment properties for threeColumnStory
+    if (newData.threeColumnStory) {
+        const threeColumnStory = state.formData.threeColumnStory;
+        threeColumnStory.leftTitleAlignmentDesktop = newData.threeColumnStory.leftTitleAlignmentDesktop || threeColumnStory.leftTitleAlignmentDesktop;
+        threeColumnStory.leftTitleAlignmentMobile = newData.threeColumnStory.leftTitleAlignmentMobile || threeColumnStory.leftTitleAlignmentMobile;
+        threeColumnStory.leftDescriptionAlignmentDesktop = newData.threeColumnStory.leftDescriptionAlignmentDesktop || threeColumnStory.leftDescriptionAlignmentDesktop;
+        threeColumnStory.leftDescriptionAlignmentMobile = newData.threeColumnStory.leftDescriptionAlignmentMobile || threeColumnStory.leftDescriptionAlignmentMobile;
+        threeColumnStory.centerTitleAlignmentDesktop = newData.threeColumnStory.centerTitleAlignmentDesktop || threeColumnStory.centerTitleAlignmentDesktop;
+        threeColumnStory.centerTitleAlignmentMobile = newData.threeColumnStory.centerTitleAlignmentMobile || threeColumnStory.centerTitleAlignmentMobile;
+        threeColumnStory.centerDescriptionAlignmentDesktop = newData.threeColumnStory.centerDescriptionAlignmentDesktop || threeColumnStory.centerDescriptionAlignmentDesktop;
+        threeColumnStory.centerDescriptionAlignmentMobile = newData.threeColumnStory.centerDescriptionAlignmentMobile || threeColumnStory.centerDescriptionAlignmentMobile;
+        threeColumnStory.rightTitleAlignmentDesktop = newData.threeColumnStory.rightTitleAlignmentDesktop || threeColumnStory.rightTitleAlignmentDesktop;
+        threeColumnStory.rightTitleAlignmentMobile = newData.threeColumnStory.rightTitleAlignmentMobile || threeColumnStory.rightTitleAlignmentMobile;
+        threeColumnStory.rightDescriptionAlignmentDesktop = newData.threeColumnStory.rightDescriptionAlignmentDesktop || threeColumnStory.rightDescriptionAlignmentDesktop;
+        threeColumnStory.rightDescriptionAlignmentMobile = newData.threeColumnStory.rightDescriptionAlignmentMobile || threeColumnStory.rightDescriptionAlignmentMobile;
     }
 
     console.log('Form data updated:', state.formData);
