@@ -25,7 +25,19 @@ const threeColumnStoryModule = {
             rightDescription: 'Intro text goes here',
             rightButtonText: 'Button title',
             rightButtonLink: 'https://milwaukeetool.eu/',
-            backgroundColor: 'red'
+            backgroundColor: 'red',
+            leftTitleAlignmentDesktop: 'left',
+            leftTitleAlignmentMobile: 'left',
+            leftDescriptionAlignmentDesktop: 'left',
+            leftDescriptionAlignmentMobile: 'left',
+            centerTitleAlignmentDesktop: 'left',
+            centerTitleAlignmentMobile: 'left',
+            centerDescriptionAlignmentDesktop: 'left',
+            centerDescriptionAlignmentMobile: 'left',
+            rightTitleAlignmentDesktop: 'left',
+            rightTitleAlignmentMobile: 'left',
+            rightDescriptionAlignmentDesktop: 'left',
+            rightDescriptionAlignmentMobile: 'left'
         };
     },
 
@@ -54,7 +66,19 @@ const threeColumnStoryModule = {
                 rightDescription: columns[4].querySelector('.story-intro')?.textContent?.trim() || '',
                 rightButtonText: columns[4].querySelector('.button-1 a')?.textContent?.trim() || '',
                 rightButtonLink: columns[4].querySelector('.button-1 a')?.href || '',
-                backgroundColor: doc.querySelector('.content-outer').style.backgroundColor === '#DB021D' ? 'red' : 'black'
+                backgroundColor: doc.querySelector('.content-outer').style.backgroundColor === '#DB021D' ? 'red' : 'black',
+                leftTitleAlignmentDesktop: columns[0].querySelector('h3').style.textAlign || 'left',
+                leftTitleAlignmentMobile: columns[0].querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
+                leftDescriptionAlignmentDesktop: columns[0].querySelector('.story-intro').style.textAlign || 'left',
+                leftDescriptionAlignmentMobile: columns[0].querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left',
+                centerTitleAlignmentDesktop: columns[2].querySelector('h3').style.textAlign || 'left',
+                centerTitleAlignmentMobile: columns[2].querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
+                centerDescriptionAlignmentDesktop: columns[2].querySelector('.story-intro').style.textAlign || 'left',
+                centerDescriptionAlignmentMobile: columns[2].querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left',
+                rightTitleAlignmentDesktop: columns[4].querySelector('h3').style.textAlign || 'left',
+                rightTitleAlignmentMobile: columns[4].querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
+                rightDescriptionAlignmentDesktop: columns[4].querySelector('.story-intro').style.textAlign || 'left',
+                rightDescriptionAlignmentMobile: columns[4].querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left'
             };
             console.log('Parsed Three Column Story data:', parsedData);
             return parsedData;
@@ -96,6 +120,11 @@ const threeColumnStoryModule = {
     },
 
     getColumnHtml(formData, position) {
+        const titleAlignmentDesktopClass = `desktop-text-${formData[position + 'TitleAlignmentDesktop']}`;
+        const titleAlignmentMobileClass = `mobile-text-${formData[position + 'TitleAlignmentMobile']}`;
+        const descriptionAlignmentDesktopClass = `desktop-text-${formData[position + 'DescriptionAlignmentDesktop']}`;
+        const descriptionAlignmentMobileClass = `mobile-text-${formData[position + 'DescriptionAlignmentMobile']}`;
+
         return `
         <td class="block" style="width: 180px;" valign="top">
             <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
@@ -117,7 +146,7 @@ const threeColumnStoryModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="mobile-text-center" style="text-align: left;">
+                                <td class="${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}" style="text-align: ${formData[position + 'TitleAlignmentDesktop']};">
                                     <h3 style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 28px; font-stretch: condensed; font-weight: bold; line-height: 32px; margin: 0; margin-bottom: 0; margin-top: 0; text-transform: uppercase;">
                                         ${formData[position + 'Title']}
                                     </h3>
@@ -129,7 +158,7 @@ const threeColumnStoryModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: left;">
+                                <td class="story-intro ${descriptionAlignmentDesktopClass} ${descriptionAlignmentMobileClass}" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; text-align: ${formData[position + 'DescriptionAlignmentDesktop']};">
                                     ${formData[position + 'Description']}
                                 </td>
                             </tr>
@@ -183,6 +212,20 @@ const threeColumnStoryModule = {
             } else {
                 console.warn(`Rich text editor with id ${descriptionId} not found`);
             }
+
+            const setAlignmentIfExists = (id, value) => {
+                const button = document.querySelector(`#${id} .alignment-button[data-alignment="${value}"]`);
+                if (button) {
+                    button.classList.add('active');
+                } else {
+                    console.warn(`Alignment button for ${id} with value ${value} not found`);
+                }
+            };
+
+            setAlignmentIfExists(`threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}TitleAlignmentDesktop`, formData[position + 'TitleAlignmentDesktop']);
+            setAlignmentIfExists(`threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}TitleAlignmentMobile`, formData[position + 'TitleAlignmentMobile']);
+            setAlignmentIfExists(`threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}DescriptionAlignmentDesktop`, formData[position + 'DescriptionAlignmentDesktop']);
+            setAlignmentIfExists(`threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}DescriptionAlignmentMobile`, formData[position + 'DescriptionAlignmentMobile']);
         });
         
         const backgroundColorRadios = document.querySelectorAll('input[name="threeColumnBackgroundColor"]');
@@ -219,6 +262,23 @@ const threeColumnStoryModule = {
             } else {
                 console.warn(`Rich text editor with id ${descriptionId} not found for event listener`);
             }
+
+            const setupAlignmentButtonListeners = (id, field) => {
+                const buttons = document.querySelectorAll(`#${id} .alignment-button`);
+                buttons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const alignment = button.getAttribute('data-alignment');
+                        handleFormFieldChange('threeColumnStory', field, alignment);
+                        buttons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                    });
+                });
+            };
+
+            setupAlignmentButtonListeners(`threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}TitleAlignmentDesktop`, `${position}TitleAlignmentDesktop`);
+            setupAlignmentButtonListeners(`threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}TitleAlignmentMobile`, `${position}TitleAlignmentMobile`);
+            setupAlignmentButtonListeners(`threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}DescriptionAlignmentDesktop`, `${position}DescriptionAlignmentDesktop`);
+            setupAlignmentButtonListeners(`threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}DescriptionAlignmentMobile`, `${position}DescriptionAlignmentMobile`);
         });
     
         const backgroundColorRadios = document.querySelectorAll('input[name="threeColumnBackgroundColor"]');
