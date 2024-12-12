@@ -14,7 +14,11 @@ const prizeEveryMonthModule = {
             description: 'Enter into our draw to win one of our newest tools every month!',
             buttonText: 'Enter now',
             buttonLink: 'https://www.milwaukeetool.eu/',
-            imagePosition: 'right'
+            imagePosition: 'right',
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left',
+            descriptionAlignmentDesktop: 'left',
+            descriptionAlignmentMobile: 'left'
         };
     },
 
@@ -31,7 +35,11 @@ const prizeEveryMonthModule = {
                 description: doc.querySelector('.story-intro')?.innerHTML || '',
                 buttonText: doc.querySelector('.button-1 a')?.textContent?.trim() || '',
                 buttonLink: doc.querySelector('.button-1 a')?.href || '',
-                imagePosition: doc.querySelector('.sect[dir="rtl"]') ? 'right' : 'left'
+                imagePosition: doc.querySelector('.sect[dir="rtl"]') ? 'right' : 'left',
+                titleAlignmentDesktop: doc.querySelector('h3').style.textAlign || 'left',
+                titleAlignmentMobile: doc.querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
+                descriptionAlignmentDesktop: doc.querySelector('.story-intro').style.textAlign || 'left',
+                descriptionAlignmentMobile: doc.querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left'
             };
             console.log('Parsed Prize Every Month data:', parsedData);
             return parsedData;
@@ -50,6 +58,10 @@ const prizeEveryMonthModule = {
 
         const imageFirst = formData.imagePosition !== 'right';
         const sectionDir = imageFirst ? 'ltr' : 'rtl';
+        const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
+        const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
+        const descriptionAlignmentDesktopClass = `desktop-text-${formData.descriptionAlignmentDesktop}`;
+        const descriptionAlignmentMobileClass = `mobile-text-${formData.descriptionAlignmentMobile}`;
 
         return `
         <!-- START .story-pem -->
@@ -60,7 +72,7 @@ const prizeEveryMonthModule = {
                     <table align="center" border="0" cellpadding="0" cellspacing="0" class="imp sect" dir="${sectionDir}" role="presentation" style="background-color: #B50018; width: 100%;">
                         <tr height="320" style="height: 320px">
                             ${this.getImageColumn(formData)}
-                            ${this.getContentColumn(formData)}
+                            ${this.getContentColumn(formData, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass)}
                         </tr>
                     </table>
                 </td>
@@ -89,7 +101,7 @@ const prizeEveryMonthModule = {
         `;
     },
 
-    getContentColumn(formData) {
+    getContentColumn(formData, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass) {
         return `
         <td class="imp block" dir="ltr" style="width: 300px;" valign="middle">
             <table align="left" border="0" cellpadding="0" cellspacing="0" class="imp sect" role="presentation" style="width: 100%;">
@@ -102,14 +114,14 @@ const prizeEveryMonthModule = {
                                 </td>
                             </tr>
                             <tr>
-                                <td class="imp mobile-text-center" style="text-align: left;">
+                                <td class="imp ${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}" style="text-align: ${formData.titleAlignmentDesktop};">
                                     <h3 class="imp" style="color: #ffffff; font-family: 'HelveticaNeue-CondensedBold', Arial, sans-serif, 'Open-Sans'; font-size: 22px; font-stretch: condensed; font-weight: bold; line-height: 26px; margin: 0; margin-bottom: 4px; margin-top: 0; text-transform: uppercase;">
                                         ${formData.title}
                                     </h3>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="imp story-intro mobile-text-center" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; padding-bottom: 10px; text-align: left;">
+                                <td class="imp story-intro mobile-text-center ${descriptionAlignmentDesktopClass} ${descriptionAlignmentMobileClass}" style="color: #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: normal; line-height: 24px; margin: 0; padding-bottom: 10px; text-align: ${formData.descriptionAlignmentDesktop};">
                                     ${formData.description}
                                 </td>
                             </tr>
@@ -162,6 +174,20 @@ const prizeEveryMonthModule = {
         imagePositionRadios.forEach(radio => {
             radio.checked = radio.value === formData.imagePosition;
         });
+
+        const setAlignmentIfExists = (id, value) => {
+            const button = document.querySelector(`#${id} .alignment-button[data-alignment="${value}"]`);
+            if (button) {
+                button.classList.add('active');
+            } else {
+                console.warn(`Alignment button for ${id} with value ${value} not found`);
+            }
+        };
+
+        setAlignmentIfExists('pemTitleAlignmentDesktop', formData.titleAlignmentDesktop);
+        setAlignmentIfExists('pemTitleAlignmentMobile', formData.titleAlignmentMobile);
+        setAlignmentIfExists('pemDescriptionAlignmentDesktop', formData.descriptionAlignmentDesktop);
+        setAlignmentIfExists('pemDescriptionAlignmentMobile', formData.descriptionAlignmentMobile);
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -276,6 +302,23 @@ const prizeEveryMonthModule = {
                 });
             }
         }
+
+        const setupAlignmentButtonListeners = (id, field) => {
+            const buttons = document.querySelectorAll(`#${id} .alignment-button`);
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const alignment = button.getAttribute('data-alignment');
+                    handleFormFieldChange('prizeEveryMonth', field, alignment);
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+        };
+
+        setupAlignmentButtonListeners('pemTitleAlignmentDesktop', 'titleAlignmentDesktop');
+        setupAlignmentButtonListeners('pemTitleAlignmentMobile', 'titleAlignmentMobile');
+        setupAlignmentButtonListeners('pemDescriptionAlignmentDesktop', 'descriptionAlignmentDesktop');
+        setupAlignmentButtonListeners('pemDescriptionAlignmentMobile', 'descriptionAlignmentMobile');
     }
 };
 

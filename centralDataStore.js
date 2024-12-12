@@ -10,9 +10,34 @@ let state = {
             descriptionAlignmentDesktop: 'left',
             descriptionAlignmentMobile: 'left'
         },
-        introStory: {},
-        oneColumnStory: {},
-        twoColumnStory: {},
+        introStory: {
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left',
+            descriptionAlignmentDesktop: 'left',
+            descriptionAlignmentMobile: 'left'
+        },
+        oneColumnStory: {
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left',
+            descriptionAlignmentDesktop: 'left',
+            descriptionAlignmentMobile: 'left'
+        },
+        twoColumnStory: {
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left',
+            descriptionAlignmentDesktop: 'left',
+            descriptionAlignmentMobile: 'left'
+        },
+        prizeEveryMonth: {
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left',
+            descriptionAlignmentDesktop: 'left',
+            descriptionAlignmentMobile: 'left'
+        },
+        fullWidthTitle: {
+            titleAlignmentDesktop: 'left',
+            titleAlignmentMobile: 'left'
+        },
         fwImage: {},
         fwButton: {},
         divider: {},
@@ -40,6 +65,49 @@ export function updateFormData(newData) {
         leadStory.titleAlignmentMobile = newData.leadStory.titleAlignmentMobile || leadStory.titleAlignmentMobile;
         leadStory.descriptionAlignmentDesktop = newData.leadStory.descriptionAlignmentDesktop || leadStory.descriptionAlignmentDesktop;
         leadStory.descriptionAlignmentMobile = newData.leadStory.descriptionAlignmentMobile || leadStory.descriptionAlignmentMobile;
+    }
+
+    // Update alignment properties for introStory
+    if (newData.introStory) {
+        const introStory = state.formData.introStory;
+        introStory.titleAlignmentDesktop = newData.introStory.titleAlignmentDesktop || introStory.titleAlignmentDesktop;
+        introStory.titleAlignmentMobile = newData.introStory.titleAlignmentMobile || introStory.titleAlignmentMobile;
+        introStory.descriptionAlignmentDesktop = newData.introStory.descriptionAlignmentDesktop || introStory.descriptionAlignmentDesktop;
+        introStory.descriptionAlignmentMobile = newData.introStory.descriptionAlignmentMobile || introStory.descriptionAlignmentMobile;
+    }
+
+    // Update alignment properties for oneColumnStory
+    if (newData.oneColumnStory) {
+        const oneColumnStory = state.formData.oneColumnStory;
+        oneColumnStory.titleAlignmentDesktop = newData.oneColumnStory.titleAlignmentDesktop || oneColumnStory.titleAlignmentDesktop;
+        oneColumnStory.titleAlignmentMobile = newData.oneColumnStory.titleAlignmentMobile || oneColumnStory.titleAlignmentMobile;
+        oneColumnStory.descriptionAlignmentDesktop = newData.oneColumnStory.descriptionAlignmentDesktop || oneColumnStory.descriptionAlignmentDesktop;
+        oneColumnStory.descriptionAlignmentMobile = newData.oneColumnStory.descriptionAlignmentMobile || oneColumnStory.descriptionAlignmentMobile;
+    }
+
+    // Update alignment properties for twoColumnStory
+    if (newData.twoColumnStory) {
+        const twoColumnStory = state.formData.twoColumnStory;
+        twoColumnStory.titleAlignmentDesktop = newData.twoColumnStory.titleAlignmentDesktop || twoColumnStory.titleAlignmentDesktop;
+        twoColumnStory.titleAlignmentMobile = newData.twoColumnStory.titleAlignmentMobile || twoColumnStory.titleAlignmentMobile;
+        twoColumnStory.descriptionAlignmentDesktop = newData.twoColumnStory.descriptionAlignmentDesktop || twoColumnStory.descriptionAlignmentDesktop;
+        twoColumnStory.descriptionAlignmentMobile = newData.twoColumnStory.descriptionAlignmentMobile || twoColumnStory.descriptionAlignmentMobile;
+    }
+
+    // Update alignment properties for prizeEveryMonth
+    if (newData.prizeEveryMonth) {
+        const prizeEveryMonth = state.formData.prizeEveryMonth;
+        prizeEveryMonth.titleAlignmentDesktop = newData.prizeEveryMonth.titleAlignmentDesktop || prizeEveryMonth.titleAlignmentDesktop;
+        prizeEveryMonth.titleAlignmentMobile = newData.prizeEveryMonth.titleAlignmentMobile || prizeEveryMonth.titleAlignmentMobile;
+        prizeEveryMonth.descriptionAlignmentDesktop = newData.prizeEveryMonth.descriptionAlignmentDesktop || prizeEveryMonth.descriptionAlignmentDesktop;
+        prizeEveryMonth.descriptionAlignmentMobile = newData.prizeEveryMonth.descriptionAlignmentMobile || prizeEveryMonth.descriptionAlignmentMobile;
+    }
+
+    // Update alignment properties for fullWidthTitle
+    if (newData.fullWidthTitle) {
+        const fullWidthTitle = state.formData.fullWidthTitle;
+        fullWidthTitle.titleAlignmentDesktop = newData.fullWidthTitle.titleAlignmentDesktop || fullWidthTitle.titleAlignmentDesktop;
+        fullWidthTitle.titleAlignmentMobile = newData.fullWidthTitle.titleAlignmentMobile || fullWidthTitle.titleAlignmentMobile;
     }
 
     console.log('Form data updated:', state.formData);
