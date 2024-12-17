@@ -20,7 +20,7 @@ const leadStoryModule = {
             descriptionAlignmentDesktop: 'left',
             descriptionAlignmentMobile: 'left',
             altText: 'Default alt text',
-            leadAltText: 'Default lead alt text'
+            leadAltText: 'Default lead alt text' // P48e4
         };
     },
 
@@ -162,7 +162,7 @@ const leadStoryModule = {
         }
         setValueIfExists('buttonText', formData.buttonText);
         setValueIfExists('buttonLink', formData.buttonLink);
-        setValueIfExists('leadAltText', formData.leadAltText);
+        setValueIfExists('leadAltText', formData.leadAltText); // P48e4
 
         const showButtonElement = document.getElementById('showButton');
         if (showButtonElement) {
