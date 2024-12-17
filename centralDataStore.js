@@ -9,7 +9,8 @@ let state = {
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
             descriptionAlignmentMobile: 'left',
-            altText: ''
+            altText: '',
+            leadAltText: '' // P7553
         },
         introStory: {
             titleAlignmentDesktop: 'left',
@@ -87,6 +88,7 @@ export function updateFormData(newData) {
         leadStory.descriptionAlignmentDesktop = newData.leadStory.descriptionAlignmentDesktop || leadStory.descriptionAlignmentDesktop;
         leadStory.descriptionAlignmentMobile = newData.leadStory.descriptionAlignmentMobile || leadStory.descriptionAlignmentMobile;
         leadStory.altText = newData.leadStory.altText || leadStory.altText;
+        leadStory.leadAltText = newData.leadStory.leadAltText || leadStory.leadAltText; // Pfde9
     }
 
     // Update alignment properties for introStory
