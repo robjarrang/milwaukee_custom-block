@@ -9,18 +9,21 @@ const threeColumnStoryModule = {
         return {
             leftImageUrl: 'https://fakeimg.pl/180x180/dddddd/ffffff',
             leftImageLink: 'https://milwaukeetool.eu/',
+            leftAltText: 'Left image alt text',
             leftTitle: 'Title goes here',
             leftDescription: 'Intro text goes here',
             leftButtonText: 'Button title',
             leftButtonLink: 'https://milwaukeetool.eu/',
             centerImageUrl: 'https://fakeimg.pl/180x180/dddddd/ffffff',
             centerImageLink: 'https://milwaukeetool.eu/',
+            centerAltText: 'Center image alt text',
             centerTitle: 'Title goes here',
             centerDescription: 'Intro text goes here',
             centerButtonText: 'Button title',
             centerButtonLink: 'https://milwaukeetool.eu/',
             rightImageUrl: 'https://fakeimg.pl/180x180/dddddd/ffffff',
             rightImageLink: 'https://milwaukeetool.eu/',
+            rightAltText: 'Right image alt text',
             rightTitle: 'Title goes here',
             rightDescription: 'Intro text goes here',
             rightButtonText: 'Button title',
@@ -50,18 +53,21 @@ const threeColumnStoryModule = {
             const parsedData = {
                 leftImageUrl: columns[0].querySelector('.fill.no-hover')?.src || '',
                 leftImageLink: columns[0].querySelector('.fill.no-hover')?.closest('a')?.href || '',
+                leftAltText: columns[0].querySelector('.fill.no-hover')?.alt || '',
                 leftTitle: columns[0].querySelector('h3')?.textContent?.trim() || '',
                 leftDescription: columns[0].querySelector('.story-intro')?.textContent?.trim() || '',
                 leftButtonText: columns[0].querySelector('.button-1 a')?.textContent?.trim() || '',
                 leftButtonLink: columns[0].querySelector('.button-1 a')?.href || '',
                 centerImageUrl: columns[2].querySelector('.fill.no-hover')?.src || '',
                 centerImageLink: columns[2].querySelector('.fill.no-hover')?.closest('a')?.href || '',
+                centerAltText: columns[2].querySelector('.fill.no-hover')?.alt || '',
                 centerTitle: columns[2].querySelector('h3')?.textContent?.trim() || '',
                 centerDescription: columns[2].querySelector('.story-intro')?.textContent?.trim() || '',
                 centerButtonText: columns[2].querySelector('.button-1 a')?.textContent?.trim() || '',
                 centerButtonLink: columns[2].querySelector('.button-1 a')?.href || '',
                 rightImageUrl: columns[4].querySelector('.fill.no-hover')?.src || '',
                 rightImageLink: columns[4].querySelector('.fill.no-hover')?.closest('a')?.href || '',
+                rightAltText: columns[4].querySelector('.fill.no-hover')?.alt || '',
                 rightTitle: columns[4].querySelector('h3')?.textContent?.trim() || '',
                 rightDescription: columns[4].querySelector('.story-intro')?.textContent?.trim() || '',
                 rightButtonText: columns[4].querySelector('.button-1 a')?.textContent?.trim() || '',
@@ -132,7 +138,7 @@ const threeColumnStoryModule = {
                     <td>
                         <div>
                             <a href="${formData[position + 'ImageLink']}" target="_blank" style="color: #ffffff;">
-                                <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData[position + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="180">
+                                <img align="top" alt="${formData[position + 'AltText']}" class="fill no-hover" src="${formData[position + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="180">
                             </a>
                         </div>
                     </td>
@@ -195,7 +201,7 @@ const threeColumnStoryModule = {
     populateForm(formData) {
         console.log('Populating Three Column Story form with data:', formData);
         ['left', 'center', 'right'].forEach(position => {
-            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
+            ['ImageUrl', 'ImageLink', 'AltText', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
                 const id = `threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}${field}`;
                 const element = document.getElementById(id);
                 if (element) {
@@ -240,7 +246,7 @@ const threeColumnStoryModule = {
 
     setupEventListeners(handleFormFieldChange) {
         ['left', 'center', 'right'].forEach(position => {
-            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
+            ['ImageUrl', 'ImageLink', 'AltText', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
                 const id = `threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}${field}`;
                 const element = document.getElementById(id);
                 if (element) {
