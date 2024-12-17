@@ -37,7 +37,8 @@ let state = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            altText: ''
         },
         fullWidthTitle: {
             titleAlignmentDesktop: 'left',
@@ -60,7 +61,9 @@ let state = {
             centerAltText: '',
             rightAltText: ''
         },
-        fwImage: {},
+        fwImage: {
+            altText: ''
+        },
         fwButton: {},
         divider: {},
         spacer: {}
@@ -128,6 +131,7 @@ export function updateFormData(newData) {
         prizeEveryMonth.titleAlignmentMobile = newData.prizeEveryMonth.titleAlignmentMobile || prizeEveryMonth.titleAlignmentMobile;
         prizeEveryMonth.descriptionAlignmentDesktop = newData.prizeEveryMonth.descriptionAlignmentDesktop || prizeEveryMonth.descriptionAlignmentDesktop;
         prizeEveryMonth.descriptionAlignmentMobile = newData.prizeEveryMonth.descriptionAlignmentMobile || prizeEveryMonth.descriptionAlignmentMobile;
+        prizeEveryMonth.altText = newData.prizeEveryMonth.altText || prizeEveryMonth.altText;
     }
 
     // Update alignment properties for fullWidthTitle
@@ -155,6 +159,12 @@ export function updateFormData(newData) {
         threeColumnStory.leftAltText = newData.threeColumnStory.leftAltText || threeColumnStory.leftAltText;
         threeColumnStory.centerAltText = newData.threeColumnStory.centerAltText || threeColumnStory.centerAltText;
         threeColumnStory.rightAltText = newData.threeColumnStory.rightAltText || threeColumnStory.rightAltText;
+    }
+
+    // Update alignment properties for fwImage
+    if (newData.fwImage) {
+        const fwImage = state.formData.fwImage;
+        fwImage.altText = newData.fwImage.altText || fwImage.altText;
     }
 
     console.log('Form data updated:', state.formData);

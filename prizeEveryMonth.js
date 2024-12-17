@@ -18,7 +18,8 @@ const prizeEveryMonthModule = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            altText: 'Default alt text'
         };
     },
 
@@ -82,7 +83,7 @@ const prizeEveryMonthModule = {
         <!-- END .story-pem -->
         <div>
             <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                <img src="${formData.imageUrl}" alt="Prize Image">
+                <img src="${formData.imageUrl}" alt="${formData.altText}">
             </a>
             <p>${formData.description}</p>
         </div>
@@ -94,7 +95,7 @@ const prizeEveryMonthModule = {
         <td class="imp block image" dir="ltr" style="width: 280px;" valign="middle">
             <div class="imp image">
                 <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                    <img align="top" alt="Milwaukee" class="imp fill absolute" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="270">
+                    <img align="top" alt="${formData.altText}" class="imp fill absolute" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="270">
                 </a>
             </div>
         </td>
@@ -169,6 +170,7 @@ const prizeEveryMonthModule = {
         
         document.getElementById('pemButtonText').value = formData.buttonText || '';
         document.getElementById('pemButtonLink').value = formData.buttonLink || '';
+        document.getElementById('pemAltText').value = formData.altText || '';
         
         const imagePositionRadios = document.querySelectorAll('input[name="pemImagePosition"]');
         imagePositionRadios.forEach(radio => {
@@ -191,7 +193,7 @@ const prizeEveryMonthModule = {
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['pemImageUrl', 'pemImageLink', 'pemLogoUrl', 'pemTitle', 'pemButtonText', 'pemButtonLink'].forEach(id => {
+        ['pemImageUrl', 'pemImageLink', 'pemLogoUrl', 'pemTitle', 'pemButtonText', 'pemButtonLink', 'pemAltText'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {
