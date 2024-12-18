@@ -18,7 +18,8 @@ const leadStoryModule = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            altText: 'Default alt text'
         };
     },
 
@@ -44,7 +45,7 @@ const leadStoryModule = {
                             <td align="center" class="block" style="width: 100%;" valign="top">
                                 <div>
                                     <a href="${formData.imageLink || '#'}" target="_blank">
-                                        <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.imageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="620">
+                                        <img align="top" alt="${formData.altText || 'Milwaukee'}" class="fill no-hover" src="${formData.imageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="620">
                                     </a>
                                 </div>
                             </td>
@@ -160,6 +161,7 @@ const leadStoryModule = {
         }
         setValueIfExists('buttonText', formData.buttonText);
         setValueIfExists('buttonLink', formData.buttonLink);
+        setValueIfExists('leadAltText', formData.altText);
 
         const showButtonElement = document.getElementById('showButton');
         if (showButtonElement) {
@@ -175,7 +177,7 @@ const leadStoryModule = {
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['imageUrl', 'imageLink', 'leadTitle', 'leadDescription', 'buttonText', 'buttonLink'].forEach(id => {
+        ['imageUrl', 'imageLink', 'leadTitle', 'leadDescription', 'buttonText', 'buttonLink', 'leadAltText'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 console.log(`Setting up event listener for ${id}`);
