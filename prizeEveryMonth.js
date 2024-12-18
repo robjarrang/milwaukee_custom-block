@@ -164,6 +164,10 @@ const prizeEveryMonthModule = {
         mobileContent.forEach(element => {
             element.style.display = 'none';
         });
+        const desktopContent = doc.querySelectorAll('.desktop-text-left');
+        desktopContent.forEach(element => {
+            element.style.display = 'block';
+        });
         return doc.documentElement.outerHTML;
     },
 
