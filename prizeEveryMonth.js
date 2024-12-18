@@ -63,7 +63,7 @@ const prizeEveryMonthModule = {
         const descriptionAlignmentDesktopClass = `desktop-text-${formData.descriptionAlignmentDesktop}`;
         const descriptionAlignmentMobileClass = `mobile-text-${formData.descriptionAlignmentMobile}`;
 
-        const updatedHtml = `
+        return `
         <!-- START .story-pem -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="imp content-outer story-1col banner" role="presentation" style="background-color: #DB021D; width: 620px;">
             <tr>
@@ -81,8 +81,6 @@ const prizeEveryMonthModule = {
         </table>
         <!-- END .story-pem -->
         `;
-
-        return this.fixMobileContentDisplay(updatedHtml);
     },
 
     getImageColumn(formData) {
@@ -149,20 +147,6 @@ const prizeEveryMonthModule = {
             </table>
         </td>
         `;
-    },
-
-    fixMobileContentDisplay(html) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const mobileContent = doc.querySelectorAll('.mobile-text-center');
-        mobileContent.forEach(element => {
-            element.style.display = 'none';
-        });
-        const desktopContent = doc.querySelectorAll('.desktop-text-left');
-        desktopContent.forEach(element => {
-            element.style.display = 'block';
-        });
-        return doc.documentElement.outerHTML;
     },
 
     populateForm(formData) {
