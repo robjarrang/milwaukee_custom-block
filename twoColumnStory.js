@@ -9,14 +9,12 @@ const twoColumnStoryModule = {
         return {
             leftImageUrl: 'https://fakeimg.pl/280x200/dddddd/ffffff',
             leftImageLink: 'https://milwaukeetool.eu/',
-            leftAltText: 'Left image alt text',
             leftTitle: 'Pellentesque habitant',
             leftDescription: 'Sed vitae aliquet neque.',
             leftButtonText: 'Button title',
             leftButtonLink: 'https://milwaukeetool.eu/',
             rightImageUrl: 'https://fakeimg.pl/280x200/dddddd/ffffff',
             rightImageLink: 'https://milwaukeetool.eu/',
-            rightAltText: 'Right image alt text',
             rightTitle: 'Pellentesque habitant',
             rightDescription: 'Morbi id risus eleifend, viverra.',
             rightButtonText: 'Button title',
@@ -42,14 +40,12 @@ const twoColumnStoryModule = {
             const parsedData = {
                 leftImageUrl: columns[0].querySelector('.fill.no-hover')?.src || '',
                 leftImageLink: columns[0].querySelector('.fill.no-hover')?.closest('a')?.href || '',
-                leftAltText: columns[0].querySelector('.fill.no-hover')?.alt || '',
                 leftTitle: columns[0].querySelector('h3')?.textContent?.trim() || '',
                 leftDescription: columns[0].querySelector('.story-intro')?.textContent?.trim() || '',
                 leftButtonText: columns[0].querySelector('.button-1 a')?.textContent?.trim() || '',
                 leftButtonLink: columns[0].querySelector('.button-1 a')?.href || '',
                 rightImageUrl: columns[2].querySelector('.fill.no-hover')?.src || '',
                 rightImageLink: columns[2].querySelector('.fill.no-hover')?.closest('a')?.href || '',
-                rightAltText: columns[2].querySelector('.fill.no-hover')?.alt || '',
                 rightTitle: columns[2].querySelector('h3')?.textContent?.trim() || '',
                 rightDescription: columns[2].querySelector('.story-intro')?.textContent?.trim() || '',
                 rightButtonText: columns[2].querySelector('.button-1 a')?.textContent?.trim() || '',
@@ -115,7 +111,7 @@ const twoColumnStoryModule = {
                     <td>
                         <div class="image">
                             <a href="${formData[side + 'ImageLink']}" target="_blank" style="color: #ffffff;">
-                                <img align="top" alt="${formData[side + 'AltText']}" class="fill no-hover" src="${formData[side + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
+                                <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData[side + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
                             </a>
                         </div>
                     </td>
@@ -189,7 +185,7 @@ const twoColumnStoryModule = {
     populateForm(formData) {
         console.log('Populating Two Column Story form with data:', formData);
         ['left', 'right'].forEach(side => {
-            ['ImageUrl', 'ImageLink', 'AltText', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
+            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
                 const id = `twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}${field}`;
                 const element = document.getElementById(id);
                 if (element) {
@@ -235,7 +231,7 @@ const twoColumnStoryModule = {
 
     setupEventListeners(handleFormFieldChange) {
         ['left', 'right'].forEach(side => {
-            ['ImageUrl', 'ImageLink', 'AltText', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
+            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
                 const id = `twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}${field}`;
                 const element = document.getElementById(id);
                 if (element) {

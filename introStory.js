@@ -18,8 +18,7 @@ const introStoryModule = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left',
-            altText: 'Default alt text'
+            descriptionAlignmentMobile: 'left'
         };
     },
 
@@ -57,7 +56,7 @@ const introStoryModule = {
                             <td align="center" class="block" dir="ltr" style="width: 290px;" valign="top">
                                 <div>
                                     <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                                        <img align="top" alt="${formData.altText || 'Milwaukee'}" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
+                                        <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
                                     </a>
                                 </div>
                             </td>
@@ -150,7 +149,6 @@ const introStoryModule = {
         }
         document.getElementById('introButtonText').value = formData.buttonText || '';
         document.getElementById('introButtonLink').value = formData.buttonLink || '';
-        document.getElementById('introAltText').value = formData.altText || '';
         
         const imagePositionRadios = document.querySelectorAll('input[name="introImagePosition"]');
         imagePositionRadios.forEach(radio => {
@@ -175,7 +173,7 @@ const introStoryModule = {
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['introImageUrl', 'introImageLink', 'introTitle', 'introButtonText', 'introButtonLink', 'introAltText'].forEach(id => {
+        ['introImageUrl', 'introImageLink', 'introTitle', 'introButtonText', 'introButtonLink'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {
