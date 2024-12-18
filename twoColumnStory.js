@@ -122,6 +122,15 @@ const twoColumnStoryModule = {
         `;
     },
 
+    getContentColumn(formData, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass) {
+        return `
+        <td class="block" style="width: 280px;" valign="middle">
+            <h2 class="${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}">${formData.title || 'Default Title'}</h2>
+            <p class="${descriptionAlignmentDesktopClass} ${descriptionAlignmentMobileClass}">${formData.description || 'Default Description'}</p>
+        </td>
+        `; 
+    },
+
     getColumnHtml(formData, side, titleBgImage) {
         const titleAlignmentDesktopClass = `desktop-text-${formData[side + 'TitleAlignmentDesktop']}`;
         const titleAlignmentMobileClass = `mobile-text-${formData[side + 'TitleAlignmentMobile']}`;
