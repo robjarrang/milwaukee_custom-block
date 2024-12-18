@@ -22,7 +22,11 @@ const galleryModule = {
             image4: {
                 url: 'https://image.mail.milwaukeetool.eu/lib/fe2f11717564047a761c78/m/1/d1d5fe5a-b14f-4a31-8ab1-32b97ed6ff14.jpg',
                 link: 'https://www.instagram.com/milwaukeetooleu/?hl=en'
-            }
+            },
+            image1AltText: 'Milwaukee Tool Product Image',
+            image2AltText: 'Milwaukee Tool Product Image',
+            image3AltText: 'Milwaukee Tool Product Image',
+            image4AltText: 'Milwaukee Tool Product Image'
         };
     },
 
@@ -44,7 +48,7 @@ const galleryModule = {
                             <td align="left" class="imp block story-intro" style="background-color: #B50018; margin: 0; width: 180px;" valign="top">
                                 <div class="imp image">
                                     <a href="${formData.image1.link}" target="_blank">
-                                        <img align="top" alt="Milwaukee" class="imp fill no-hover" src="${formData.image1.url}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="186">
+                                        <img align="top" alt="${formData.image1AltText || 'Milwaukee Tool Product Image'}" class="imp fill no-hover" src="${formData.image1.url}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="186">
                                     </a>
                                 </div>
                             </td>
@@ -58,7 +62,7 @@ const galleryModule = {
                                                     <td align="left" class="imp block story-intro" style="background-color: #B50018; margin: 0;" valign="top">
                                                         <div class="imp image">
                                                             <a href="${formData.image2.link}" target="_blank">
-                                                                <img align="top" alt="Milwaukee" class="imp fill no-hover" src="${formData.image2.url}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="186">
+                                                                <img align="top" alt="${formData.image2AltText || 'Milwaukee Tool Product Image'}" class="imp fill no-hover" src="${formData.image2.url}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="186">
                                                             </a>
                                                         </div>
                                                     </td>
@@ -66,7 +70,7 @@ const galleryModule = {
                                                     <td align="left" class="imp block story-intro" style="background-color: #B50018; margin: 0;" valign="top">
                                                         <div class="imp image">
                                                             <a href="${formData.image3.link}" target="_blank">
-                                                                <img align="top" alt="Milwaukee" class="imp fill no-hover" src="${formData.image3.url}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="186">
+                                                                <img align="top" alt="${formData.image3AltText || 'Milwaukee Tool Product Image'}" class="imp fill no-hover" src="${formData.image3.url}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="186">
                                                             </a>
                                                         </div>
                                                     </td>
@@ -81,7 +85,7 @@ const galleryModule = {
                                         <td align="left" class="imp block story-intro" style="background-color: #B50018; margin: 0; width: 100%;" valign="top">
                                             <div class="imp image">
                                                 <a href="${formData.image4.link}" target="_blank">
-                                                    <img align="top" alt="Milwaukee" class="imp fill no-hover" src="${formData.image4.url}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="382">
+                                                    <img align="top" alt="${formData.image4AltText || 'Milwaukee Tool Product Image'}" class="imp fill no-hover" src="${formData.image4.url}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="382">
                                                 </a>
                                             </div>
                                         </td>
@@ -111,6 +115,9 @@ const galleryModule = {
                 linkInput.value = formData[`image${i}`].link || '';
             }
         }
+        ['1', '2', '3', '4'].forEach(num => {
+            document.getElementById(`galleryImage${num}AltText`).value = formData[`image${num}AltText`] || '';
+        });
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -136,6 +143,14 @@ const galleryModule = {
                 });
             }
         }
+        ['1', '2', '3', '4'].forEach(num => {
+            const element = document.getElementById(`galleryImage${num}AltText`);
+            if (element) {
+                element.addEventListener('input', function(event) {
+                    handleFormFieldChange('gallery', `image${num}AltText`, event.target.value);
+                });
+            }
+        });
     }
 };
 

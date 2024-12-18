@@ -38,12 +38,9 @@ const threeColumnStoryModule = {
             rightTitleAlignmentMobile: 'left',
             rightDescriptionAlignmentDesktop: 'left',
             rightDescriptionAlignmentMobile: 'left',
-            leftImageAltText: 'Milwaukee Tool Left Column Image', // Add default alt text
-            centerImageAltText: 'Milwaukee Tool Center Column Image', // Add default alt text
-            rightImageAltText: 'Milwaukee Tool Right Column Image', // Add default alt text
-            threeColumnLeftImageAltText: 'Placeholder for Left Image Alt Text',
-            threeColumnCenterImageAltText: 'Placeholder for Center Image Alt Text',
-            threeColumnRightImageAltText: 'Placeholder for Right Image Alt Text'
+            leftImageAltText: 'Milwaukee Tool Product Image',
+            centerImageAltText: 'Milwaukee Tool Product Image',
+            rightImageAltText: 'Milwaukee Tool Product Image'
         };
     },
 
@@ -84,10 +81,7 @@ const threeColumnStoryModule = {
                 rightTitleAlignmentDesktop: columns[4].querySelector('h3').style.textAlign || 'left',
                 rightTitleAlignmentMobile: columns[4].querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
                 rightDescriptionAlignmentDesktop: columns[4].querySelector('.story-intro').style.textAlign || 'left',
-                rightDescriptionAlignmentMobile: columns[4].querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left',
-                leftImageAltText: columns[0].querySelector('.fill.no-hover')?.alt || 'Milwaukee Tool Left Column Image',
-                centerImageAltText: columns[2].querySelector('.fill.no-hover')?.alt || 'Milwaukee Tool Center Column Image',
-                rightImageAltText: columns[4].querySelector('.fill.no-hover')?.alt || 'Milwaukee Tool Right Column Image'
+                rightDescriptionAlignmentMobile: columns[4].querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left'
             };
             console.log('Parsed Three Column Story data:', parsedData);
             return parsedData;
@@ -141,7 +135,7 @@ const threeColumnStoryModule = {
                     <td>
                         <div>
                             <a href="${formData[position + 'ImageLink']}" target="_blank" style="color: #ffffff;">
-                                <img align="top" alt="${formData[position + 'ImageAltText']}" class="fill no-hover" src="${formData[position + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="180">
+                                <img align="top" alt="${formData[position + 'ImageAltText'] || 'Milwaukee Tool Product Image'}" class="fill no-hover" src="${formData[position + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="180">
                             </a>
                         </div>
                     </td>
@@ -204,7 +198,7 @@ const threeColumnStoryModule = {
     populateForm(formData) {
         console.log('Populating Three Column Story form with data:', formData);
         ['left', 'center', 'right'].forEach(position => {
-            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink', 'ImageAltText'].forEach(field => {
+            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
                 const id = `threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}${field}`;
                 const element = document.getElementById(id);
                 if (element) {
@@ -245,11 +239,15 @@ const threeColumnStoryModule = {
                 console.warn(`Radio button for background color not found`);
             }
         });
+
+        document.getElementById('threeColumnLeftImageAltText').value = formData.leftImageAltText || '';
+        document.getElementById('threeColumnCenterImageAltText').value = formData.centerImageAltText || '';
+        document.getElementById('threeColumnRightImageAltText').value = formData.rightImageAltText || '';
     },
 
     setupEventListeners(handleFormFieldChange) {
         ['left', 'center', 'right'].forEach(position => {
-            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink', 'ImageAltText'].forEach(field => {
+            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
                 const id = `threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}${field}`;
                 const element = document.getElementById(id);
                 if (element) {
@@ -432,6 +430,15 @@ const threeColumnStoryModule = {
                 handleFormFieldChange('threeColumnStory', 'title', document.getElementById('threeColumnRightTitle').value);
             });
         }
+
+        ['Left', 'Center', 'Right'].forEach(position => {
+            const element = document.getElementById(`threeColumn${position}ImageAltText`);
+            if (element) {
+                element.addEventListener('input', function(event) {
+                    handleFormFieldChange('threeColumnStory', `${position.toLowerCase()}ImageAltText`, event.target.value);
+                });
+            }
+        });
     }
 };
 

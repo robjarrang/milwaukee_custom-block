@@ -28,10 +28,8 @@ const twoColumnStoryModule = {
             rightTitleAlignmentMobile: 'left',
             rightDescriptionAlignmentDesktop: 'left',
             rightDescriptionAlignmentMobile: 'left',
-            leftImageAltText: 'Milwaukee Tool Left Column Image', // Add default alt text
-            rightImageAltText: 'Milwaukee Tool Right Column Image', // Add default alt text
-            twoColumnLeftImageAltText: 'Placeholder for Left Image Alt Text',
-            twoColumnRightImageAltText: 'Placeholder for Right Image Alt Text',
+            leftImageAltText: 'Milwaukee Tool Product Image',
+            rightImageAltText: 'Milwaukee Tool Product Image'
         };
     },
 
@@ -43,14 +41,12 @@ const twoColumnStoryModule = {
             const columns = doc.querySelectorAll('.block');
             const parsedData = {
                 leftImageUrl: columns[0].querySelector('.fill.no-hover')?.src || '',
-                leftImageAltText: columns[0].querySelector('.fill.no-hover')?.alt || 'Milwaukee Tool Left Column Image',
                 leftImageLink: columns[0].querySelector('.fill.no-hover')?.closest('a')?.href || '',
                 leftTitle: columns[0].querySelector('h3')?.textContent?.trim() || '',
                 leftDescription: columns[0].querySelector('.story-intro')?.textContent?.trim() || '',
                 leftButtonText: columns[0].querySelector('.button-1 a')?.textContent?.trim() || '',
                 leftButtonLink: columns[0].querySelector('.button-1 a')?.href || '',
                 rightImageUrl: columns[2].querySelector('.fill.no-hover')?.src || '',
-                rightImageAltText: columns[2].querySelector('.fill.no-hover')?.alt || 'Milwaukee Tool Right Column Image',
                 rightImageLink: columns[2].querySelector('.fill.no-hover')?.closest('a')?.href || '',
                 rightTitle: columns[2].querySelector('h3')?.textContent?.trim() || '',
                 rightDescription: columns[2].querySelector('.story-intro')?.textContent?.trim() || '',
@@ -82,53 +78,26 @@ const twoColumnStoryModule = {
         }
         const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
         const titleBgImage = formData.backgroundColor === 'red' ? 'title-bg.jpg' : 'title-bg-red.jpg';
-        const imageFirst = formData.imagePosition === 'left';
-        const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
-        const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
-        const descriptionAlignmentDesktopClass = `desktop-text-${formData.descriptionAlignmentDesktop}`;
-        const descriptionAlignmentMobileClass = `mobile-text-${formData.descriptionAlignmentMobile}`;
 
         return `
+        <!-- START .story-2col -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
             <tr>
                 <td class="side" style="width: 20px;">&nbsp;</td>
-                <td align="center" class="content-inner" style="width: 580px;" valign="middle">
+                <td align="center" class="content-inner" style="width: 580px;" valign="top">
                     <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                         <tr>
-                            ${imageFirst ? this.getImageColumn(formData, 'left') : this.getContentColumn(formData, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass)}
-                            ${imageFirst ? this.getContentColumn(formData, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass) : this.getImageColumn(formData, 'right')}
+                            ${this.getColumnHtml(formData, 'left', titleBgImage)}
+                            <td class="gap block" style="width: 20px;">&nbsp;</td>
+                            ${this.getColumnHtml(formData, 'right', titleBgImage)}
                         </tr>
                     </table>
                 </td>
                 <td class="side" style="width: 20px;">&nbsp;</td>
             </tr>
         </table>
+        <!-- END .story-2col -->
         `;
-    },
-
-    getImageColumn(formData, side) {
-        const altText = side === 'left' ? formData.twoColumnLeftImageAltText : formData.twoColumnRightImageAltText;
-        const imageUrl = side === 'left' ? formData.leftImageUrl : formData.rightImageUrl;
-        const imageLink = side === 'left' ? formData.leftImageLink : formData.rightImageLink;
-
-        return `
-        <td class="block" style="width: 280px;" valign="middle">
-            <div>
-                <a href="${imageLink || '#'}" target="_blank" style="color: #ffffff;">
-                    <img align="top" alt="${altText || 'Milwaukee Tool 2 Column Image'}" class="fill no-hover" src="${imageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
-                </a>
-            </div>
-        </td>
-        `;
-    },
-
-    getContentColumn(formData, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass) {
-        return `
-        <td class="block" style="width: 280px;" valign="middle">
-            <h2 class="${titleAlignmentDesktopClass} ${titleAlignmentMobileClass}">${formData.title || 'Default Title'}</h2>
-            <p class="${descriptionAlignmentDesktopClass} ${descriptionAlignmentMobileClass}">${formData.description || 'Default Description'}</p>
-        </td>
-        `; 
     },
 
     getColumnHtml(formData, side, titleBgImage) {
@@ -144,7 +113,7 @@ const twoColumnStoryModule = {
                     <td>
                         <div class="image">
                             <a href="${formData[side + 'ImageLink']}" target="_blank" style="color: #ffffff;">
-                                <img align="top" alt="${formData[side + 'ImageAltText'] || 'Milwaukee Tool Left Column Image'}" class="fill no-hover" src="${formData[side + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
+                                <img align="top" alt="${formData[side + 'ImageAltText'] || 'Milwaukee Tool Product Image'}" class="fill no-hover" src="${formData[side + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
                             </a>
                         </div>
                     </td>
@@ -261,8 +230,8 @@ const twoColumnStoryModule = {
             }
         });
 
-        document.getElementById('twoColumnLeftImageAltText').value = formData.twoColumnLeftImageAltText || '';
-        document.getElementById('twoColumnRightImageAltText').value = formData.twoColumnRightImageAltText || '';
+        document.getElementById('twoColumnLeftImageAltText').value = formData.leftImageAltText || '';
+        document.getElementById('twoColumnRightImageAltText').value = formData.rightImageAltText || '';
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -440,25 +409,13 @@ const twoColumnStoryModule = {
             });
         }
 
-        const fields = [
-            'twoColumnLeftImageUrl',
-            'twoColumnLeftImageAltText',
-            'twoColumnLeftImageLink',
-            'twoColumnRightImageUrl',
-            'twoColumnRightImageAltText',
-            'twoColumnRightImageLink'
-        ];
-
-        fields.forEach(id => {
+        ['twoColumnLeftImageAltText', 'twoColumnRightImageAltText'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {
-                    const key = id;
-                    handleFormFieldChange('twoColumnStory', key, event.target.value);
-                    console.log(`Changed ${key} to ${event.target.value}`);
+                    const side = id.includes('Left') ? 'left' : 'right';
+                    handleFormFieldChange('twoColumnStory', `${side}ImageAltText`, event.target.value);
                 });
-            } else {
-                console.warn(`Element with id ${id} not found`);
             }
         });
     }

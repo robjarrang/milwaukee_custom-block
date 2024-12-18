@@ -19,7 +19,7 @@ const prizeEveryMonthModule = {
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
             descriptionAlignmentMobile: 'left',
-            imageAltText: 'Milwaukee Tool Prize Image' // Add default alt text
+            imageAltText: 'Milwaukee Tool Prize Image'
         };
     },
 
@@ -40,8 +40,7 @@ const prizeEveryMonthModule = {
                 titleAlignmentDesktop: doc.querySelector('h3').style.textAlign || 'left',
                 titleAlignmentMobile: doc.querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
                 descriptionAlignmentDesktop: doc.querySelector('.story-intro').style.textAlign || 'left',
-                descriptionAlignmentMobile: doc.querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left',
-                imageAltText: doc.querySelector('.fill.absolute')?.alt || 'Milwaukee Tool Prize Image'
+                descriptionAlignmentMobile: doc.querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left'
             };
             console.log('Parsed Prize Every Month data:', parsedData);
             return parsedData;
@@ -165,7 +164,7 @@ const prizeEveryMonthModule = {
         
         document.getElementById('pemButtonText').value = formData.buttonText || '';
         document.getElementById('pemButtonLink').value = formData.buttonLink || '';
-        document.getElementById('pemImageAltText').value = formData.imageAltText || ''; // Add this line
+        document.getElementById('pemImageAltText').value = formData.imageAltText || '';
         
         const imagePositionRadios = document.querySelectorAll('input[name="pemImagePosition"]');
         imagePositionRadios.forEach(radio => {
@@ -188,7 +187,7 @@ const prizeEveryMonthModule = {
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['pemImageUrl', 'pemImageLink', 'pemLogoUrl', 'pemTitle', 'pemButtonText', 'pemButtonLink', 'pemImageAltText'].forEach(id => {
+        ['pemImageUrl', 'pemImageLink', 'pemLogoUrl', 'pemTitle', 'pemButtonText', 'pemButtonLink'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {
@@ -288,6 +287,13 @@ const prizeEveryMonthModule = {
                 handleFormFieldChange('prizeEveryMonth', 'imagePosition', event.target.value);
             });
         });
+
+        const imageAltText = document.getElementById('pemImageAltText');
+        if (imageAltText) {
+            imageAltText.addEventListener('input', function(event) {
+                handleFormFieldChange('prizeEveryMonth', 'imageAltText', event.target.value);
+            });
+        }
 
         const titleEditor = document.getElementById('pemTitle');
         if (titleEditor) {

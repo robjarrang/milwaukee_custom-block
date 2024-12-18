@@ -2,49 +2,52 @@ let state = {
     moduleType: 'leadStory',
     formData: {
         leadStory: {
+            imageAltText: 'Milwaukee Tool Product Image',
             titleAlignment: 'left',
             descriptionAlignment: 'left',
             buttonAlignment: 'center',
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left',
-            imageAltText: 'Placeholder for Lead Story Image Alt Text'
+            descriptionAlignmentMobile: 'left'
         },
         introStory: {
+            imageAltText: 'Milwaukee Tool Product Image',
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left',
-            imageAltText: 'Placeholder for Intro Story Image Alt Text'
+            descriptionAlignmentMobile: 'left'
         },
         oneColumnStory: {
+            imageAltText: 'Milwaukee Tool Product Image',
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left',
-            imageAltText: 'Placeholder for 1 Column Story Image Alt Text'
+            descriptionAlignmentMobile: 'left'
         },
         twoColumnStory: {
+            leftImageAltText: 'Milwaukee Tool Product Image',
+            rightImageAltText: 'Milwaukee Tool Product Image',
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left',
-            twoColumnLeftImageAltText: 'Placeholder for Left Image Alt Text',
-            twoColumnRightImageAltText: 'Placeholder for Right Image Alt Text'
+            descriptionAlignmentMobile: 'left'
         },
         prizeEveryMonth: {
+            imageAltText: 'Milwaukee Tool Prize Image',
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left',
-            imageAltText: 'Placeholder for Prize Every Month Image Alt Text'
+            descriptionAlignmentMobile: 'left'
         },
         fullWidthTitle: {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left'
         },
         threeColumnStory: {
+            leftImageAltText: 'Milwaukee Tool Product Image',
+            centerImageAltText: 'Milwaukee Tool Product Image',
+            rightImageAltText: 'Milwaukee Tool Product Image',
             leftTitleAlignmentDesktop: 'left',
             leftTitleAlignmentMobile: 'left',
             leftDescriptionAlignmentDesktop: 'left',
@@ -56,15 +59,17 @@ let state = {
             rightTitleAlignmentDesktop: 'left',
             rightTitleAlignmentMobile: 'left',
             rightDescriptionAlignmentDesktop: 'left',
-            rightDescriptionAlignmentMobile: 'left',
-            threeColumnLeftImageAltText: 'Placeholder for Left Image Alt Text',
-            threeColumnCenterImageAltText: 'Placeholder for Center Image Alt Text',
-            threeColumnRightImageAltText: 'Placeholder for Right Image Alt Text'
+            rightDescriptionAlignmentMobile: 'left'
         },
         fwImage: {
-            imageAltText: 'Placeholder for Full Width Image Alt Text'
+            imageAltText: 'Milwaukee Tool Product Image'
         },
-        fwButton: {},
+        gallery: {
+            image1AltText: 'Milwaukee Tool Product Image',
+            image2AltText: 'Milwaukee Tool Product Image',
+            image3AltText: 'Milwaukee Tool Product Image',
+            image4AltText: 'Milwaukee Tool Product Image'
+        },
         divider: {},
         spacer: {}
     },
