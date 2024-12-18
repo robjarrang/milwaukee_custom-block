@@ -107,6 +107,7 @@ const galleryModule = {
         for (let i = 1; i <= 4; i++) {
             const urlInput = document.getElementById(`galleryImage${i}Url`);
             const linkInput = document.getElementById(`galleryImage${i}Link`);
+            const altTextInput = document.getElementById(`galleryImage${i}AltText`);
             
             if (urlInput && formData[`image${i}`]) {
                 urlInput.value = formData[`image${i}`].url || '';
@@ -114,22 +115,24 @@ const galleryModule = {
             if (linkInput && formData[`image${i}`]) {
                 linkInput.value = formData[`image${i}`].link || '';
             }
+            if (altTextInput) {
+                altTextInput.value = formData[`image${i}AltText`] || 'Milwaukee Tool Product Image';
+            }
         }
-        ['1', '2', '3', '4'].forEach(num => {
-            document.getElementById(`galleryImage${num}AltText`).value = formData[`image${num}AltText`] || '';
-        });
     },
 
     setupEventListeners(handleFormFieldChange) {
         for (let i = 1; i <= 4; i++) {
             const urlInput = document.getElementById(`galleryImage${i}Url`);
             const linkInput = document.getElementById(`galleryImage${i}Link`);
+            const altTextInput = document.getElementById(`galleryImage${i}AltText`);
     
             if (urlInput) {
                 urlInput.addEventListener('input', function(event) {
                     handleFormFieldChange('gallery', `image${i}`, {
                         url: event.target.value,
-                        link: linkInput.value
+                        link: linkInput ? linkInput.value : '',
+                        altText: altTextInput ? altTextInput.value : 'Milwaukee Tool Product Image'
                     });
                 });
             }
@@ -137,20 +140,19 @@ const galleryModule = {
             if (linkInput) {
                 linkInput.addEventListener('input', function(event) {
                     handleFormFieldChange('gallery', `image${i}`, {
-                        url: urlInput.value,
-                        link: event.target.value
+                        url: urlInput ? urlInput.value : '',
+                        link: event.target.value,
+                        altText: altTextInput ? altTextInput.value : 'Milwaukee Tool Product Image'
                     });
                 });
             }
-        }
-        ['1', '2', '3', '4'].forEach(num => {
-            const element = document.getElementById(`galleryImage${num}AltText`);
-            if (element) {
-                element.addEventListener('input', function(event) {
-                    handleFormFieldChange('gallery', `image${num}AltText`, event.target.value);
+    
+            if (altTextInput) {
+                altTextInput.addEventListener('input', function(event) {
+                    handleFormFieldChange('gallery', `image${i}AltText`, event.target.value);
                 });
             }
-        });
+        }
     }
 };
 
