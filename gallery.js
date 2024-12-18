@@ -127,29 +127,25 @@ const galleryModule = {
             const linkInput = document.getElementById(`galleryImage${i}Link`);
             const altTextInput = document.getElementById(`galleryImage${i}AltText`);
     
-            if (urlInput) {
-                urlInput.addEventListener('input', function(event) {
-                    handleFormFieldChange('gallery', `image${i}`, {
-                        url: event.target.value,
-                        link: linkInput ? linkInput.value : '',
-                        altText: altTextInput ? altTextInput.value : 'Milwaukee Tool Product Image'
-                    });
+            const updateImageData = () => {
+                handleFormFieldChange('gallery', `image${i}`, {
+                    url: urlInput ? urlInput.value : '',
+                    link: linkInput ? linkInput.value : '',
                 });
+            };
+    
+            if (urlInput) {
+                urlInput.addEventListener('input', updateImageData);
             }
     
             if (linkInput) {
-                linkInput.addEventListener('input', function(event) {
-                    handleFormFieldChange('gallery', `image${i}`, {
-                        url: urlInput ? urlInput.value : '',
-                        link: event.target.value,
-                        altText: altTextInput ? altTextInput.value : 'Milwaukee Tool Product Image'
-                    });
-                });
+                linkInput.addEventListener('input', updateImageData);
             }
     
             if (altTextInput) {
                 altTextInput.addEventListener('input', function(event) {
                     handleFormFieldChange('gallery', `image${i}AltText`, event.target.value);
+                    updateImageData(); // Update image data when alt text changes
                 });
             }
         }
