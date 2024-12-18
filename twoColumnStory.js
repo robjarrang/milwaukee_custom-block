@@ -30,6 +30,8 @@ const twoColumnStoryModule = {
             rightDescriptionAlignmentMobile: 'left',
             leftImageAltText: 'Milwaukee Tool Left Column Image', // Add default alt text
             rightImageAltText: 'Milwaukee Tool Right Column Image', // Add default alt text
+            twoColumnLeftImageAltText: 'Placeholder for Left Image Alt Text',
+            twoColumnRightImageAltText: 'Placeholder for Right Image Alt Text',
         };
     },
 
