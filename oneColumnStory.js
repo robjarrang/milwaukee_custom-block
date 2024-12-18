@@ -18,7 +18,8 @@ const oneColumnStoryModule = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            altText: 'Default alt text'
         };
     },
 
@@ -58,7 +59,7 @@ const oneColumnStoryModule = {
         <td class="block" style="width: 290px;" valign="middle">
             <div>
                 <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                    <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
+                    <img align="top" alt="${formData.altText || 'Milwaukee'}" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
                 </a>
             </div>
         </td>
@@ -130,6 +131,7 @@ const oneColumnStoryModule = {
         }
         document.getElementById('oneColumnButtonText').value = formData.buttonText || '';
         document.getElementById('oneColumnButtonLink').value = formData.buttonLink || '';
+        document.getElementById('oneColumnAltText').value = formData.altText || '';
 
         const backgroundColorRadios = document.querySelectorAll('input[name="oneColumnBackgroundColor"]');
         backgroundColorRadios.forEach(radio => {
@@ -157,7 +159,7 @@ const oneColumnStoryModule = {
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['oneColumnImageUrl', 'oneColumnImageLink', 'oneColumnTitle', 'oneColumnButtonText', 'oneColumnButtonLink'].forEach(id => {
+        ['oneColumnImageUrl', 'oneColumnImageLink', 'oneColumnTitle', 'oneColumnButtonText', 'oneColumnButtonLink', 'oneColumnAltText'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {

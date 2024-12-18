@@ -37,7 +37,10 @@ const threeColumnStoryModule = {
             rightTitleAlignmentDesktop: 'left',
             rightTitleAlignmentMobile: 'left',
             rightDescriptionAlignmentDesktop: 'left',
-            rightDescriptionAlignmentMobile: 'left'
+            rightDescriptionAlignmentMobile: 'left',
+            leftAltText: 'Default alt text',
+            centerAltText: 'Default alt text',
+            rightAltText: 'Default alt text'
         };
     },
 
@@ -78,7 +81,10 @@ const threeColumnStoryModule = {
                 rightTitleAlignmentDesktop: columns[4].querySelector('h3').style.textAlign || 'left',
                 rightTitleAlignmentMobile: columns[4].querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
                 rightDescriptionAlignmentDesktop: columns[4].querySelector('.story-intro').style.textAlign || 'left',
-                rightDescriptionAlignmentMobile: columns[4].querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left'
+                rightDescriptionAlignmentMobile: columns[4].querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left',
+                leftAltText: columns[0].querySelector('.fill.no-hover')?.alt || '',
+                centerAltText: columns[2].querySelector('.fill.no-hover')?.alt || '',
+                rightAltText: columns[4].querySelector('.fill.no-hover')?.alt || ''
             };
             console.log('Parsed Three Column Story data:', parsedData);
             return parsedData;
@@ -132,7 +138,7 @@ const threeColumnStoryModule = {
                     <td>
                         <div>
                             <a href="${formData[position + 'ImageLink']}" target="_blank" style="color: #ffffff;">
-                                <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData[position + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="180">
+                                <img align="top" alt="${formData[position + 'AltText'] || 'Milwaukee'}" class="fill no-hover" src="${formData[position + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="180">
                             </a>
                         </div>
                     </td>
@@ -195,7 +201,7 @@ const threeColumnStoryModule = {
     populateForm(formData) {
         console.log('Populating Three Column Story form with data:', formData);
         ['left', 'center', 'right'].forEach(position => {
-            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
+            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink', 'AltText'].forEach(field => {
                 const id = `threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}${field}`;
                 const element = document.getElementById(id);
                 if (element) {
@@ -240,7 +246,7 @@ const threeColumnStoryModule = {
 
     setupEventListeners(handleFormFieldChange) {
         ['left', 'center', 'right'].forEach(position => {
-            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
+            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink', 'AltText'].forEach(field => {
                 const id = `threeColumn${position.charAt(0).toUpperCase() + position.slice(1)}${field}`;
                 const element = document.getElementById(id);
                 if (element) {
