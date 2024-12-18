@@ -80,27 +80,45 @@ const twoColumnStoryModule = {
             console.warn('Form data is undefined, using placeholder data');
             formData = this.getPlaceholderData();
         }
-        const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
-        const titleBgImage = formData.backgroundColor === 'red' ? 'title-bg.jpg' : 'title-bg-red.jpg';
+
+        const backgroundColor = formData.backgroundColor || '#FFFFFF';
+        const imageFirst = formData.imagePosition === 'left';
+        const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
+        const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
+        const descriptionAlignmentDesktopClass = `desktop-text-${formData.descriptionAlignmentDesktop}`;
+        const descriptionAlignmentMobileClass = `mobile-text-${formData.descriptionAlignmentMobile}`;
 
         return `
-        <!-- START .story-2col -->
         <table align="center" border="0" cellpadding="0" cellspacing="0" class="content-outer" role="presentation" style="background-color: ${backgroundColor}; width: 620px;">
             <tr>
                 <td class="side" style="width: 20px;">&nbsp;</td>
-                <td align="center" class="content-inner" style="width: 580px;" valign="top">
+                <td align="center" class="content-inner" style="width: 580px;" valign="middle">
                     <table align="center" border="0" cellpadding="0" cellspacing="0" class="sect" role="presentation" style="width: 100%;">
                         <tr>
-                            ${this.getColumnHtml(formData, 'left', titleBgImage)}
-                            <td class="gap block" style="width: 20px;">&nbsp;</td>
-                            ${this.getColumnHtml(formData, 'right', titleBgImage)}
+                            ${imageFirst ? this.getImageColumn(formData, 'left') : this.getContentColumn(formData, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass)}
+                            ${imageFirst ? this.getContentColumn(formData, titleAlignmentDesktopClass, titleAlignmentMobileClass, descriptionAlignmentDesktopClass, descriptionAlignmentMobileClass) : this.getImageColumn(formData, 'right')}
                         </tr>
                     </table>
                 </td>
                 <td class="side" style="width: 20px;">&nbsp;</td>
             </tr>
         </table>
-        <!-- END .story-2col -->
+        `;
+    },
+
+    getImageColumn(formData, side) {
+        const altText = side === 'left' ? formData.twoColumnLeftImageAltText : formData.twoColumnRightImageAltText;
+        const imageUrl = side === 'left' ? formData.twoColumnLeftImageUrl : formData.twoColumnRightImageUrl;
+        const imageLink = side === 'left' ? formData.twoColumnLeftImageLink : formData.twoColumnRightImageLink;
+
+        return `
+        <td class="block" style="width: 280px;" valign="middle">
+            <div>
+                <a href="${imageLink || '#'}" target="_blank" style="color: #ffffff;">
+                    <img align="top" alt="${altText || 'Milwaukee Tool 2 Column Image'}" class="fill no-hover" src="${imageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
+                </a>
+            </div>
+        </td>
         `;
     },
 
