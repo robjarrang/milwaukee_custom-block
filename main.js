@@ -243,28 +243,12 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
         console.log('Event listeners set up');
     }
     
-    function handleFormFieldChange(moduleType, field, value) {
-        console.log(`${moduleType} form field changed:`, field, value);
-        const state = getState();
-        const newData = { 
-            ...state.formData[moduleType], 
-            [field]: value 
-        };
-        console.log(`Updating ${moduleType} data:`, newData);
-        updateFormData({ [moduleType]: newData });
-    
-        console.log('Updated state:', getState());
-    
-        if (state.moduleType === moduleType) {
-            updateContent(true);
-        }
-    
-        // Persist the data to the SDK
-        sdk.setData({
-            moduleType: state.moduleType,
-            formData: getState().formData,
-            fullHtml: getFullHtml()
-        });
+    function handleFormFieldChange(moduleType, key, value) {
+        const newData = {};
+        newData[moduleType] = {};
+        newData[moduleType][key] = value;
+        updateFormData(newData);
+        updateContent(true);
     }
 
     function setupRichTextEditors() {

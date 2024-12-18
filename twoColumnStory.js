@@ -80,8 +80,8 @@ const twoColumnStoryModule = {
             console.warn('Form data is undefined, using placeholder data');
             formData = this.getPlaceholderData();
         }
-
-        const backgroundColor = formData.backgroundColor || '#FFFFFF';
+        const backgroundColor = formData.backgroundColor === 'red' ? '#DB021D' : '#000000';
+        const titleBgImage = formData.backgroundColor === 'red' ? 'title-bg.jpg' : 'title-bg-red.jpg';
         const imageFirst = formData.imagePosition === 'left';
         const titleAlignmentDesktopClass = `desktop-text-${formData.titleAlignmentDesktop}`;
         const titleAlignmentMobileClass = `mobile-text-${formData.titleAlignmentMobile}`;
@@ -108,8 +108,8 @@ const twoColumnStoryModule = {
 
     getImageColumn(formData, side) {
         const altText = side === 'left' ? formData.twoColumnLeftImageAltText : formData.twoColumnRightImageAltText;
-        const imageUrl = side === 'left' ? formData.twoColumnLeftImageUrl : formData.twoColumnRightImageUrl;
-        const imageLink = side === 'left' ? formData.twoColumnLeftImageLink : formData.twoColumnRightImageLink;
+        const imageUrl = side === 'left' ? formData.leftImageUrl : formData.rightImageUrl;
+        const imageLink = side === 'left' ? formData.leftImageLink : formData.rightImageLink;
 
         return `
         <td class="block" style="width: 280px;" valign="middle">
