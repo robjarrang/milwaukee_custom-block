@@ -8,31 +8,37 @@ let state = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            imageAltText: 'Placeholder for Lead Story Image Alt Text'
         },
         introStory: {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            imageAltText: 'Placeholder for Intro Story Image Alt Text'
         },
         oneColumnStory: {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            imageAltText: 'Placeholder for 1 Column Story Image Alt Text'
         },
         twoColumnStory: {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            twoColumnLeftImageAltText: 'Placeholder for Left Image Alt Text',
+            twoColumnRightImageAltText: 'Placeholder for Right Image Alt Text'
         },
         prizeEveryMonth: {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            imageAltText: 'Placeholder for Prize Every Month Image Alt Text'
         },
         fullWidthTitle: {
             titleAlignmentDesktop: 'left',
@@ -50,9 +56,14 @@ let state = {
             rightTitleAlignmentDesktop: 'left',
             rightTitleAlignmentMobile: 'left',
             rightDescriptionAlignmentDesktop: 'left',
-            rightDescriptionAlignmentMobile: 'left'
+            rightDescriptionAlignmentMobile: 'left',
+            threeColumnLeftImageAltText: 'Placeholder for Left Image Alt Text',
+            threeColumnCenterImageAltText: 'Placeholder for Center Image Alt Text',
+            threeColumnRightImageAltText: 'Placeholder for Right Image Alt Text'
         },
-        fwImage: {},
+        fwImage: {
+            imageAltText: 'Placeholder for Full Width Image Alt Text'
+        },
         fwButton: {},
         divider: {},
         spacer: {}

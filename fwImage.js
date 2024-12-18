@@ -9,7 +9,7 @@ const fwImageModule = {
         return {
             imageUrl: 'https://fakeimg.pl/620x350/dddddd/ffffff',
             imageLink: 'https://milwaukeetool.eu/',
-            imageAltText: 'Milwaukee Tool Full Width Image' // Add default alt text
+            imageAltText: 'Placeholder for Full Width Image Alt Text' // Add default alt text
         };
     },
 

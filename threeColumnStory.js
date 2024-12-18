@@ -40,7 +40,10 @@ const threeColumnStoryModule = {
             rightDescriptionAlignmentMobile: 'left',
             leftImageAltText: 'Milwaukee Tool Left Column Image', // Add default alt text
             centerImageAltText: 'Milwaukee Tool Center Column Image', // Add default alt text
-            rightImageAltText: 'Milwaukee Tool Right Column Image' // Add default alt text
+            rightImageAltText: 'Milwaukee Tool Right Column Image', // Add default alt text
+            threeColumnLeftImageAltText: 'Placeholder for Left Image Alt Text',
+            threeColumnCenterImageAltText: 'Placeholder for Center Image Alt Text',
+            threeColumnRightImageAltText: 'Placeholder for Right Image Alt Text'
         };
     },
 

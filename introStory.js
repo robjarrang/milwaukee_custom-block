@@ -19,7 +19,7 @@ const introStoryModule = {
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
             descriptionAlignmentMobile: 'left',
-            imageAltText: 'Milwaukee Tool Intro Image' // Add default alt text
+            imageAltText: 'Placeholder for Intro Image Alt Text' // Add default alt text
         };
     },
 

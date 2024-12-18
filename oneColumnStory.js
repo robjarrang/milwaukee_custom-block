@@ -19,7 +19,7 @@ const oneColumnStoryModule = {
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
             descriptionAlignmentMobile: 'left',
-            imageAltText: 'Milwaukee Tool 1 Column Image' // Add default alt text
+            imageAltText: 'Placeholder for 1 Column Image Alt Text' // Add default alt text
         };
     },
 
