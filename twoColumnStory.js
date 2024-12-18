@@ -27,7 +27,9 @@ const twoColumnStoryModule = {
             rightTitleAlignmentDesktop: 'left',
             rightTitleAlignmentMobile: 'left',
             rightDescriptionAlignmentDesktop: 'left',
-            rightDescriptionAlignmentMobile: 'left'
+            rightDescriptionAlignmentMobile: 'left',
+            leftAltText: 'Default alt text',
+            rightAltText: 'Default alt text'
         };
     },
 
@@ -58,7 +60,9 @@ const twoColumnStoryModule = {
                 rightTitleAlignmentDesktop: columns[2].querySelector('h3').style.textAlign || 'left',
                 rightTitleAlignmentMobile: columns[2].querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
                 rightDescriptionAlignmentDesktop: columns[2].querySelector('.story-intro').style.textAlign || 'left',
-                rightDescriptionAlignmentMobile: columns[2].querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left'
+                rightDescriptionAlignmentMobile: columns[2].querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left',
+                leftAltText: columns[0].querySelector('.fill.no-hover')?.alt || '',
+                rightAltText: columns[2].querySelector('.fill.no-hover')?.alt || ''
             };
             console.log('Parsed Two Column Story data:', parsedData);
             return parsedData;
@@ -111,7 +115,7 @@ const twoColumnStoryModule = {
                     <td>
                         <div class="image">
                             <a href="${formData[side + 'ImageLink']}" target="_blank" style="color: #ffffff;">
-                                <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData[side + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
+                                <img align="top" alt="${formData[side + 'AltText'] || 'Milwaukee'}" class="fill no-hover" src="${formData[side + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
                             </a>
                         </div>
                     </td>
@@ -185,7 +189,7 @@ const twoColumnStoryModule = {
     populateForm(formData) {
         console.log('Populating Two Column Story form with data:', formData);
         ['left', 'right'].forEach(side => {
-            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
+            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink', 'AltText'].forEach(field => {
                 const id = `twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}${field}`;
                 const element = document.getElementById(id);
                 if (element) {
@@ -231,7 +235,7 @@ const twoColumnStoryModule = {
 
     setupEventListeners(handleFormFieldChange) {
         ['left', 'right'].forEach(side => {
-            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink'].forEach(field => {
+            ['ImageUrl', 'ImageLink', 'Title', 'ButtonText', 'ButtonLink', 'AltText'].forEach(field => {
                 const id = `twoColumn${side.charAt(0).toUpperCase() + side.slice(1)}${field}`;
                 const element = document.getElementById(id);
                 if (element) {
