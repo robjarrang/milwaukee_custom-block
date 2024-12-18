@@ -80,12 +80,6 @@ const prizeEveryMonthModule = {
             </tr>
         </table>
         <!-- END .story-pem -->
-        <div>
-            <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                <img src="${formData.imageUrl}" alt="Prize Image">
-            </a>
-            <p>${formData.description}</p>
-        </div>
         `;
 
         return this.fixMobileContentDisplay(updatedHtml);
