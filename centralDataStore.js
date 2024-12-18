@@ -8,25 +8,29 @@ let state = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            altText: ''
         },
         introStory: {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            altText: ''
         },
         oneColumnStory: {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            altText: ''
         },
         twoColumnStory: {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            altText: ''
         },
         prizeEveryMonth: {
             titleAlignmentDesktop: 'left',
@@ -50,7 +54,10 @@ let state = {
             rightTitleAlignmentDesktop: 'left',
             rightTitleAlignmentMobile: 'left',
             rightDescriptionAlignmentDesktop: 'left',
-            rightDescriptionAlignmentMobile: 'left'
+            rightDescriptionAlignmentMobile: 'left',
+            leftAltText: '',
+            centerAltText: '',
+            rightAltText: ''
         },
         fwImage: {},
         fwButton: {},
@@ -79,6 +86,7 @@ export function updateFormData(newData) {
         leadStory.titleAlignmentMobile = newData.leadStory.titleAlignmentMobile || leadStory.titleAlignmentMobile;
         leadStory.descriptionAlignmentDesktop = newData.leadStory.descriptionAlignmentDesktop || leadStory.descriptionAlignmentDesktop;
         leadStory.descriptionAlignmentMobile = newData.leadStory.descriptionAlignmentMobile || leadStory.descriptionAlignmentMobile;
+        leadStory.altText = newData.leadStory.altText || leadStory.altText;
     }
 
     // Update alignment properties for introStory
@@ -88,6 +96,7 @@ export function updateFormData(newData) {
         introStory.titleAlignmentMobile = newData.introStory.titleAlignmentMobile || introStory.titleAlignmentMobile;
         introStory.descriptionAlignmentDesktop = newData.introStory.descriptionAlignmentDesktop || introStory.descriptionAlignmentDesktop;
         introStory.descriptionAlignmentMobile = newData.introStory.descriptionAlignmentMobile || introStory.descriptionAlignmentMobile;
+        introStory.altText = newData.introStory.altText || introStory.altText;
     }
 
     // Update alignment properties for oneColumnStory
@@ -97,6 +106,7 @@ export function updateFormData(newData) {
         oneColumnStory.titleAlignmentMobile = newData.oneColumnStory.titleAlignmentMobile || oneColumnStory.titleAlignmentMobile;
         oneColumnStory.descriptionAlignmentDesktop = newData.oneColumnStory.descriptionAlignmentDesktop || oneColumnStory.descriptionAlignmentDesktop;
         oneColumnStory.descriptionAlignmentMobile = newData.oneColumnStory.descriptionAlignmentMobile || oneColumnStory.descriptionAlignmentMobile;
+        oneColumnStory.altText = newData.oneColumnStory.altText || oneColumnStory.altText;
     }
 
     // Update alignment properties for twoColumnStory
@@ -106,6 +116,7 @@ export function updateFormData(newData) {
         twoColumnStory.titleAlignmentMobile = newData.twoColumnStory.titleAlignmentMobile || twoColumnStory.titleAlignmentMobile;
         twoColumnStory.descriptionAlignmentDesktop = newData.twoColumnStory.descriptionAlignmentDesktop || twoColumnStory.descriptionAlignmentDesktop;
         twoColumnStory.descriptionAlignmentMobile = newData.twoColumnStory.descriptionAlignmentMobile || twoColumnStory.descriptionAlignmentMobile;
+        twoColumnStory.altText = newData.twoColumnStory.altText || twoColumnStory.altText;
     }
 
     // Update alignment properties for prizeEveryMonth
@@ -139,6 +150,9 @@ export function updateFormData(newData) {
         threeColumnStory.rightTitleAlignmentMobile = newData.threeColumnStory.rightTitleAlignmentMobile || threeColumnStory.rightTitleAlignmentMobile;
         threeColumnStory.rightDescriptionAlignmentDesktop = newData.threeColumnStory.rightDescriptionAlignmentDesktop || threeColumnStory.rightDescriptionAlignmentDesktop;
         threeColumnStory.rightDescriptionAlignmentMobile = newData.threeColumnStory.rightDescriptionAlignmentMobile || threeColumnStory.rightDescriptionAlignmentMobile;
+        threeColumnStory.leftAltText = newData.threeColumnStory.leftAltText || threeColumnStory.leftAltText;
+        threeColumnStory.centerAltText = newData.threeColumnStory.centerAltText || threeColumnStory.centerAltText;
+        threeColumnStory.rightAltText = newData.threeColumnStory.rightAltText || threeColumnStory.rightAltText;
     }
 
     console.log('Form data updated:', state.formData);
