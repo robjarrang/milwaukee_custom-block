@@ -8,8 +8,7 @@ const fwImageModule = {
     getPlaceholderData() {
         return {
             imageUrl: 'https://fakeimg.pl/620x350/dddddd/ffffff',
-            imageLink: 'https://milwaukeetool.eu/',
-            altText: 'Milwaukee'
+            imageLink: 'https://milwaukeetool.eu/'
         };
     },
 
@@ -20,8 +19,7 @@ const fwImageModule = {
         try {
             const parsedData = {
                 imageUrl: doc.querySelector('.fill.no-hover')?.src || '',
-                imageLink: doc.querySelector('.fill.no-hover')?.closest('a')?.href || '',
-                altText: doc.querySelector('.fill.no-hover')?.alt || 'Milwaukee'
+                imageLink: doc.querySelector('.fill.no-hover')?.closest('a')?.href || ''
             };
             console.log('Parsed Full Width Image data:', parsedData);
             return parsedData;
@@ -45,11 +43,10 @@ const fwImageModule = {
 
         const imageElement = doc.querySelector('.fill.no-hover');
         if (imageElement) {
+            // Use formData.imageUrl or formData.imageurl, whichever is available
             const newImageUrl = formData.imageUrl || formData.imageurl || '';
             imageElement.src = newImageUrl;
             imageElement.setAttribute('src', newImageUrl);
-            imageElement.alt = formData.altText || 'Milwaukee';
-            imageElement.setAttribute('alt', formData.altText || 'Milwaukee');
             const imageLink = imageElement.closest('a');
             if (imageLink) {
                 imageLink.href = formData.imageLink || '#';
@@ -63,15 +60,15 @@ const fwImageModule = {
         console.log('Populating Full Width Image form with data:', formData);
         document.getElementById('fwImageUrl').value = formData.imageUrl || formData.imageurl || '';
         document.getElementById('fwImageLink').value = formData.imageLink || '';
-        document.getElementById('fwAltText').value = formData.altText || 'Milwaukee';
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['fwImageUrl', 'fwImageLink', 'fwAltText'].forEach(id => {
+        ['fwImageUrl', 'fwImageLink'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {
                     const key = id.replace('fw', '').toLowerCase();
+                    // Ensure we're using 'imageUrl' (camelCase) for consistency
                     const formKey = key === 'imageurl' ? 'imageUrl' : key;
                     handleFormFieldChange('fwImage', formKey, event.target.value);
                 });
@@ -92,7 +89,7 @@ const fwImageModule = {
                             <td align="center" class="block" style="width: 100%;" valign="top">
                                 <div>
                                     <a href="${formData.imageLink || '#'}" target="_blank">
-                                        <img align="top" alt="${formData.altText || 'Milwaukee'}" class="fill no-hover" src="${formData.imageUrl || formData.imageurl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="620">
+                                        <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.imageUrl || formData.imageurl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="620">
                                     </a>
                                 </div>
                             </td>

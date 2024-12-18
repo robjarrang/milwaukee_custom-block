@@ -18,8 +18,7 @@ const prizeEveryMonthModule = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left',
-            altText: 'Milwaukee'
+            descriptionAlignmentMobile: 'left'
         };
     },
 
@@ -40,8 +39,7 @@ const prizeEveryMonthModule = {
                 titleAlignmentDesktop: doc.querySelector('h3').style.textAlign || 'left',
                 titleAlignmentMobile: doc.querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
                 descriptionAlignmentDesktop: doc.querySelector('.story-intro').style.textAlign || 'left',
-                descriptionAlignmentMobile: doc.querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left',
-                altText: doc.querySelector('.fill.absolute')?.alt || 'Milwaukee'
+                descriptionAlignmentMobile: doc.querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left'
             };
             console.log('Parsed Prize Every Month data:', parsedData);
             return parsedData;
@@ -90,7 +88,7 @@ const prizeEveryMonthModule = {
         <td class="imp block image" dir="ltr" style="width: 280px;" valign="middle">
             <div class="imp image">
                 <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                    <img align="top" alt="${formData.altText || 'Milwaukee'}" class="imp fill absolute" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="270">
+                    <img align="top" alt="Milwaukee" class="imp fill absolute" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="270">
                 </a>
             </div>
         </td>
@@ -184,11 +182,10 @@ const prizeEveryMonthModule = {
         setAlignmentIfExists('pemTitleAlignmentMobile', formData.titleAlignmentMobile);
         setAlignmentIfExists('pemDescriptionAlignmentDesktop', formData.descriptionAlignmentDesktop);
         setAlignmentIfExists('pemDescriptionAlignmentMobile', formData.descriptionAlignmentMobile);
-        document.getElementById('pemAltText').value = formData.altText || 'Milwaukee';
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['pemImageUrl', 'pemImageLink', 'pemLogoUrl', 'pemTitle', 'pemButtonText', 'pemButtonLink', 'pemAltText'].forEach(id => {
+        ['pemImageUrl', 'pemImageLink', 'pemLogoUrl', 'pemTitle', 'pemButtonText', 'pemButtonLink'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {
