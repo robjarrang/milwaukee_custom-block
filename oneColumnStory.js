@@ -18,7 +18,8 @@ const oneColumnStoryModule = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            imageAltText: 'Milwaukee Tool 1 Column Image' // Add default alt text
         };
     },
 
@@ -58,7 +59,7 @@ const oneColumnStoryModule = {
         <td class="block" style="width: 290px;" valign="middle">
             <div>
                 <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                    <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
+                    <img align="top" alt="${formData.imageAltText || 'Milwaukee Tool 1 Column Image'}" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
                 </a>
             </div>
         </td>
@@ -122,6 +123,7 @@ const oneColumnStoryModule = {
     populateForm(formData) {
         console.log('Populating One Column Story form with data:', formData);
         document.getElementById('oneColumnImageUrl').value = formData.imageUrl || '';
+        document.getElementById('oneColumnImageAltText').value = formData.imageAltText || ''; // Add this line
         document.getElementById('oneColumnImageLink').value = formData.imageLink || '';
         document.getElementById('oneColumnTitle').value = formData.title || '';
         const descriptionEditor = document.getElementById('oneColumnDescription');
@@ -157,7 +159,7 @@ const oneColumnStoryModule = {
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['oneColumnImageUrl', 'oneColumnImageLink', 'oneColumnTitle', 'oneColumnButtonText', 'oneColumnButtonLink'].forEach(id => {
+        ['oneColumnImageUrl', 'oneColumnImageAltText', 'oneColumnImageLink', 'oneColumnTitle', 'oneColumnButtonText', 'oneColumnButtonLink'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {
@@ -293,6 +295,32 @@ const oneColumnStoryModule = {
         setupAlignmentButtonListeners('oneColumnTitleAlignmentMobile', 'titleAlignmentMobile');
         setupAlignmentButtonListeners('oneColumnDescriptionAlignmentDesktop', 'descriptionAlignmentDesktop');
         setupAlignmentButtonListeners('oneColumnDescriptionAlignmentMobile', 'descriptionAlignmentMobile');
+    },
+
+    parseHtml(html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        try {
+            const img = doc.querySelector('.fill.no-hover');
+            return {
+                imageUrl: img?.src || '',
+                imageAltText: img?.alt || 'Milwaukee Tool 1 Column Image',
+                imageLink: img?.closest('a')?.href || '',
+                title: doc.querySelector('h3')?.textContent || '',
+                description: doc.querySelector('.story-intro')?.innerHTML || '',
+                buttonText: doc.querySelector('.button a')?.textContent || '',
+                buttonLink: doc.querySelector('.button a')?.href || '',
+                backgroundColor: doc.querySelector('.content-outer')?.style.backgroundColor === 'rgb(219, 1, 28)' ? 'red' : 'black',
+                imagePosition: doc.querySelector('.content-inner .sect tr').firstElementChild.querySelector('img') ? 'left' : 'right',
+                titleAlignmentDesktop: doc.querySelector('h3')?.style.textAlign || 'left',
+                titleAlignmentMobile: doc.querySelector('h3')?.classList.contains('mobile-text-left') ? 'left' : 'center',
+                descriptionAlignmentDesktop: doc.querySelector('.story-intro')?.style.textAlign || 'left',
+                descriptionAlignmentMobile: doc.querySelector('.story-intro')?.classList.contains('mobile-text-left') ? 'left' : 'center'
+            };
+        } catch (error) {
+            console.error('Error parsing 1 Column Story HTML', error);
+            return this.getPlaceholderData();
+        }
     }
 };
 

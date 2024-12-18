@@ -18,7 +18,8 @@ const prizeEveryMonthModule = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            imageAltText: 'Milwaukee Tool Prize Image' // Add default alt text
         };
     },
 
@@ -39,7 +40,8 @@ const prizeEveryMonthModule = {
                 titleAlignmentDesktop: doc.querySelector('h3').style.textAlign || 'left',
                 titleAlignmentMobile: doc.querySelector('h3').classList.contains('mobile-text-center') ? 'center' : 'left',
                 descriptionAlignmentDesktop: doc.querySelector('.story-intro').style.textAlign || 'left',
-                descriptionAlignmentMobile: doc.querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left'
+                descriptionAlignmentMobile: doc.querySelector('.story-intro').classList.contains('mobile-text-center') ? 'center' : 'left',
+                imageAltText: doc.querySelector('.fill.absolute')?.alt || 'Milwaukee Tool Prize Image'
             };
             console.log('Parsed Prize Every Month data:', parsedData);
             return parsedData;
@@ -88,7 +90,7 @@ const prizeEveryMonthModule = {
         <td class="imp block image" dir="ltr" style="width: 280px;" valign="middle">
             <div class="imp image">
                 <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                    <img align="top" alt="Milwaukee" class="imp fill absolute" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="270">
+                    <img align="top" alt="${formData.imageAltText || 'Milwaukee Tool Prize Image'}" class="imp fill absolute" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="270">
                 </a>
             </div>
         </td>
@@ -163,6 +165,7 @@ const prizeEveryMonthModule = {
         
         document.getElementById('pemButtonText').value = formData.buttonText || '';
         document.getElementById('pemButtonLink').value = formData.buttonLink || '';
+        document.getElementById('pemImageAltText').value = formData.imageAltText || ''; // Add this line
         
         const imagePositionRadios = document.querySelectorAll('input[name="pemImagePosition"]');
         imagePositionRadios.forEach(radio => {
@@ -185,7 +188,7 @@ const prizeEveryMonthModule = {
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['pemImageUrl', 'pemImageLink', 'pemLogoUrl', 'pemTitle', 'pemButtonText', 'pemButtonLink'].forEach(id => {
+        ['pemImageUrl', 'pemImageLink', 'pemLogoUrl', 'pemTitle', 'pemButtonText', 'pemButtonLink', 'pemImageAltText'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {

@@ -27,7 +27,9 @@ const twoColumnStoryModule = {
             rightTitleAlignmentDesktop: 'left',
             rightTitleAlignmentMobile: 'left',
             rightDescriptionAlignmentDesktop: 'left',
-            rightDescriptionAlignmentMobile: 'left'
+            rightDescriptionAlignmentMobile: 'left',
+            leftImageAltText: 'Milwaukee Tool Left Column Image', // Add default alt text
+            rightImageAltText: 'Milwaukee Tool Right Column Image', // Add default alt text
         };
     },
 
@@ -39,12 +41,14 @@ const twoColumnStoryModule = {
             const columns = doc.querySelectorAll('.block');
             const parsedData = {
                 leftImageUrl: columns[0].querySelector('.fill.no-hover')?.src || '',
+                leftImageAltText: columns[0].querySelector('.fill.no-hover')?.alt || 'Milwaukee Tool Left Column Image',
                 leftImageLink: columns[0].querySelector('.fill.no-hover')?.closest('a')?.href || '',
                 leftTitle: columns[0].querySelector('h3')?.textContent?.trim() || '',
                 leftDescription: columns[0].querySelector('.story-intro')?.textContent?.trim() || '',
                 leftButtonText: columns[0].querySelector('.button-1 a')?.textContent?.trim() || '',
                 leftButtonLink: columns[0].querySelector('.button-1 a')?.href || '',
                 rightImageUrl: columns[2].querySelector('.fill.no-hover')?.src || '',
+                rightImageAltText: columns[2].querySelector('.fill.no-hover')?.alt || 'Milwaukee Tool Right Column Image',
                 rightImageLink: columns[2].querySelector('.fill.no-hover')?.closest('a')?.href || '',
                 rightTitle: columns[2].querySelector('h3')?.textContent?.trim() || '',
                 rightDescription: columns[2].querySelector('.story-intro')?.textContent?.trim() || '',
@@ -111,7 +115,7 @@ const twoColumnStoryModule = {
                     <td>
                         <div class="image">
                             <a href="${formData[side + 'ImageLink']}" target="_blank" style="color: #ffffff;">
-                                <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData[side + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
+                                <img align="top" alt="${formData[side + 'ImageAltText'] || 'Milwaukee Tool Left Column Image'}" class="fill no-hover" src="${formData[side + 'ImageUrl']}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="280">
                             </a>
                         </div>
                     </td>

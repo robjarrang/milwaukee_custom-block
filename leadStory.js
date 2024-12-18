@@ -18,7 +18,8 @@ const leadStoryModule = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            imageAltText: 'Milwaukee Tool Product Image' // Add default alt text
         };
     },
 
@@ -44,7 +45,7 @@ const leadStoryModule = {
                             <td align="center" class="block" style="width: 100%;" valign="top">
                                 <div>
                                     <a href="${formData.imageLink || '#'}" target="_blank">
-                                        <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.imageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="620">
+                                        <img align="top" alt="${formData.imageAltText || 'Milwaukee Tool Product Image'}" class="fill no-hover" src="${formData.imageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="620">
                                     </a>
                                 </div>
                             </td>
@@ -149,6 +150,7 @@ const leadStoryModule = {
         };
 
         setValueIfExists('imageUrl', formData.imageUrl);
+        setValueIfExists('imageAltText', formData.imageAltText); // Add this line
         setValueIfExists('imageLink', formData.imageLink);
         setValueIfExists('leadTitle', formData.leadTitle);
         const leadDescriptionEditor = document.getElementById('leadDescription');
@@ -175,7 +177,8 @@ const leadStoryModule = {
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['imageUrl', 'imageLink', 'leadTitle', 'leadDescription', 'buttonText', 'buttonLink'].forEach(id => {
+        // Add imageAltText to the list of fields to monitor
+        ['imageUrl', 'imageAltText', 'imageLink', 'leadTitle', 'leadDescription', 'buttonText', 'buttonLink'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 console.log(`Setting up event listener for ${id}`);
@@ -336,6 +339,31 @@ const leadStoryModule = {
                 document.execCommand('justifyRight');
                 handleFormFieldChange('leadStory', 'descriptionAlignmentMobile', 'right');
             });
+        }
+    },
+
+    parseHtml(html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        try {
+            const img = doc.querySelector('.fill.no-hover');
+            return {
+                imageUrl: img?.src || '',
+                imageAltText: img?.alt || 'Milwaukee Tool Product Image',
+                imageLink: img?.closest('a')?.href || '',
+                leadTitle: doc.querySelector('h1')?.textContent || '',
+                leadDescription: doc.querySelector('.story-intro')?.innerHTML || '',
+                buttonText: doc.querySelector('.button a')?.textContent || '',
+                buttonLink: doc.querySelector('.button a')?.href || '',
+                showButton: !!doc.querySelector('.button'),
+                titleAlignmentDesktop: doc.querySelector('h1')?.style.textAlign || 'left',
+                titleAlignmentMobile: doc.querySelector('h1')?.classList.contains('mobile-text-center') ? 'center' : 'left',
+                descriptionAlignmentDesktop: doc.querySelector('.story-intro')?.style.textAlign || 'left',
+                descriptionAlignmentMobile: doc.querySelector('.story-intro')?.classList.contains('mobile-text-center') ? 'center' : 'left'
+            };
+        } catch (error) {
+            console.error('Error parsing Lead Story HTML', error);
+            return this.getPlaceholderData();
         }
     }
 };

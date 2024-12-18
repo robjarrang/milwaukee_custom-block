@@ -18,7 +18,8 @@ const introStoryModule = {
             titleAlignmentDesktop: 'left',
             titleAlignmentMobile: 'left',
             descriptionAlignmentDesktop: 'left',
-            descriptionAlignmentMobile: 'left'
+            descriptionAlignmentMobile: 'left',
+            imageAltText: 'Milwaukee Tool Intro Image' // Add default alt text
         };
     },
 
@@ -56,7 +57,7 @@ const introStoryModule = {
                             <td align="center" class="block" dir="ltr" style="width: 290px;" valign="top">
                                 <div>
                                     <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                                        <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
+                                        <img align="top" alt="${formData.imageAltText || 'Milwaukee Tool Intro Image'}" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
                                     </a>
                                 </div>
                             </td>
@@ -141,6 +142,7 @@ const introStoryModule = {
     populateForm(formData) {
         console.log('Populating Intro Story form with data:', formData);
         document.getElementById('introImageUrl').value = formData.imageUrl || '';
+        document.getElementById('introImageAltText').value = formData.imageAltText || ''; // Add this line
         document.getElementById('introImageLink').value = formData.imageLink || '';
         document.getElementById('introTitle').value = formData.title || '';
         const descriptionEditor = document.getElementById('introDescription');
@@ -173,7 +175,7 @@ const introStoryModule = {
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['introImageUrl', 'introImageLink', 'introTitle', 'introButtonText', 'introButtonLink'].forEach(id => {
+        ['introImageUrl', 'introImageAltText', 'introImageLink', 'introTitle', 'introButtonText', 'introButtonLink'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {
@@ -299,6 +301,32 @@ const introStoryModule = {
         setupAlignmentButtonListeners('introTitleAlignmentMobile', 'titleAlignmentMobile');
         setupAlignmentButtonListeners('introDescriptionAlignmentDesktop', 'descriptionAlignmentDesktop');
         setupAlignmentButtonListeners('introDescriptionAlignmentMobile', 'descriptionAlignmentMobile');
+    },
+
+    parseHtml(html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        try {
+            const img = doc.querySelector('.fill.no-hover');
+            return {
+                imageUrl: img?.src || '',
+                imageAltText: img?.alt || 'Milwaukee Tool Intro Image',
+                imageLink: img?.closest('a')?.href || '',
+                title: doc.querySelector('h3')?.textContent || '',
+                description: doc.querySelector('.story-intro')?.innerHTML || '',
+                buttonText: doc.querySelector('.button a')?.textContent || '',
+                buttonLink: doc.querySelector('.button a')?.href || '',
+                imagePosition: doc.querySelector('.sect')?.getAttribute('dir') === 'rtl' ? 'right' : 'left',
+                showButton: !!doc.querySelector('.button'),
+                titleAlignmentDesktop: doc.querySelector('h3')?.style.textAlign || 'left',
+                titleAlignmentMobile: doc.querySelector('h3')?.classList.contains('mobile-text-left') ? 'left' : 'center',
+                descriptionAlignmentDesktop: doc.querySelector('.story-intro')?.style.textAlign || 'left',
+                descriptionAlignmentMobile: doc.querySelector('.story-intro')?.classList.contains('mobile-text-left') ? 'left' : 'center'
+            };
+        } catch (error) {
+            console.error('Error parsing Intro Story HTML', error);
+            return this.getPlaceholderData();
+        }
     }
 };
 

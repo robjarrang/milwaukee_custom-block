@@ -8,7 +8,8 @@ const fwImageModule = {
     getPlaceholderData() {
         return {
             imageUrl: 'https://fakeimg.pl/620x350/dddddd/ffffff',
-            imageLink: 'https://milwaukeetool.eu/'
+            imageLink: 'https://milwaukeetool.eu/',
+            imageAltText: 'Milwaukee Tool Full Width Image' // Add default alt text
         };
     },
 
@@ -17,9 +18,11 @@ const fwImageModule = {
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
         try {
+            const img = doc.querySelector('.fill.no-hover');
             const parsedData = {
-                imageUrl: doc.querySelector('.fill.no-hover')?.src || '',
-                imageLink: doc.querySelector('.fill.no-hover')?.closest('a')?.href || ''
+                imageUrl: img?.src || '',
+                imageAltText: img?.alt || 'Milwaukee Tool Full Width Image',
+                imageLink: img?.closest('a')?.href || ''
             };
             console.log('Parsed Full Width Image data:', parsedData);
             return parsedData;
@@ -53,23 +56,27 @@ const fwImageModule = {
             }
         }
 
-        return doc.body.innerHTML;
+        return html.replace(
+            /<img\s[^>]*>/,
+            `<img align="top" alt="${formData.imageAltText || 'Milwaukee Tool Full Width Image'}" class="fill no-hover" src="${formData.imageUrl || ''}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="620">`
+        );
     },
 
     populateForm(formData) {
         console.log('Populating Full Width Image form with data:', formData);
         document.getElementById('fwImageUrl').value = formData.imageUrl || formData.imageurl || '';
+        document.getElementById('fwImageAltText').value = formData.imageAltText || ''; // Add this line
         document.getElementById('fwImageLink').value = formData.imageLink || '';
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['fwImageUrl', 'fwImageLink'].forEach(id => {
+        ['fwImageUrl', 'fwImageAltText', 'fwImageLink'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {
                     const key = id.replace('fw', '').toLowerCase();
                     // Ensure we're using 'imageUrl' (camelCase) for consistency
-                    const formKey = key === 'imageurl' ? 'imageUrl' : key;
+                    const formKey = key === 'imageurl' ? 'imageUrl' : key === 'imagealttext' ? 'imageAltText' : key;
                     handleFormFieldChange('fwImage', formKey, event.target.value);
                 });
             } else {
