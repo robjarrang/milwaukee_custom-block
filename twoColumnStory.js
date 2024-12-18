@@ -231,6 +231,9 @@ const twoColumnStoryModule = {
                 console.warn(`Radio button for background color not found`);
             }
         });
+
+        document.getElementById('twoColumnLeftImageAltText').value = formData.twoColumnLeftImageAltText || '';
+        document.getElementById('twoColumnRightImageAltText').value = formData.twoColumnRightImageAltText || '';
     },
 
     setupEventListeners(handleFormFieldChange) {
@@ -407,6 +410,28 @@ const twoColumnStoryModule = {
                 handleFormFieldChange('twoColumnStory', 'title', document.getElementById('twoColumnRightTitle').value);
             });
         }
+
+        const fields = [
+            'twoColumnLeftImageUrl',
+            'twoColumnLeftImageAltText',
+            'twoColumnLeftImageLink',
+            'twoColumnRightImageUrl',
+            'twoColumnRightImageAltText',
+            'twoColumnRightImageLink'
+        ];
+
+        fields.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('input', function(event) {
+                    const key = id;
+                    handleFormFieldChange('twoColumnStory', key, event.target.value);
+                    console.log(`Changed ${key} to ${event.target.value}`);
+                });
+            } else {
+                console.warn(`Element with id ${id} not found`);
+            }
+        });
     }
 };
 
