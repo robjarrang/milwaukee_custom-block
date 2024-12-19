@@ -9,6 +9,7 @@ const oneColumnStoryModule = {
         return {
             imageUrl: 'https://fakeimg.pl/290x200/dddddd/ffffff',
             imageLink: 'https://milwaukeetool.eu/',
+            imageAltText: 'Milwaukee Tool Product Image',
             title: 'Tempus euismod phasellus',
             description: 'Vestibulum condimentum tempus euismod. Phasellus ligula nibh, ornare at ligula a.',
             buttonText: 'Button title',
@@ -58,7 +59,7 @@ const oneColumnStoryModule = {
         <td class="block" style="width: 290px;" valign="middle">
             <div>
                 <a href="${formData.imageLink}" target="_blank" style="color: #ffffff;">
-                    <img align="top" alt="Milwaukee" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
+                    <img align="top" alt="${formData.imageAltText}" class="fill no-hover" src="${formData.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="290">
                 </a>
             </div>
         </td>
@@ -123,6 +124,7 @@ const oneColumnStoryModule = {
         console.log('Populating One Column Story form with data:', formData);
         document.getElementById('oneColumnImageUrl').value = formData.imageUrl || '';
         document.getElementById('oneColumnImageLink').value = formData.imageLink || '';
+        document.getElementById('oneColumnImageAltText').value = formData.imageAltText || '';
         document.getElementById('oneColumnTitle').value = formData.title || '';
         const descriptionEditor = document.getElementById('oneColumnDescription');
         if (descriptionEditor) {
@@ -157,7 +159,7 @@ const oneColumnStoryModule = {
     },
 
     setupEventListeners(handleFormFieldChange) {
-        ['oneColumnImageUrl', 'oneColumnImageLink', 'oneColumnTitle', 'oneColumnButtonText', 'oneColumnButtonLink'].forEach(id => {
+        ['oneColumnImageUrl', 'oneColumnImageLink', 'oneColumnImageAltText', 'oneColumnTitle', 'oneColumnButtonText', 'oneColumnButtonLink'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('input', function(event) {
