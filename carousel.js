@@ -50,7 +50,22 @@ const carouselModule = {
                     <label for="carouselSlide${slideNum}ImageUrl">Image URL</label>
                     <input type="text" id="carouselSlide${slideNum}ImageUrl" name="carouselSlide${slideNum}ImageUrl">
                 </div>
-                // ...rest of slide form fields...
+                <div class="form-group">
+                    <label for="carouselSlide${slideNum}AltText">Image Alt Text</label>
+                    <input type="text" id="carouselSlide${slideNum}AltText" name="carouselSlide${slideNum}AltText">
+                </div>
+                <div class="form-group">
+                    <label for="carouselSlide${slideNum}Title">Title</label>
+                    <input type="text" id="carouselSlide${slideNum}Title" name="carouselSlide${slideNum}Title">
+                </div>
+                <div class="form-group">
+                    <label for="carouselSlide${slideNum}ButtonText">Button Text</label>
+                    <input type="text" id="carouselSlide${slideNum}ButtonText" name="carouselSlide${slideNum}ButtonText">
+                </div>
+                <div class="form-group">
+                    <label for="carouselSlide${slideNum}ButtonUrl">Button URL</label>
+                    <input type="text" id="carouselSlide${slideNum}ButtonUrl" name="carouselSlide${slideNum}ButtonUrl">
+                </div>
             </details>`;
     },
 
@@ -552,18 +567,35 @@ const carouselModule = {
         
         // Add background image population
         document.getElementById('carouselBackgroundImage').value = data.backgroundImage;
+
+        // Remove existing slides
+        const existingSlides = document.querySelectorAll('#carouselModule details:not(:last-child)');
+        existingSlides.forEach(slide => slide.remove());
         
+        // Create and populate slides
         data.slides.forEach((slide, index) => {
-            document.getElementById(`carouselSlide${index + 1}ImageUrl`).value = slide.imageUrl;
-            document.getElementById(`carouselSlide${index + 1}AltText`).value = slide.imageAltText;
-            document.getElementById(`carouselSlide${index + 1}Title`).value = slide.title;
-            document.getElementById(`carouselSlide${index + 1}ButtonText`).value = slide.buttonText;
-            document.getElementById(`carouselSlide${index + 1}ButtonUrl`).value = slide.buttonUrl;
+            const slideNum = index + 1;
+            const slideHTML = this.createSlideHTML(slideNum);
+            
+            // Insert before the fallback details section
+            const fallbackDetails = document.querySelector('#carouselModule details:last-child');
+            fallbackDetails.insertAdjacentHTML('beforebegin', slideHTML);
+            
+            // Now populate the newly created fields
+            document.getElementById(`carouselSlide${slideNum}ImageUrl`).value = slide.imageUrl;
+            document.getElementById(`carouselSlide${slideNum}AltText`).value = slide.imageAltText;
+            document.getElementById(`carouselSlide${slideNum}Title`).value = slide.title;
+            document.getElementById(`carouselSlide${slideNum}ButtonText`).value = slide.buttonText;
+            document.getElementById(`carouselSlide${slideNum}ButtonUrl`).value = slide.buttonUrl;
         });
 
+        // Populate fallback fields
         document.getElementById('carouselFallbackImageUrl').value = data.fallbackImageUrl;
         document.getElementById('carouselFallbackAltText').value = data.fallbackAltText;
         document.getElementById('carouselFallbackLink').value = data.fallbackLink;
+        
+        // Re-setup event listeners
+        this.setupEventListeners(() => this.handleFormFieldChange());
     },
 
     setupEventListeners(handleFormFieldChange) {
