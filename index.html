@@ -6,46 +6,6 @@
     <title>Milwaukee Blocks</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
-    <style type="text/css">
-        @media screen and (-webkit-min-device-pixel-ratio: 0) {
-            /* Update the checkbox + selector rules */
-            #cbox:checked ~ .carousel-container .fallback {
-                display: none !important;
-            }
-
-            #cbox:checked ~ .carousel-container .interactive {
-                display: block !important;
-                max-height: none !important;
-                position: relative;
-                overflow: visible !important;
-            }
-        }
-
-        /* Update the client-specific overrides */
-        #MessageViewBody #cbox:checked ~ .carousel-container .fallback {
-            display: block !important;
-            max-height: none !important;
-            position: relative;
-            overflow: visible !important;
-        }
-
-        #MessageViewBody #cbox:checked ~ .carousel-container .interactive {
-            display: none !important;
-        }
-
-        /* Outlook App override */
-        body[data-outlook-cycle] .fallback,
-        body[data-outlook-cycle] #cbox:checked ~ .carousel-container .fallback {
-            display: block !important;
-            max-height: none !important;
-            position: relative;
-        }
-
-        body[data-outlook-cycle] .interactive,
-        body[data-outlook-cycle] #cbox:checked ~ .carousel-container .interactive {
-            display: none !important;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -92,6 +52,46 @@
                             <label>Desktop</label>
                             <div id="leadTitleAlignmentDesktop" class="alignment-buttons">
                                 <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
+                                <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
+                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Mobile</label>
+                            <div id="leadTitleAlignmentMobile" class="alignment-buttons">
+                                <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
+                                <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
+                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="leadDescription">Description</label>
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
+                            <button data-command="bold">B</button>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
+                            <button data-command="link">🔗</button>
+                            <button data-command="editLink">✎</button>
+                            <button data-command="removeLink">✖</button>
+                        </div>
+                        <div id="leadDescription" class="rich-text-editor" contenteditable="true"></div>
+                    </div>
+                    <div class="alignment-group">
+                        <div>
+                            <label>Desktop</label>
+                            <div id="leadDescriptionAlignmentDesktop" class="alignment-buttons">
+                                <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
+                                <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
+                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Mobile</label>
+                            <div id="leadDescriptionAlignmentMobile" class="alignment-buttons">
                                 <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -120,55 +120,22 @@
                 <div class="form-group">
                     <label for="introImageUrl">Image URL</label>
                     <input type="text" id="introImageUrl" name="introImageUrl">
-                    <div class="alignment-group">
-                        <div>
-                    <label for="introImageAltText">Image Alt Text</label>
-                    <input type="text" id="introImageAltText" name="introImageAltText">
-                                <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
-                                <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                            </div>
-                        </div>
-                        <div>
-                            <label>Mobile</label>
-                            <div id="leadDescriptionAlignmentMobile" class="alignment-buttons">
-                                <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
-                                <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="buttonText">Button Text</label>
-                    <input type="text" id="buttonText" name="buttonText">
-                </div>
-                <div class="form-group">
-                    <label for="buttonLink">Button Link</label>
-                    <input type="text" id="buttonLink" name="buttonLink">
-                </div>
-                <div class="form-group">
-                    <label for="showButton">Show Button</label>
-                    </div>
-                        <input type="checkbox" id="showButton" name="showButton" checked>
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            </div>
-
-                            <button data-command="italic">I</button>
-                <div class="form-group">
-                            <button data-command="superscript">x<sup>2</sup></button>
-                    <input type="text" id="introImageUrl" name="introImageUrl">
-                            <button data-command="editLink">✎</button>
-                            <button data-command="removeLink">✖</button>
                     <label for="introImageAltText">Image Alt Text</label>
                     <input type="text" id="introImageAltText" name="introImageAltText">
                 </div>
-                    <div class="alignment-group">
-                        <div>
+                <div class="form-group">
+                    <label for="introImageLink">Image Link</label>
                     <input type="text" id="introImageLink" name="introImageLink">
                 </div>
+                <div class="form-group">
+                    <label for="introTitle">Title</label>
+                    <input type="text" id="introTitle" name="introTitle">
+                    <div class="alignment-group">
+                        <div>
+                            <label>Desktop</label>
+                            <div id="introTitleAlignmentDesktop" class="alignment-buttons">
                                 <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -176,14 +143,7 @@
                         </div>
                         <div>
                             <label>Mobile</label>
-                            <div id="introDescriptionAlignmentMobile" class="alignment-buttons">
-                                <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            <div id="introTitleAlignmentMobile" class="alignment-buttons">
                                 <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -192,16 +152,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                <div class="form-group">
+                    <label for="introDescription">Description</label>
                     <div class="editor-container">
                         <div class="rich-text-toolbar">
                             <button data-command="bold">B</button>
-                            <input type="radio" id="introImagePositionLeft" name="introImagePosition" value="left">
-                            <label for="introImagePositionLeft">Left</label>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
                             <button data-command="superscript">x<sup>2</sup></button>
                             <button data-command="link">🔗</button>
-                            <input type="radio" id="introImagePositionRight" name="introImagePosition" value="right">
-                            <label for="introImagePositionRight">Right</label>
+                            <button data-command="editLink">✎</button>
+                            <button data-command="removeLink">✖</button>
                         </div>
                         <div id="introDescription" class="rich-text-editor" contenteditable="true"></div>
                     </div>
@@ -247,26 +207,33 @@
                 </div>
                 <div class="form-group">
                     <label for="introShowButton">Show Button</label>
-                    </div>
+                    <label class="switch">
                         <input type="checkbox" id="introShowButton" name="introShowButton">
                         <span class="slider round"></span>
                     </label>
-                    <div class="editor-container">
-                        <div class="rich-text-toolbar">
+                </div>
+            </div>
 
-                            <button data-command="italic">I</button>
-                            <button data-command="underline">U</button>
-                            <button data-command="superscript">x<sup>2</sup></button>
+            <div id="oneColumnStoryModule" style="display: none;">
+                <div class="form-group">
+                    <label for="oneColumnImageUrl">Image URL</label>
                     <input type="text" id="oneColumnImageUrl" name="oneColumnImageUrl">
-                            <button data-command="editLink">✎</button>
-                            <button data-command="removeLink">✖</button>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="oneColumnImageAltText">Image Alt Text</label>
                     <input type="text" id="oneColumnImageAltText" name="oneColumnImageAltText">
-                    </div>
-                    <div class="alignment-group">
+                </div>
+                <div class="form-group">
                     <label for="oneColumnImageLink">Image Link</label>
                     <input type="text" id="oneColumnImageLink" name="oneColumnImageLink">
-                            <div id="oneColumnDescriptionAlignmentDesktop" class="alignment-buttons">
+                </div>
+                <div class="form-group">
+                    <label for="oneColumnTitle">Title</label>
+                    <input type="text" id="oneColumnTitle" name="oneColumnTitle">
+                    <div class="alignment-group">
+                        <div>
+                            <label>Desktop</label>
+                            <div id="oneColumnTitleAlignmentDesktop" class="alignment-buttons">
                                 <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -274,7 +241,7 @@
                         </div>
                         <div>
                             <label>Mobile</label>
-                            <div id="oneColumnDescriptionAlignmentMobile" class="alignment-buttons">
+                            <div id="oneColumnTitleAlignmentMobile" class="alignment-buttons">
                                 <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -283,29 +250,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                                <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <input type="text" id="oneColumnButtonLink" name="oneColumnButtonLink">
-                </div>
                     <label for="oneColumnDescription">Description</label>
-                    <label>Background Color</label>
-                    <div class="radio-group">
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
                             <button data-command="bold">B</button>
-                            <input type="radio" id="oneColumnBackgroundRed" name="oneColumnBackgroundColor" value="red">
-                            <label for="oneColumnBackgroundRed">Red</label>
-                        </div>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
                             <button data-command="link">🔗</button>
                             <button data-command="editLink">✎</button>
-                            <label for="oneColumnBackgroundBlack">Black</label>
+                            <button data-command="removeLink">✖</button>
                         </div>
                         <div id="oneColumnDescription" class="rich-text-editor" contenteditable="true"></div>
                     </div>
                     <div class="alignment-group">
-                    <label>Image Position</label>
-                    <div class="radio-group">
+                        <div>
+                            <label>Desktop</label>
                             <div id="oneColumnDescriptionAlignmentDesktop" class="alignment-buttons">
                                 <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
@@ -350,17 +310,57 @@
                             <input type="radio" id="oneColumnImagePositionLeft" name="oneColumnImagePosition" value="left">
                             <label for="oneColumnImagePositionLeft">Left</label>
                         </div>
-                                    <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
+                        <div class="radio-option">
+                            <input type="radio" id="oneColumnImagePositionRight" name="oneColumnImagePosition" value="right">
                             <label for="oneColumnImagePositionRight">Right</label>
                         </div>
                     </div>
                 </div>
-                    <div class="form-group">
+            </div>
 
+            <div id="twoColumnStoryModule" style="display: none;">
+                <details>
+                    <summary>Column 1</summary>
+                    <!-- Left Column Form Groups -->
+                    <div class="form-group">
+                        <label for="twoColumnLeftImageUrl">Left Image URL</label>
+                        <input type="text" id="twoColumnLeftImageUrl" name="twoColumnLeftImageUrl">
+                    </div>
+                    <div class="form-group">
+                        <label for="twoColumnLeftImageAltText">Left Image Alt Text</label>
+                        <input type="text" id="twoColumnLeftImageAltText" name="twoColumnLeftImageAltText">
+                    </div>
+                    <div class="form-group">
+                        <label for="twoColumnLeftImageLink">Left Image Link</label>
+                        <input type="text" id="twoColumnLeftImageLink" name="twoColumnLeftImageLink">
+                    </div>
+                    <div class="form-group">
+                        <label for="twoColumnLeftTitle">Left Title</label>
+                        <input type="text" id="twoColumnLeftTitle" name="twoColumnLeftTitle">
+                        <div class="alignment-group">
+                            <div>
+                                <label>Desktop</label>
+                                <div id="twoColumnLeftTitleAlignmentDesktop" class="alignment-buttons">
+                                    <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
+                                    <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
+                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Mobile</label>
+                                <div id="twoColumnLeftTitleAlignmentMobile" class="alignment-buttons">
+                                    <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
+                                    <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
+                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="twoColumnLeftDescription">Left Description</label>
                         <div class="editor-container">
                             <div class="rich-text-toolbar">
-                    <summary>Column 1</summary>
+                                <button data-command="bold">B</button>
                                 <button data-command="italic">I</button>
                                 <button data-command="underline">U</button>
                                 <button data-command="superscript">x<sup>2</sup></button>
@@ -372,7 +372,7 @@
                         </div>
                         <div class="alignment-group">
                             <div>
-                        <input type="text" id="twoColumnLeftImageLink" name="twoColumnLeftImageLink">
+                                <label>Desktop</label>
                                 <div id="twoColumnLeftDescriptionAlignmentDesktop" class="alignment-buttons">
                                     <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
@@ -390,9 +390,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                                    <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                </div>
+                        <label for="twoColumnLeftButtonText">Left Button Text</label>
+                        <input type="text" id="twoColumnLeftButtonText" name="twoColumnLeftButtonText">
+                    </div>
                     <div class="form-group">
                         <label for="twoColumnLeftButtonLink">Left Button Link</label>
                         <input type="text" id="twoColumnLeftButtonLink" name="twoColumnLeftButtonLink">
@@ -401,19 +401,25 @@
                 <details>
                     <summary>Column 2</summary>
                     <!-- Right Column Form Groups -->
-                                <button data-command="italic">I</button>
+                    <div class="form-group">
                         <label for="twoColumnRightImageUrl">Right Image URL</label>
                         <input type="text" id="twoColumnRightImageUrl" name="twoColumnRightImageUrl">
                     </div>
-                                <button data-command="editLink">✎</button>
-                                <button data-command="removeLink">✖</button>
-                            </div>
-                            <div id="twoColumnLeftDescription" class="rich-text-editor" contenteditable="true"></div>
-                        </div>
-                        <div class="alignment-group">
+                    <div class="form-group">
+                        <label for="twoColumnRightImageAltText">Right Image Alt Text</label>
+                        <input type="text" id="twoColumnRightImageAltText" name="twoColumnRightImageAltText">
+                    </div>
+                    <div class="form-group">
+                        <label for="twoColumnRightImageLink">Right Image Link</label>
                         <input type="text" id="twoColumnRightImageLink" name="twoColumnRightImageLink">
                     </div>
                     <div class="form-group">
+                        <label for="twoColumnRightTitle">Right Title</label>
+                        <input type="text" id="twoColumnRightTitle" name="twoColumnRightTitle">
+                        <div class="alignment-group">
+                            <div>
+                                <label>Desktop</label>
+                                <div id="twoColumnRightTitleAlignmentDesktop" class="alignment-buttons">
                                     <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -421,13 +427,7 @@
                             </div>
                             <div>
                                 <label>Mobile</label>
-                                    <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                </div>
-                            </div>
-                        </div>
+                                <div id="twoColumnRightTitleAlignmentMobile" class="alignment-buttons">
                                     <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -471,8 +471,8 @@
                     <div class="form-group">
                         <label for="twoColumnRightButtonText">Right Button Text</label>
                         <input type="text" id="twoColumnRightButtonText" name="twoColumnRightButtonText">
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group">
                         <label for="twoColumnRightButtonLink">Right Button Link</label>
                         <input type="text" id="twoColumnRightButtonLink" name="twoColumnRightButtonLink">
                     </div>
@@ -481,18 +481,41 @@
                 <div class="form-group">
                     <label>Background Color</label>
                     <div class="radio-group">
-                                <button data-command="underline">U</button>
+                        <div class="radio-option">
                             <input type="radio" id="twoColumnBackgroundRed" name="twoColumnBackgroundColor" value="red">
                             <label for="twoColumnBackgroundRed">Red</label>
                         </div>
-                                <button data-command="removeLink">✖</button>
+                        <div class="radio-option">
                             <input type="radio" id="twoColumnBackgroundBlack" name="twoColumnBackgroundColor" value="black">
                             <label for="twoColumnBackgroundBlack">Black</label>
                         </div>
                     </div>
                 </div>
-                                <label>Desktop</label>
+            </div>
 
+            <div id="threeColumnStoryModule" style="display: none;">
+                <details>
+                    <summary>Column 1</summary>
+                    <!-- Left Column Form Groups -->
+                    <div class="form-group">
+                        <label for="threeColumnLeftImageUrl">Left Image URL</label>
+                        <input type="text" id="threeColumnLeftImageUrl" name="threeColumnLeftImageUrl">
+                    </div>
+                    <div class="form-group">
+                        <label for="threeColumnLeftImageAltText">Left Image Alt Text</label>
+                        <input type="text" id="threeColumnLeftImageAltText" name="threeColumnLeftImageAltText">
+                    </div>
+                    <div class="form-group">
+                        <label for="threeColumnLeftImageLink">Left Image Link</label>
+                        <input type="text" id="threeColumnLeftImageLink" name="threeColumnLeftImageLink">
+                    </div>
+                    <div class="form-group">
+                        <label for="threeColumnLeftTitle">Left Title</label>
+                        <input type="text" id="threeColumnLeftTitle" name="threeColumnLeftTitle">
+                        <div class="alignment-group">
+                            <div>
+                                <label>Desktop</label>
+                                <div id="threeColumnLeftTitleAlignmentDesktop" class="alignment-buttons">
                                     <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -500,30 +523,7 @@
                             </div>
                             <div>
                                 <label>Mobile</label>
-                                <div id="twoColumnRightDescriptionAlignmentMobile" class="alignment-buttons">
-                                    <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="twoColumnRightButtonText">Right Button Text</label>
-                        <input type="text" id="twoColumnRightButtonText" name="twoColumnRightButtonText">
-                    </div>
-                    <div class="form-group">
-                        <label for="twoColumnRightButtonLink">Right Button Link</label>
-                        <input type="text" id="twoColumnRightButtonLink" name="twoColumnRightButtonLink">
-                    </div>
-                </details>
-                <!-- Background Color Form Group -->
-                <div class="form-group">
-                    <label>Background Color</label>
-                    <div class="radio-group">
-                            <div>
-                            <input type="radio" id="twoColumnBackgroundRed" name="twoColumnBackgroundColor" value="red">
-                            <label for="twoColumnBackgroundRed">Red</label>
+                                <div id="threeColumnLeftTitleAlignmentMobile" class="alignment-buttons">
                                     <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -547,7 +547,7 @@
                         </div>
                         <div class="alignment-group">
                             <div>
-                        <input type="text" id="threeColumnLeftImageLink" name="threeColumnLeftImageLink">
+                                <label>Desktop</label>
                                 <div id="threeColumnLeftDescriptionAlignmentDesktop" class="alignment-buttons">
                                     <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
@@ -565,22 +565,22 @@
                         </div>
                     </div>
                     <div class="form-group">
-                                    <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                </div>
+                        <label for="threeColumnLeftButtonText">Left Button Text</label>
+                        <input type="text" id="threeColumnLeftButtonText" name="threeColumnLeftButtonText">
+                    </div>
                     <div class="form-group">
                         <label for="threeColumnLeftButtonLink">Left Button Link</label>
                         <input type="text" id="threeColumnLeftButtonLink" name="threeColumnLeftButtonLink">
                     </div>
                 </details>
-                        <div class="editor-container">
+                <details>
                     <summary>Column 2</summary>
                     <!-- Center Column Form Groups -->
-                                <button data-command="italic">I</button>
+                    <div class="form-group">
                         <label for="threeColumnCenterImageUrl">Center Image URL</label>
                         <input type="text" id="threeColumnCenterImageUrl" name="threeColumnCenterImageUrl">
                     </div>
-                                <button data-command="editLink">✎</button>
+                    <div class="form-group">
                         <label for="threeColumnCenterImageAltText">Center Image Alt Text</label>
                         <input type="text" id="threeColumnCenterImageAltText" name="threeColumnCenterImageAltText">
                     </div>
@@ -591,17 +591,17 @@
                     <div class="form-group">
                         <label for="threeColumnCenterTitle">Center Title</label>
                         <input type="text" id="threeColumnCenterTitle" name="threeColumnCenterTitle">
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                </div>
-                                <label>Desktop</label>
+                        <div class="alignment-group">
                             <div>
+                                <label>Desktop</label>
+                                <div id="threeColumnCenterTitleAlignmentDesktop" class="alignment-buttons">
                                     <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
                                 </div>
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                </div>
                             </div>
+                            <div>
+                                <label>Mobile</label>
                                 <div id="threeColumnCenterTitleAlignmentMobile" class="alignment-buttons">
                                     <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
@@ -647,7 +647,7 @@
                         <label for="threeColumnCenterButtonText">Center Button Text</label>
                         <input type="text" id="threeColumnCenterButtonText" name="threeColumnCenterButtonText">
                     </div>
-                            </div>
+                    <div class="form-group">
                         <label for="threeColumnCenterButtonLink">Center Button Link</label>
                         <input type="text" id="threeColumnCenterButtonLink" name="threeColumnCenterButtonLink">
                     </div>
@@ -656,14 +656,14 @@
                     <summary>Column 3</summary>
                     <!-- Right Column Form Groups -->
                     <div class="form-group">
-                                <button data-command="underline">U</button>
+                        <label for="threeColumnRightImageUrl">Right Image URL</label>
                         <input type="text" id="threeColumnRightImageUrl" name="threeColumnRightImageUrl">
                     </div>
                     <div class="form-group">
                         <label for="threeColumnRightImageAltText">Right Image Alt Text</label>
                         <input type="text" id="threeColumnRightImageAltText" name="threeColumnRightImageAltText">
-                            <div id="threeColumnCenterDescription" class="rich-text-editor" contenteditable="true"></div>
-                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="threeColumnRightImageLink">Right Image Link</label>
                         <input type="text" id="threeColumnRightImageLink" name="threeColumnRightImageLink">
                     </div>
@@ -678,10 +678,10 @@
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
                                 </div>
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                </div>
+                            </div>
+                            <div>
                                 <label>Mobile</label>
-                        </div>
+                                <div id="threeColumnRightTitleAlignmentMobile" class="alignment-buttons">
                                     <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -705,7 +705,7 @@
                         </div>
                         <div class="alignment-group">
                             <div>
-                        <input type="text" id="threeColumnRightImageLink" name="threeColumnRightImageLink">
+                                <label>Desktop</label>
                                 <div id="threeColumnRightDescriptionAlignmentDesktop" class="alignment-buttons">
                                     <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
@@ -715,46 +715,6 @@
                             <div>
                                 <label>Mobile</label>
                                 <div id="threeColumnRightDescriptionAlignmentMobile" class="alignment-buttons">
-                                    <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                                    <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                </div>
-                            </div>
-                        <label for="threeColumnRightButtonLink">Right Button Link</label>
-                        <input type="text" id="threeColumnRightButtonLink" name="threeColumnRightButtonLink">
-                    </div>
-                </details>
-                <!-- Background Color Form Group -->
-                <div class="form-group">
-                    <label>Background Color</label>
-                                <button data-command="italic">I</button>
-                        <div class="radio-option">
-                            <input type="radio" id="threeColumnBackgroundRed" name="threeColumnBackgroundColor" value="red">
-                            <label for="threeColumnBackgroundRed">Red</label>
-                                <button data-command="editLink">✎</button>
-                        <div class="radio-option">
-                            <input type="radio" id="threeColumnBackgroundBlack" name="threeColumnBackgroundColor" value="black">
-                            <label for="threeColumnBackgroundBlack">Black</label>
-                        </div>
-                        <div class="alignment-group">
-                </div>
-            </div>
-                                <div id="threeColumnRightDescriptionAlignmentDesktop" class="alignment-buttons">
-                                    <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                    <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                                </div>
-                            </div>
-                            <div>
-                                <label>Mobile</label>
-                    <input type="text" id="fwImageAltText" name="fwImageAltText">
                                     <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                     <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -829,7 +789,7 @@
             <div id="dividerModule" style="display: none;">
                 <div class="form-group">
                     <label>Divider Type</label>
-                    <input type="text" id="gridButtonText1" name="gridButtonText1">
+                    <div class="divider-type-group">
                         <div class="divider-type-option">
                             <input type="radio" id="dividerTypeRedToBlack" name="dividerType" value="redToBlack">
                             <label for="dividerTypeRedToBlack">Red to Black</label>
@@ -840,22 +800,22 @@
                         </div>
                     </div>
                 </div>
-                    <label for="gridButtonLink2">Button Link 2</label>
-                    <input type="text" id="gridButtonLink2" name="gridButtonLink2">
-                </div>
+            </div>
+
+            <div id="spacerModule" style="display: none;">
                 <div class="form-group">
-                    <label>Background Color</label>
+                    <label for="spacerHeight">Spacer Height</label>
                     <input type="range" id="spacerHeight" name="spacerHeight" min="0" max="100" step="1" value="20">
                     <span id="spacerHeightValue">20</span>px
                 </div>
-                            <label for="gridBackgroundColorRed">Red</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="gridBackgroundColorBlack" name="gridBackgroundColor" value="black">
-                            <label for="gridBackgroundColorBlack">Black</label>
-                        </div>
-                    </div>
+            </div>
+
+            <div id="gridModule" style="display: none;">
+                <div class="form-group">
+                    <label for="gridImage1">Grid Image 1 URL</label>
+                    <input type="text" id="gridImage1" name="gridImage1">
                 </div>
+                <div class="form-group">
                     <label for="gridImage2">Grid Image 2 URL</label>
                     <input type="text" id="gridImage2" name="gridImage2">
                 </div>
@@ -938,12 +898,52 @@
                     <label for="pemButtonText">Button Text</label>
                     <input type="text" id="pemButtonText" name="pemButtonText">
                 </div>
-                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
+                <div class="form-group">
                     <label for="pemButtonLink">Button Link</label>
                     <input type="text" id="pemButtonLink" name="pemButtonLink">
                 </div>
                 <div class="form-group">
                     <label>Image Position</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="pemImagePositionLeft" name="pemImagePosition" value="left">
+                            <label for="pemImagePositionLeft">Left</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="pemImagePositionRight" name="pemImagePosition" value="right">
+                            <label for="pemImagePositionRight">Right</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="fullWidthTitleModule" style="display: none;">
+                <div class="form-group">
+                    <label for="fwTitleText">Title</label>
+                    <div class="editor-container">
+                        <div class="rich-text-toolbar">
+                            <button data-command="bold">B</button>
+                            <button data-command="italic">I</button>
+                            <button data-command="underline">U</button>
+                            <button data-command="superscript">x<sup>2</sup></button>
+                            <button data-command="link">🔗</button>
+                            <button data-command="editLink">✎</button>
+                            <button data-command="removeLink">✖</button>
+                        </div>
+                        <div id="fwTitleText" class="rich-text-editor" contenteditable="true"></div>
+                    </div>
+                    <div class="alignment-group">
+                        <div>
+                            <label>Desktop</label>
+                            <div id="fwTitleAlignmentDesktop" class="alignment-buttons">
+                                <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
+                                <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
+                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Mobile</label>
+                            <div id="fwTitleAlignmentMobile" class="alignment-buttons">
                                 <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
                                 <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
@@ -968,73 +968,33 @@
 
             <div id="galleryModule" style="display: none;">
                 <div class="form-group">
-                            <button data-command="removeLink">✖</button>
+                    <label for="galleryImage1Url">Image 1 URL</label>
                     <input type="text" id="galleryImage1Url" name="galleryImage1Url">
-                        <div id="fwTitleText" class="rich-text-editor" contenteditable="true"></div>
+                </div>
                 <div class="form-group">
                     <label for="galleryImage1AltText">Image 1 Alt Text</label>
                     <input type="text" id="galleryImage1AltText" name="galleryImage1AltText">
                 </div>
                 <div class="form-group">
                     <label for="galleryImage1Link">Image 1 Link</label>
-                                <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                            </div>
-                        </div>
+                    <input type="text" id="galleryImage1Link" name="galleryImage1Link">
+                </div>
+                <div class="form-group">
+                    <label for="galleryImage2Url">Image 2 URL</label>
                     <input type="text" id="galleryImage2Url" name="galleryImage2Url">
                 </div>
                 <div class="form-group">
-                                <button type="button" class="alignment-button" data-alignment="left"><i class="bi bi-text-left"></i></button>
-                                <button type="button" class="alignment-button" data-alignment="center"><i class="bi bi-text-center"></i></button>
-                                <button type="button" class="alignment-button" data-alignment="right"><i class="bi bi-text-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
+                    <label for="galleryImage2AltText">Image 2 Alt Text</label>
+                    <input type="text" id="galleryImage2AltText" name="galleryImage2AltText">
+                </div>
+                <div class="form-group">
+                    <label for="galleryImage2Link">Image 2 Link</label>
+                    <input type="text" id="galleryImage2Link" name="galleryImage2Link">
                 </div>
                 <div class="form-group">
                     <label for="galleryImage3Url">Image 3 URL</label>
                     <input type="text" id="galleryImage3Url" name="galleryImage3Url">
                 </div>
-                            <input type="radio" id="fwTitleBackgroundColorRed" name="fwTitleBackgroundColor" value="red">
-                            <label for="fwTitleBackgroundColorRed">Red</label>
-                    <input type="text" id="galleryImage3AltText" name="galleryImage3AltText">
-                </div>
-                <div class="form-group">
-                            <label for="fwTitleBackgroundColorBlack">Black</label>
-                    <input type="text" id="galleryImage3Link" name="galleryImage3Link">
-                </div>
-                <div class="form-group">
-                    <label for="galleryImage4Url">Image 4 URL</label>
-                    <input type="text" id="galleryImage4Url" name="galleryImage4Url">
-                </div>
-                <div class="form-group">
-                    <label for="galleryImage4AltText">Image 4 Alt Text</label>
-                    <input type="text" id="galleryImage4AltText" name="galleryImage4AltText">
-                </div>
-                <div class="form-group">
-                    <label for="galleryImage4Link">Image 4 Link</label>
-                    <input type="text" id="galleryImage4Link" name="galleryImage4Link">
-                </div>
-            </div>
-
-            <div id="checklistModule" style="display: none;">
-                <div class="form-group">
-                    <label for="checklistItems">Checklist Items</label>
-                    <div id="checklistItems" class="checklist-container"></div>
-                    <button type="button" id="addChecklistItem" class="btn btn-add">Add Item</button>
-                </div>
-
-                <div class="form-group">
-                    <label>Background Color</label>
-                    <div class="radio-group">
-                <div class="form-group">
-                            <input type="radio" id="checklistBackgroundColorRed" name="checklistBackgroundColor" value="red">
-                            <label for="checklistBackgroundColorRed">Red</label>
-                        </div>
-                <div class="form-group">
-                            <input type="radio" id="checklistBackgroundColorBlack" name="checklistBackgroundColor" value="black">
-                            <label for="checklistBackgroundColorBlack">Black</label>
-                        </div>
                 <div class="form-group">
                     <label for="galleryImage3AltText">Image 3 Alt Text</label>
                     <input type="text" id="galleryImage3AltText" name="galleryImage3AltText">

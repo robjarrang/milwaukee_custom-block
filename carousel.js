@@ -614,7 +614,6 @@ const carouselModule = {
                                 <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%;" width="100%">
                                     <tr>
                                         <td id="car" style="text-align: center;">
-                                            <!--[if !mso]><!-- -->
                                             <input checked="checked" id="cbox" name="cbox" style="display: none; max-height: 0; visibility: hidden;" type="checkbox">
                                             <div class="interactive" style="display: none; max-height: 0; overflow: hidden;">
                                                 <div id="carousel">
@@ -637,10 +636,8 @@ const carouselModule = {
                                                         ${slides.map((_, index) => `<label class="arrows" for="arrow_${index + 1}">&nbsp;</label>`).join(' ')}
                                                     </div>
                                                 </div>
-                                            </div> <!--<![endif]--> <!--[if !mso]><!-- --> <input checked="checked" id="cbox"
-                                                name="cbox" style="display: none; max-height: 0; visibility: hidden;"
-                                                type="checkbox"> <!--<![endif]-->
-                                            <div class="fallback">
+                                            </div>
+                                            <div class="fallback" style="display: none;">
                                                 <a href="${fallback.link}" target="_blank">
                                                     <img align="top" alt="${fallback.altText}" class="fill no-hover" src="${fallback.imageUrl}" style="display: block; height: auto; outline: none; text-decoration: none; border: none; padding: 0px; text-align: center; width: 100%;" width="620">
                                                 </a>
