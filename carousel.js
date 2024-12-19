@@ -130,6 +130,36 @@ const carouselModule = {
         const slideTransition = 100 / totalSlides;
         const mobileSlidesWidth = totalSlides * 100;
 
+        // Dynamic styles for variable number of slides
+        const generateNavigationStyles = () => {
+            let styles = '';
+            // Generate show right arrow styles
+            for (let i = 1; i <= totalSlides; i++) {
+                const nextSlide = i === totalSlides ? 1 : i + 1;
+                styles += `
+                #carousel #arrow_${i}:checked ~ .controls label:nth-child(${nextSlide}) {
+                    display: inline-block;
+                    float: right !important;
+                    -webkit-transform: rotate(0deg);
+                    transform: rotate(0);
+                    z-index: 1;
+                }`;
+            }
+            // Generate show left arrow styles
+            for (let i = 1; i <= totalSlides; i++) {
+                const prevSlide = i === 1 ? totalSlides : i - 1;
+                styles += `
+                #carousel #arrow_${i}:checked ~ .controls label:nth-child(${prevSlide}) {
+                    display: inline-block;
+                    float: left !important;
+                    -webkit-transform: rotate(180deg);
+                    transform: rotate(180deg);
+                    z-index: 1;
+                }`;
+            }
+            return styles;
+        };
+
         const dynamicStyles = `
             @media only screen and (max-width: 480px) {
                 #carousel .frames {
@@ -143,10 +173,37 @@ const carouselModule = {
                 #carousel .frames {
                     min-width: ${carouselWidth}px;
                 }
+                /* Desktop email width multiply by number of frames */
+                #carousel .frames .frame {
+                    width: ${slideWidth}px;
+                }
+                
+                /* Dynamic transition styles */
                 ${slides.map((_, i) => `
                     #carousel #arrow_${i + 1}:checked ~ .frames {
                         -webkit-transform: translateX(-${i * slideTransition}%);
                         transform: translateX(-${i * slideTransition}%);
+                    }
+                `).join('\n')}
+
+                /* Show starting arrows */
+                .controls label:nth-child(2) {
+                    display: inline-block !important;
+                    float: right;
+                }
+                .controls label:nth-child(${totalSlides}) {
+                    display: inline-block !important;
+                    float: left;
+                    -webkit-transform: rotate(180deg);
+                    transform: rotate(180deg);
+                }
+
+                ${generateNavigationStyles()}
+
+                /* Progress indicators */
+                ${slides.map((_, i) => `
+                    #carousel #arrow_${i + 1}:checked ~ .progressBar .progress:nth-child(${i + 1}) {
+                        opacity: 1 !important;
                     }
                 `).join('\n')}
             }`;
@@ -682,15 +739,21 @@ const carouselModule = {
             backgroundImage: document.getElementById('carouselBackgroundImage').value
         };
 
-        for (let i = 1; i <= 5; i++) {
-            formData.slides.push({
-                imageUrl: document.getElementById(`carouselSlide${i}ImageUrl`).value,
-                imageAltText: document.getElementById(`carouselSlide${i}AltText`).value,
-                title: document.getElementById(`carouselSlide${i}Title`).value,
-                buttonText: document.getElementById(`carouselSlide${i}ButtonText`).value,
-                buttonUrl: document.getElementById(`carouselSlide${i}ButtonUrl`).value
-            });
-        }
+        // Get all slide details elements except the last one (fallback)
+        const slideDetails = document.querySelectorAll('#carouselModule details:not(:last-child)');
+        
+        slideDetails.forEach((_, i) => {
+            const num = i + 1;
+            if (document.getElementById(`carouselSlide${num}ImageUrl`)) {
+                formData.slides.push({
+                    imageUrl: document.getElementById(`carouselSlide${num}ImageUrl`).value,
+                    imageAltText: document.getElementById(`carouselSlide${num}AltText`).value,
+                    title: document.getElementById(`carouselSlide${num}Title`).value,
+                    buttonText: document.getElementById(`carouselSlide${num}ButtonText`).value,
+                    buttonUrl: document.getElementById(`carouselSlide${num}ButtonUrl`).value
+                });
+            }
+        });
 
         return formData;
     }
