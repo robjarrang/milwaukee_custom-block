@@ -14,6 +14,7 @@ import fullWidthTitleModule from './fullWidthTitle.js';
 import galleryModule from './gallery.js';
 import checklistModule from './checklist.js';
 import carouselModule from './carousel.js';
+import tabsModule from './tabs.js';
 
 import { getState, updateFormData, updateFullHtml, setInitialState, getFullHtml, resetFullHtml } from './centralDataStore.js';
 import { debounce, logAction, logError, logWarning } from './utils.js';
@@ -44,6 +45,7 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
             moduleRegistry.register('gallery', galleryModule);
             moduleRegistry.register('checklist', checklistModule);
             moduleRegistry.register('carousel', carouselModule);
+            moduleRegistry.register('tabs', tabsModule);
 
             sdk.getData(function(data) {
                 console.log('Initial SDK data:', data);

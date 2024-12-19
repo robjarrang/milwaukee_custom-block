@@ -71,7 +71,29 @@ let state = {
             image4AltText: 'Milwaukee Tool Product Image'
         },
         divider: {},
-        spacer: {}
+        spacer: {},
+        tabs: {
+            tab1: {
+                name: 'Softshell Hooded',
+                subtext: 'Jacket',
+                imageUrl: '',
+                imageAltText: 'Tab 1 Image',
+                title: '',
+                buttonText: '',
+                buttonLink: '',
+                features: ['', '', '']
+            },
+            tab2: {
+                name: 'Work',
+                subtext: 'Jacket',
+                imageUrl: '',
+                imageAltText: 'Tab 2 Image',
+                title: '',
+                buttonText: '',
+                buttonLink: '',
+                features: ['', '', '']
+            }
+        }
     },
     fullHtml: ''
 };
