@@ -108,7 +108,7 @@ const fullWidthTitleModule = {
         const titleInput = document.getElementById('fwTitleText');
         if (titleInput) {
             titleInput.addEventListener('input', function(event) {
-                handleFormFieldChange('fullWidthTitle', 'title', event.target.value);
+                handleFormFieldChange('fullWidthTitle', 'title', event.target.innerHTML);
             });
         } else {
             console.warn('Element with id fwTitleText not found');
