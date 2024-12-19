@@ -17,8 +17,7 @@ const carouselModule = {
             fallbackImageUrl: 'https://fakeimg.pl/620x350/dddddd/ffffff',
             fallbackAltText: 'Milwaukee Tool Product Image',
             fallbackLink: '#',
-            backgroundImage: 'https://image.mail.milwaukeetool.eu/lib/fe2f11717564047a761c78/m/1/20c03164-65c7-40d7-b0e9-0e1375c507a6.jpg',
-            previewFallback: false
+            backgroundImage: 'https://image.mail.milwaukeetool.eu/lib/fe2f11717564047a761c78/m/1/20c03164-65c7-40d7-b0e9-0e1375c507a6.jpg'
         };
     },
 
@@ -30,46 +29,6 @@ const carouselModule = {
             link: formData.fallbackLink || this.getPlaceholderData().fallbackLink
         };
         const bgImage = formData.backgroundImage || this.getPlaceholderData().backgroundImage;
-        const previewFallback = formData.previewFallback || false;
-
-        const carouselHtml = previewFallback ? `
-            <div class="fallback">
-                <a href="${fallback.link}" target="_blank">
-                    <img align="top" alt="${fallback.altText}" class="fill no-hover" src="${fallback.imageUrl}" style="display: block; height: auto; outline: none; text-decoration: none; border: none; padding: 0px; text-align: center; width: 100%;" width="620">
-                </a>
-            </div>
-        ` : `
-            <!--[if !mso]><!-- -->
-            <input checked="checked" id="cbox" name="cbox" style="display: none; max-height: 0; visibility: hidden;" type="checkbox">
-            <div class="interactive" style="display: none; max-height: 0; overflow: hidden;">
-                ${slides.map((_, index) => `<input id="arrow_${index + 1}" name="controls" type="radio"${index === 0 ? ' checked' : ''}>`).join(' ')}
-                <div class="frames">
-                    ${slides.map((slide, index) => `
-                        <div class="frame">
-                            <a href="${slide.buttonUrl}" target="_blank">
-                                <img alt="${slide.imageAltText}" class="fill no-hover" src="${slide.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="620">
-                            </a>
-                            <p class="carTitle">${slide.title}</p>
-                            <button align="center" style="color: #ffffff; background-color: transparent; border: 2px solid #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; text-align: center; text-transform: uppercase; padding: 8px 20px;">${slide.buttonText}</button>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="progressBar">
-                    ${slides.map(() => '<div class="progress"></div>').join('\n')}
-                </div>
-                <div class="controls">
-                    ${slides.map((_, index) => `<label class="arrows" for="arrow_${index + 1}">&nbsp;</label>`).join(' ')}
-                </div>
-            </div> <!--<![endif]-->
-            <!--[if !mso]><!-- --> 
-            <input checked="checked" id="cbox" name="cbox" style="display: none; max-height: 0; visibility: hidden;" type="checkbox"> 
-            <!--<![endif]-->
-            <div class="fallback">
-                <a href="${fallback.link}" target="_blank">
-                    <img align="top" alt="${fallback.altText}" class="fill no-hover" src="${fallback.imageUrl}" style="display: block; height: auto; outline: none; text-decoration: none; border: none; padding: 0px; text-align: center; width: 100%;" width="620">
-                </a>
-            </div>
-        `;
 
         return `
         <style type="text/css">
@@ -470,7 +429,37 @@ const carouselModule = {
                                 <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%;" width="100%">
                                     <tr>
                                         <td id="car" style="text-align: center;">
-                                            ${carouselHtml}
+                                            <!--[if !mso]><!-- -->
+                                            <input checked="checked" id="cbox" name="cbox" style="display: none; max-height: 0; visibility: hidden;" type="checkbox">
+                                            <div class="interactive" style="display: none; max-height: 0; overflow: hidden;">
+                                                <div id="carousel">
+                                                    ${slides.map((_, index) => `<input id="arrow_${index + 1}" name="controls" type="radio"${index === 0 ? ' checked' : ''}>`).join(' ')}
+                                                    <div class="frames">
+                                                        ${slides.map((slide, index) => `
+                                                            <div class="frame">
+                                                                <a href="${slide.buttonUrl}" target="_blank">
+                                                                    <img alt="${slide.imageAltText}" class="fill no-hover" src="${slide.imageUrl}" style="border: none; display: block; height: auto; outline: none; text-decoration: none;" width="620">
+                                                                </a>
+                                                                <p class="carTitle">${slide.title}</p>
+                                                                <button align="center" style="color: #ffffff; background-color: transparent; border: 2px solid #ffffff; font-family: 'Helvetica-Neue', sans-serif, 'Open-Sans'; font-size: 16px; font-weight: bold; line-height: 24px; text-align: center; text-transform: uppercase; padding: 8px 20px;">${slide.buttonText}</button>
+                                                            </div>
+                                                        `).join('')}
+                                                    </div>
+                                                    <div class="progressBar">
+                                                        ${slides.map(() => '<div class="progress"></div>').join('\n')}
+                                                    </div>
+                                                    <div class="controls">
+                                                        ${slides.map((_, index) => `<label class="arrows" for="arrow_${index + 1}">&nbsp;</label>`).join(' ')}
+                                                    </div>
+                                                </div>
+                                            </div> <!--<![endif]--> <!--[if !mso]><!-- --> <input checked="checked" id="cbox"
+                                                name="cbox" style="display: none; max-height: 0; visibility: hidden;"
+                                                type="checkbox"> <!--<![endif]-->
+                                            <div class="fallback">
+                                                <a href="${fallback.link}" target="_blank">
+                                                    <img align="top" alt="${fallback.altText}" class="fill no-hover" src="${fallback.imageUrl}" style="display: block; height: auto; outline: none; text-decoration: none; border: none; padding: 0px; text-align: center; width: 100%;" width="620">
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 </table>
@@ -487,9 +476,6 @@ const carouselModule = {
         
         // Add background image population
         document.getElementById('carouselBackgroundImage').value = data.backgroundImage;
-        
-        // Add preview fallback checkbox population
-        document.getElementById('previewFallback').checked = data.previewFallback || false;
         
         data.slides.forEach((slide, index) => {
             document.getElementById(`carouselSlide${index + 1}ImageUrl`).value = slide.imageUrl;
@@ -510,14 +496,6 @@ const carouselModule = {
         if (backgroundImage) {
             backgroundImage.addEventListener('input', function(event) {
                 handleFormFieldChange('carousel', 'backgroundImage', event.target.value);
-            });
-        }
-
-        // Add preview fallback listener
-        const previewFallback = document.getElementById('previewFallback');
-        if (previewFallback) {
-            previewFallback.addEventListener('change', function(event) {
-                handleFormFieldChange('carousel', 'previewFallback', event.target.checked);
             });
         }
 
@@ -554,8 +532,7 @@ const carouselModule = {
             fallbackImageUrl: document.getElementById('carouselFallbackImageUrl').value,
             fallbackAltText: document.getElementById('carouselFallbackAltText').value,
             fallbackLink: document.getElementById('carouselFallbackLink').value,
-            backgroundImage: document.getElementById('carouselBackgroundImage').value,
-            previewFallback: document.getElementById('previewFallback').checked
+            backgroundImage: document.getElementById('carouselBackgroundImage').value
         };
 
         for (let i = 1; i <= 5; i++) {
