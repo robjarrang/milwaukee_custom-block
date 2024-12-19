@@ -84,7 +84,7 @@ const fullWidthTitleModule = {
 
     populateForm(formData) {
         console.log('Populating Full Width Title form with data:', formData);
-        document.getElementById('fwTitleText').value = formData.title || '';
+        document.getElementById('fwTitleText').innerHTML = formData.title || '';
         
         const backgroundColorRadios = document.querySelectorAll('input[name="fwTitleBackgroundColor"]');
         backgroundColorRadios.forEach(radio => {
