@@ -3,107 +3,6 @@ import moduleRegistry from './moduleRegistry.js';
 const carouselModule = {
     setup() {
         console.log('Carousel module setup');
-        this.setupAddRemoveButtons();
-    },
-
-    setupAddRemoveButtons() {
-        const addButton = document.createElement('button');
-        addButton.textContent = 'Add Slide';
-        addButton.className = 'btn btn-add';
-        addButton.onclick = (e) => {
-            e.preventDefault(); // Prevent form submission
-            this.addSlide();
-            return false;
-        };
-
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove Last Slide';
-        removeButton.className = 'btn btn-remove';
-        removeButton.onclick = (e) => {
-            e.preventDefault(); // Prevent form submission
-            this.removeSlide();
-            return false;
-        };
-
-        const container = document.querySelector('#carouselModule');
-        container.insertBefore(addButton, container.firstChild);
-        container.insertBefore(removeButton, container.firstChild);
-    },
-
-    addSlide() {
-        const currentData = this.getFormData();
-        const slideCount = currentData.slides.length;
-        if (slideCount >= 10) return; // Maximum 10 slides
-
-        const slideNum = slideCount + 1;
-        const slideHTML = this.createSlideHTML(slideNum);
-        
-        // Insert before the fallback details section
-        const fallbackDetails = document.querySelector('#carouselModule details:last-child');
-        fallbackDetails.insertAdjacentHTML('beforebegin', slideHTML);
-        
-        // Add new slide data
-        currentData.slides.push({
-            imageUrl: 'https://fakeimg.pl/620x350/dddddd/ffffff',
-            imageAltText: 'Milwaukee Tool Product Image',
-            title: 'Product Title',
-            buttonText: 'View More',
-            buttonUrl: '#'
-        });
-
-        // Update form with new data
-        this.populateForm(currentData);
-        
-        // Notify parent about data change using stored handler
-        if (this._handleFormFieldChange) {
-            this._handleFormFieldChange('carousel', 'slides', currentData.slides);
-        }
-    },
-
-    removeSlide() {
-        const currentData = this.getFormData();
-        if (currentData.slides.length <= 1) return; // Keep at least 1 slide
-
-        const slides = document.querySelectorAll('#carouselModule details:not(:last-child)');
-        slides[slides.length - 1].remove();
-        
-        // Remove last slide from data
-        currentData.slides.pop();
-        
-        // Update form with new data
-        this.populateForm(currentData);
-        
-        // Notify parent about data change
-        if (this._handleFormFieldChange) {
-            this._handleFormFieldChange('carousel', 'slides', currentData.slides);
-        }
-    },
-
-    createSlideHTML(slideNum) {
-        return `
-            <details>
-                <summary>Slide ${slideNum}</summary>
-                <div class="form-group">
-                    <label for="carouselSlide${slideNum}ImageUrl">Image URL</label>
-                    <input type="text" id="carouselSlide${slideNum}ImageUrl" name="carouselSlide${slideNum}ImageUrl">
-                </div>
-                <div class="form-group">
-                    <label for="carouselSlide${slideNum}AltText">Image Alt Text</label>
-                    <input type="text" id="carouselSlide${slideNum}AltText" name="carouselSlide${slideNum}AltText">
-                </div>
-                <div class="form-group">
-                    <label for="carouselSlide${slideNum}Title">Title</label>
-                    <input type="text" id="carouselSlide${slideNum}Title" name="carouselSlide${slideNum}Title">
-                </div>
-                <div class="form-group">
-                    <label for="carouselSlide${slideNum}ButtonText">Button Text</label>
-                    <input type="text" id="carouselSlide${slideNum}ButtonText" name="carouselSlide${slideNum}ButtonText">
-                </div>
-                <div class="form-group">
-                    <label for="carouselSlide${slideNum}ButtonUrl">Button URL</label>
-                    <input type="text" id="carouselSlide${slideNum}ButtonUrl" name="carouselSlide${slideNum}ButtonUrl">
-                </div>
-            </details>`;
     },
 
     getPlaceholderData() {
@@ -123,91 +22,7 @@ const carouselModule = {
     },
 
     updateHtml(html, formData) {
-        const slides = formData.slides || [];
-        const totalSlides = slides.length;
-        const slideWidth = 620; // Base slide width
-        const carouselWidth = slideWidth * totalSlides;
-        const slideTransition = 100 / totalSlides;
-        const mobileSlidesWidth = totalSlides * 100;
-
-        // Dynamic styles for variable number of slides
-        const generateNavigationStyles = () => {
-            let styles = '';
-            // Generate show right arrow styles
-            for (let i = 1; i <= totalSlides; i++) {
-                const nextSlide = i === totalSlides ? 1 : i + 1;
-                styles += `
-                #carousel #arrow_${i}:checked ~ .controls label:nth-child(${nextSlide}) {
-                    display: inline-block;
-                    float: right !important;
-                    -webkit-transform: rotate(0deg);
-                    transform: rotate(0);
-                    z-index: 1;
-                }`;
-            }
-            // Generate show left arrow styles
-            for (let i = 1; i <= totalSlides; i++) {
-                const prevSlide = i === 1 ? totalSlides : i - 1;
-                styles += `
-                #carousel #arrow_${i}:checked ~ .controls label:nth-child(${prevSlide}) {
-                    display: inline-block;
-                    float: left !important;
-                    -webkit-transform: rotate(180deg);
-                    transform: rotate(180deg);
-                    z-index: 1;
-                }`;
-            }
-            return styles;
-        };
-
-        const dynamicStyles = `
-            @media only screen and (max-width: 480px) {
-                #carousel .frames {
-                    min-width: ${mobileSlidesWidth}% !important;
-                }
-                #carousel .frames .frame {
-                    width: ${slideTransition}% !important;
-                }
-            }
-            @media screen and (-webkit-min-device-pixel-ratio: 0) {
-                #carousel .frames {
-                    min-width: ${carouselWidth}px;
-                }
-                /* Desktop email width multiply by number of frames */
-                #carousel .frames .frame {
-                    width: ${slideWidth}px;
-                }
-                
-                /* Dynamic transition styles */
-                ${slides.map((_, i) => `
-                    #carousel #arrow_${i + 1}:checked ~ .frames {
-                        -webkit-transform: translateX(-${i * slideTransition}%);
-                        transform: translateX(-${i * slideTransition}%);
-                    }
-                `).join('\n')}
-
-                /* Show starting arrows */
-                .controls label:nth-child(2) {
-                    display: inline-block !important;
-                    float: right;
-                }
-                .controls label:nth-child(${totalSlides}) {
-                    display: inline-block !important;
-                    float: left;
-                    -webkit-transform: rotate(180deg);
-                    transform: rotate(180deg);
-                }
-
-                ${generateNavigationStyles()}
-
-                /* Progress indicators */
-                ${slides.map((_, i) => `
-                    #carousel #arrow_${i + 1}:checked ~ .progressBar .progress:nth-child(${i + 1}) {
-                        opacity: 1 !important;
-                    }
-                `).join('\n')}
-            }`;
-
+        const slides = formData.slides || this.getPlaceholderData().slides;
         const fallback = {
             imageUrl: formData.fallbackImageUrl || this.getPlaceholderData().fallbackImageUrl,
             altText: formData.fallbackAltText || this.getPlaceholderData().fallbackAltText,
@@ -614,6 +429,7 @@ const carouselModule = {
                                 <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%;" width="100%">
                                     <tr>
                                         <td id="car" style="text-align: center;">
+                                            <!--[if !mso]><!-- -->
                                             <input checked="checked" id="cbox" name="cbox" style="display: none; max-height: 0; visibility: hidden;" type="checkbox">
                                             <div class="interactive" style="display: none; max-height: 0; overflow: hidden;">
                                                 <div id="carousel">
@@ -636,8 +452,10 @@ const carouselModule = {
                                                         ${slides.map((_, index) => `<label class="arrows" for="arrow_${index + 1}">&nbsp;</label>`).join(' ')}
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="fallback" style="display: none;">
+                                            </div> <!--<![endif]--> <!--[if !mso]><!-- --> <input checked="checked" id="cbox"
+                                                name="cbox" style="display: none; max-height: 0; visibility: hidden;"
+                                                type="checkbox"> <!--<![endif]-->
+                                            <div class="fallback">
                                                 <a href="${fallback.link}" target="_blank">
                                                     <img align="top" alt="${fallback.altText}" class="fill no-hover" src="${fallback.imageUrl}" style="display: block; height: auto; outline: none; text-decoration: none; border: none; padding: 0px; text-align: center; width: 100%;" width="620">
                                                 </a>
@@ -658,74 +476,50 @@ const carouselModule = {
         
         // Add background image population
         document.getElementById('carouselBackgroundImage').value = data.backgroundImage;
-
-        // Remove existing slides
-        const existingSlides = document.querySelectorAll('#carouselModule details:not(:last-child)');
-        existingSlides.forEach(slide => slide.remove());
         
-        // Create and populate slides
         data.slides.forEach((slide, index) => {
-            const slideNum = index + 1;
-            const slideHTML = this.createSlideHTML(slideNum);
-            
-            // Insert before the fallback details section
-            const fallbackDetails = document.querySelector('#carouselModule details:last-child');
-            fallbackDetails.insertAdjacentHTML('beforebegin', slideHTML);
-            
-            // Now populate the newly created fields
-            document.getElementById(`carouselSlide${slideNum}ImageUrl`).value = slide.imageUrl;
-            document.getElementById(`carouselSlide${slideNum}AltText`).value = slide.imageAltText;
-            document.getElementById(`carouselSlide${slideNum}Title`).value = slide.title;
-            document.getElementById(`carouselSlide${slideNum}ButtonText`).value = slide.buttonText;
-            document.getElementById(`carouselSlide${slideNum}ButtonUrl`).value = slide.buttonUrl;
+            document.getElementById(`carouselSlide${index + 1}ImageUrl`).value = slide.imageUrl;
+            document.getElementById(`carouselSlide${index + 1}AltText`).value = slide.imageAltText;
+            document.getElementById(`carouselSlide${index + 1}Title`).value = slide.title;
+            document.getElementById(`carouselSlide${index + 1}ButtonText`).value = slide.buttonText;
+            document.getElementById(`carouselSlide${index + 1}ButtonUrl`).value = slide.buttonUrl;
         });
 
-        // Populate fallback fields
         document.getElementById('carouselFallbackImageUrl').value = data.fallbackImageUrl;
         document.getElementById('carouselFallbackAltText').value = data.fallbackAltText;
         document.getElementById('carouselFallbackLink').value = data.fallbackLink;
-        
-        // Setup event listeners for the newly created fields
-        if (this._handleFormFieldChange) {
-            this.setupEventListeners(this._handleFormFieldChange);
-        }
     },
 
     setupEventListeners(handleFormFieldChange) {
-        // Store handler for future use
-        this._handleFormFieldChange = handleFormFieldChange;
-
-        // Setup event listeners for all current slides
-        const slideDetails = document.querySelectorAll('#carouselModule details:not(:last-child)');
-        const slideFields = ['ImageUrl', 'AltText', 'Title', 'ButtonText', 'ButtonUrl'];
-
-        slideDetails.forEach((_, i) => {
-            const num = i + 1;
-            slideFields.forEach(field => {
-                const elementId = `carouselSlide${num}${field}`;
-                const element = document.getElementById(elementId);
-                if (element) {
-                    element.addEventListener('input', (event) => {
-                        const currentData = this.getFormData();
-                        handleFormFieldChange('carousel', 'slides', currentData.slides);
-                    });
-                }
-            });
-        });
-
-        // Background image listener
+        // Add background image listener
         const backgroundImage = document.getElementById('carouselBackgroundImage');
         if (backgroundImage) {
-            backgroundImage.addEventListener('input', (event) => {
+            backgroundImage.addEventListener('input', function(event) {
                 handleFormFieldChange('carousel', 'backgroundImage', event.target.value);
             });
         }
 
-        // Fallback field listeners
+        const slideFields = ['ImageUrl', 'AltText', 'Title', 'ButtonText', 'ButtonUrl'];
+        const numSlides = 5;
+
+        for (let i = 1; i <= numSlides; i++) {
+            slideFields.forEach(field => {
+                const elementId = `carouselSlide${i}${field}`;
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.addEventListener('input', function(event) {
+                        const currentData = moduleRegistry.get('carousel').getFormData();
+                        currentData.slides[i - 1][field.charAt(0).toLowerCase() + field.slice(1)] = event.target.value;
+                        handleFormFieldChange('carousel', 'slides', currentData.slides);
+                    });
+                }
+            });
+        }
+
         ['ImageUrl', 'AltText', 'Link'].forEach(field => {
             const element = document.getElementById(`carouselFallback${field}`);
             if (element) {
-                element.addEventListener('input', (event) => {
+                element.addEventListener('input', function(event) {
                     handleFormFieldChange('carousel', `fallback${field}`, event.target.value);
                 });
             }
@@ -741,21 +535,15 @@ const carouselModule = {
             backgroundImage: document.getElementById('carouselBackgroundImage').value
         };
 
-        // Get all slide details elements except the last one (fallback)
-        const slideDetails = document.querySelectorAll('#carouselModule details:not(:last-child)');
-        
-        slideDetails.forEach((_, i) => {
-            const num = i + 1;
-            if (document.getElementById(`carouselSlide${num}ImageUrl`)) {
-                formData.slides.push({
-                    imageUrl: document.getElementById(`carouselSlide${num}ImageUrl`).value,
-                    imageAltText: document.getElementById(`carouselSlide${num}AltText`).value,
-                    title: document.getElementById(`carouselSlide${num}Title`).value,
-                    buttonText: document.getElementById(`carouselSlide${num}ButtonText`).value,
-                    buttonUrl: document.getElementById(`carouselSlide${num}ButtonUrl`).value
-                });
-            }
-        });
+        for (let i = 1; i <= 5; i++) {
+            formData.slides.push({
+                imageUrl: document.getElementById(`carouselSlide${i}ImageUrl`).value,
+                imageAltText: document.getElementById(`carouselSlide${i}AltText`).value,
+                title: document.getElementById(`carouselSlide${i}Title`).value,
+                buttonText: document.getElementById(`carouselSlide${i}ButtonText`).value,
+                buttonUrl: document.getElementById(`carouselSlide${i}ButtonUrl`).value
+            });
+        }
 
         return formData;
     }
