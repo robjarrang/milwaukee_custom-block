@@ -3,6 +3,55 @@ import moduleRegistry from './moduleRegistry.js';
 const carouselModule = {
     setup() {
         console.log('Carousel module setup');
+        this.setupAddRemoveButtons();
+    },
+
+    setupAddRemoveButtons() {
+        const addButton = document.createElement('button');
+        addButton.textContent = 'Add Slide';
+        addButton.className = 'btn btn-add';
+        addButton.onclick = () => this.addSlide();
+
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove Last Slide';
+        removeButton.className = 'btn btn-remove';
+        removeButton.onclick = () => this.removeSlide();
+
+        const container = document.querySelector('#carouselModule');
+        container.insertBefore(addButton, container.firstChild);
+        container.insertBefore(removeButton, container.firstChild);
+    },
+
+    addSlide() {
+        const slideCount = document.querySelectorAll('[id^="carouselSlide"]').length / 5; // 5 fields per slide
+        if (slideCount >= 10) return; // Maximum 10 slides
+
+        const slideNum = slideCount + 1;
+        const slideHTML = this.createSlideHTML(slideNum);
+        
+        // Insert before the fallback details section
+        const fallbackDetails = document.querySelector('#carouselModule details:last-child');
+        fallbackDetails.insertAdjacentHTML('beforebegin', slideHTML);
+        
+        this.setupEventListeners(() => this.handleFormFieldChange());
+    },
+
+    removeSlide() {
+        const slides = document.querySelectorAll('#carouselModule details');
+        if (slides.length <= 2) return; // Keep at least 1 slide (plus fallback)
+        slides[slides.length - 2].remove(); // Remove last slide before fallback
+    },
+
+    createSlideHTML(slideNum) {
+        return `
+            <details>
+                <summary>Slide ${slideNum}</summary>
+                <div class="form-group">
+                    <label for="carouselSlide${slideNum}ImageUrl">Image URL</label>
+                    <input type="text" id="carouselSlide${slideNum}ImageUrl" name="carouselSlide${slideNum}ImageUrl">
+                </div>
+                // ...rest of slide form fields...
+            </details>`;
     },
 
     getPlaceholderData() {
@@ -22,7 +71,34 @@ const carouselModule = {
     },
 
     updateHtml(html, formData) {
-        const slides = formData.slides || this.getPlaceholderData().slides;
+        const slides = formData.slides || [];
+        const totalSlides = slides.length;
+        const slideWidth = 620; // Base slide width
+        const carouselWidth = slideWidth * totalSlides;
+        const slideTransition = 100 / totalSlides;
+        const mobileSlidesWidth = totalSlides * 100;
+
+        const dynamicStyles = `
+            @media only screen and (max-width: 480px) {
+                #carousel .frames {
+                    min-width: ${mobileSlidesWidth}% !important;
+                }
+                #carousel .frames .frame {
+                    width: ${slideTransition}% !important;
+                }
+            }
+            @media screen and (-webkit-min-device-pixel-ratio: 0) {
+                #carousel .frames {
+                    min-width: ${carouselWidth}px;
+                }
+                ${slides.map((_, i) => `
+                    #carousel #arrow_${i + 1}:checked ~ .frames {
+                        -webkit-transform: translateX(-${i * slideTransition}%);
+                        transform: translateX(-${i * slideTransition}%);
+                    }
+                `).join('\n')}
+            }`;
+
         const fallback = {
             imageUrl: formData.fallbackImageUrl || this.getPlaceholderData().fallbackImageUrl,
             altText: formData.fallbackAltText || this.getPlaceholderData().fallbackAltText,
