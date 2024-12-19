@@ -13,6 +13,7 @@ import prizeEveryMonthModule from './prizeEveryMonth.js';
 import fullWidthTitleModule from './fullWidthTitle.js';
 import galleryModule from './gallery.js';
 import checklistModule from './checklist.js';
+import carouselModule from './carousel.js';
 
 import { getState, updateFormData, updateFullHtml, setInitialState, getFullHtml, resetFullHtml } from './centralDataStore.js';
 import { debounce, logAction, logError, logWarning } from './utils.js';
@@ -42,6 +43,7 @@ import { debounce, logAction, logError, logWarning } from './utils.js';
             moduleRegistry.register('fullWidthTitle', fullWidthTitleModule);
             moduleRegistry.register('gallery', galleryModule);
             moduleRegistry.register('checklist', checklistModule);
+            moduleRegistry.register('carousel', carouselModule);
 
             sdk.getData(function(data) {
                 console.log('Initial SDK data:', data);
