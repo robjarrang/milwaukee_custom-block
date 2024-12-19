@@ -54,7 +54,7 @@ const carouselModule = {
         // Update form with new data
         this.populateForm(currentData);
         
-        // Notify parent about data change
+        // Notify parent about data change using stored handler
         if (this._handleFormFieldChange) {
             this._handleFormFieldChange('carousel', 'slides', currentData.slides);
         }
@@ -688,42 +688,47 @@ const carouselModule = {
         document.getElementById('carouselFallbackAltText').value = data.fallbackAltText;
         document.getElementById('carouselFallbackLink').value = data.fallbackLink;
         
-        // Re-setup event listeners
-        this.setupEventListeners(() => this.handleFormFieldChange());
+        // Setup event listeners for the newly created fields
+        if (this._handleFormFieldChange) {
+            this.setupEventListeners(this._handleFormFieldChange);
+        }
     },
 
     setupEventListeners(handleFormFieldChange) {
-        this._handleFormFieldChange = handleFormFieldChange; // Store for later use
+        // Store handler for future use
+        this._handleFormFieldChange = handleFormFieldChange;
 
-        // Add background image listener
-        const backgroundImage = document.getElementById('carouselBackgroundImage');
-        if (backgroundImage) {
-            backgroundImage.addEventListener('input', function(event) {
-                handleFormFieldChange('carousel', 'backgroundImage', event.target.value);
-            });
-        }
-
+        // Setup event listeners for all current slides
+        const slideDetails = document.querySelectorAll('#carouselModule details:not(:last-child)');
         const slideFields = ['ImageUrl', 'AltText', 'Title', 'ButtonText', 'ButtonUrl'];
-        const numSlides = 5;
 
-        for (let i = 1; i <= numSlides; i++) {
+        slideDetails.forEach((_, i) => {
+            const num = i + 1;
             slideFields.forEach(field => {
-                const elementId = `carouselSlide${i}${field}`;
+                const elementId = `carouselSlide${num}${field}`;
                 const element = document.getElementById(elementId);
                 if (element) {
-                    element.addEventListener('input', function(event) {
-                        const currentData = moduleRegistry.get('carousel').getFormData();
-                        currentData.slides[i - 1][field.charAt(0).toLowerCase() + field.slice(1)] = event.target.value;
+                    element.addEventListener('input', (event) => {
+                        const currentData = this.getFormData();
                         handleFormFieldChange('carousel', 'slides', currentData.slides);
                     });
                 }
             });
+        });
+
+        // Background image listener
+        const backgroundImage = document.getElementById('carouselBackgroundImage');
+        if (backgroundImage) {
+            backgroundImage.addEventListener('input', (event) => {
+                handleFormFieldChange('carousel', 'backgroundImage', event.target.value);
+            });
         }
 
+        // Fallback field listeners
         ['ImageUrl', 'AltText', 'Link'].forEach(field => {
             const element = document.getElementById(`carouselFallback${field}`);
             if (element) {
-                element.addEventListener('input', function(event) {
+                element.addEventListener('input', (event) => {
                     handleFormFieldChange('carousel', `fallback${field}`, event.target.value);
                 });
             }
