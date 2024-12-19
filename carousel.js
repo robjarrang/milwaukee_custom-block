@@ -10,12 +10,20 @@ const carouselModule = {
         const addButton = document.createElement('button');
         addButton.textContent = 'Add Slide';
         addButton.className = 'btn btn-add';
-        addButton.onclick = () => this.addSlide();
+        addButton.onclick = (e) => {
+            e.preventDefault(); // Prevent form submission
+            this.addSlide();
+            return false;
+        };
 
         const removeButton = document.createElement('button');
         removeButton.textContent = 'Remove Last Slide';
         removeButton.className = 'btn btn-remove';
-        removeButton.onclick = () => this.removeSlide();
+        removeButton.onclick = (e) => {
+            e.preventDefault(); // Prevent form submission
+            this.removeSlide();
+            return false;
+        };
 
         const container = document.querySelector('#carouselModule');
         container.insertBefore(addButton, container.firstChild);
@@ -23,7 +31,8 @@ const carouselModule = {
     },
 
     addSlide() {
-        const slideCount = document.querySelectorAll('[id^="carouselSlide"]').length / 5; // 5 fields per slide
+        const currentData = this.getFormData();
+        const slideCount = currentData.slides.length;
         if (slideCount >= 10) return; // Maximum 10 slides
 
         const slideNum = slideCount + 1;
@@ -33,13 +42,41 @@ const carouselModule = {
         const fallbackDetails = document.querySelector('#carouselModule details:last-child');
         fallbackDetails.insertAdjacentHTML('beforebegin', slideHTML);
         
-        this.setupEventListeners(() => this.handleFormFieldChange());
+        // Add new slide data
+        currentData.slides.push({
+            imageUrl: 'https://fakeimg.pl/620x350/dddddd/ffffff',
+            imageAltText: 'Milwaukee Tool Product Image',
+            title: 'Product Title',
+            buttonText: 'View More',
+            buttonUrl: '#'
+        });
+
+        // Update form with new data
+        this.populateForm(currentData);
+        
+        // Notify parent about data change
+        if (this._handleFormFieldChange) {
+            this._handleFormFieldChange('carousel', 'slides', currentData.slides);
+        }
     },
 
     removeSlide() {
-        const slides = document.querySelectorAll('#carouselModule details');
-        if (slides.length <= 2) return; // Keep at least 1 slide (plus fallback)
-        slides[slides.length - 2].remove(); // Remove last slide before fallback
+        const currentData = this.getFormData();
+        if (currentData.slides.length <= 1) return; // Keep at least 1 slide
+
+        const slides = document.querySelectorAll('#carouselModule details:not(:last-child)');
+        slides[slides.length - 1].remove();
+        
+        // Remove last slide from data
+        currentData.slides.pop();
+        
+        // Update form with new data
+        this.populateForm(currentData);
+        
+        // Notify parent about data change
+        if (this._handleFormFieldChange) {
+            this._handleFormFieldChange('carousel', 'slides', currentData.slides);
+        }
     },
 
     createSlideHTML(slideNum) {
@@ -599,6 +636,8 @@ const carouselModule = {
     },
 
     setupEventListeners(handleFormFieldChange) {
+        this._handleFormFieldChange = handleFormFieldChange; // Store for later use
+
         // Add background image listener
         const backgroundImage = document.getElementById('carouselBackgroundImage');
         if (backgroundImage) {
